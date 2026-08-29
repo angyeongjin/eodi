@@ -10,7 +10,7 @@ import vm from 'node:vm'
   가짜 clients 를 물려 클릭 한 번을 그대로 재생한다.
 */
 
-interface FakeClient { url: string; focused?: boolean; navigatedTo?: string; canNavigate: boolean }
+interface FakeClient { url: string; focused?: boolean; navigatedTo?: string; canNavigate: boolean; messages?: unknown[] }
 
 function run(clients: FakeClient[], notifUrl: string) {
   const opened: string[] = []
@@ -24,6 +24,7 @@ function run(clients: FakeClient[], notifUrl: string) {
     clients: {
       matchAll: () => Promise.resolve(clients.map((c) => ({
         url: c.url,
+        postMessage: (m: unknown) => { (c.messages ??= []).push(m) },
         focus: () => { c.focused = true; return Promise.resolve(c) },
         navigate: (u: string) => {
           if (!c.canNavigate) return Promise.reject(new TypeError('uncontrolled'))
@@ -63,12 +64,21 @@ describe('알림을 누르면 그 검색으로 간다', () => {
     assert.deepEqual(opened, [], '기존 창을 두고 새 창을 열지 않는다')
   })
 
-  test('navigate 가 거부되면 새 창을 연다', async () => {
-    // 워커가 제어하지 않는 창에서 navigate() 는 실패한다. 예전에는 이때 홈만 떴다.
+  test('navigate 가 거부되면 창에 직접 부탁한다', async () => {
+    /*
+      설치된 PWA 는 워커가 제어하지 않는 창을 갖는 일이 있고, 그때 navigate() 가 거부된다.
+      openWindow 를 불러도 같은 태스크가 앞으로 나올 뿐이라 화면은 홈에 머문다.
+      그래서 페이지에 메시지를 보내 스스로 옮겨 가게 한다.
+    */
     const c: FakeClient = { url: 'https://eodi.vercel.app/', canNavigate: false }
     const { opened, done } = run([c], TARGET)
     await done
-    assert.deepEqual(opened, [TARGET], '실패했으면 새 창으로라도 데려가야 한다')
+    // vm 컨텍스트에서 건너온 객체라 프로토타입이 달라 deepEqual 이 통하지 않는다. 값으로 본다.
+    const msg = (c.messages ?? [])[0] as { type?: string; url?: string } | undefined
+    assert.equal(msg?.type, 'eodi:navigate', '창에 이동을 부탁해야 한다')
+    assert.equal(msg?.url, TARGET)
+    assert.equal(c.focused, true)
+    assert.deepEqual(opened, [], '같은 태스크를 되살리는 openWindow 는 부르지 않는다')
   })
 
   test('열린 창이 없으면 새 창을 연다', async () => {

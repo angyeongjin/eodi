@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import SwNavigator from '@/components/SwNavigator'
 import Script from 'next/script'
 import './globals.css'
 import { SITE } from '@/lib/config'
@@ -50,6 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           본문으로 건너뛰기
         </a>
         {children}
+        {/* 알림을 눌렀는데 워커가 창을 못 옮기면 페이지가 대신 옮겨 간다 */}
+        <SwNavigator />
         {/* 광고 스크립트는 설정된 경우에만 불러온다. 미설정 상태에서 외부 요청이 나가면 안 된다. */}
         {SITE.adsenseClient && (
           <Script
