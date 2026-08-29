@@ -5,9 +5,6 @@
  * 오프라인 캐싱은 하지 않는다. 중고 매물은 실시간성이 전부라 낡은 목록을 보여주면 오히려 해롭다.
  */
 
-// 어느 워커가 도는지 알림에서 바로 확인하기 위한 표식. 문제가 정리되면 뺀다.
-const SW_VERSION = 'v2'
-
 self.addEventListener('install', () => {
   // 새 워커를 즉시 활성화한다. 알림 로직이 바뀌었는데 옛 워커가 남아 있으면 디버깅이 지옥이 된다.
   self.skipWaiting()
@@ -27,7 +24,7 @@ self.addEventListener('push', (event) => {
 
   const title = data.title || '새 매물이 있습니다'
   const options = {
-    body: (data.body || '') + ` · ${SW_VERSION}`,
+    body: data.body || '',
     icon: '/icon-192.png',
     badge: '/icon-192.png',
     // 같은 알림 규칙의 푸시는 하나로 덮어쓴다. 알림창이 쌓이면 사람은 전부 꺼버린다.
