@@ -126,22 +126,40 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         )}
 
         {translationFailed ? (
-          <TranslationMiss res={res} />
+          <TranslationMiss res={res} params={sp} />
         ) : res.items.length === 0 ? (
+          /*
+            0건은 실패가 아니라 "아직 없음"인 경우가 많다. 중고 매물은 계속 새로 올라오기 때문이다.
+            그래서 막다른 길로 두지 않고 세 갈래를 준다 — 조건 풀기 / 다른 탭 / 올라오면 알림.
+            특히 알림은 0건일 때 가치가 가장 크다. 지금 없는 걸 기다리는 사람이 곧 그 사용자다.
+          */
           <div className="mt-10 rounded-xl border p-8 text-center" style={{ borderColor: 'var(--border)' }}>
             <p className="font-semibold">이 조건으로는 찾지 못했습니다</p>
             <p className="mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
-              {hasFilters ? '필터를 풀면 더 많은 매물이 나올 수 있습니다.' : '검색어를 조금 넓혀보세요.'}
+              {hasFilters ? '필터를 풀면 더 많은 매물이 나올 수 있습니다.' : '중고 매물은 계속 올라옵니다. 오늘 없어도 내일 있을 수 있습니다.'}
             </p>
-            {hasFilters && (
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              {hasFilters && (
+                <Link
+                  href={buildHref({ q: sp.q, in: sp.in, scope: sp.scope }, {})}
+                  className="inline-flex h-9 items-center rounded-lg px-4 text-sm font-semibold text-white"
+                  style={{ background: 'var(--brand)' }}
+                >
+                  필터 모두 지우기
+                </Link>
+              )}
               <Link
-                href={buildHref({ q: sp.q, in: sp.in }, {})}
-                className="mt-4 inline-flex h-9 items-center rounded-lg px-4 text-sm font-semibold text-white"
-                style={{ background: 'var(--brand)' }}
+                href={buildHref(sp, { scope: overseas ? undefined : 'overseas', src: undefined, region: undefined })}
+                className="inline-flex h-9 items-center rounded-lg border px-4 text-sm"
+                style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
               >
-                필터 모두 지우기
+                {overseas ? '국내 마켓에서 찾아보기' : '일본 굿즈에서 찾아보기'}
               </Link>
-            )}
+            </div>
+            <p className="mt-4 text-xs" style={{ color: 'var(--text-muted)' }}>
+              위의 <strong style={{ color: 'var(--text)' }}>알림 받기</strong>를 켜두면 이 조건에 맞는 매물이
+              올라올 때 알려드립니다. 앱을 설치하지 않아도 됩니다.
+            </p>
           </div>
         ) : (
           <OutboundTracker scope={scope} normalized={i.normalized}>

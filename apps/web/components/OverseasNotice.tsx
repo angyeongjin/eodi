@@ -1,4 +1,9 @@
 import type { SearchResponse } from '@eodi/core'
+import { buildHref } from '@/lib/params'
+import { reportMailto } from '@/lib/report'
+import { SITE } from '@/lib/config'
+
+type Params = Record<string, string | string[] | undefined>
 
 /**
  * 해외 탭 고정 안내.
@@ -26,7 +31,7 @@ export default function OverseasNotice({ res }: { res: SearchResponse }) {
 }
 
 /** 사전에 없어 일본어로 못 옮긴 경우 */
-export function TranslationMiss({ res }: { res: SearchResponse }) {
+export function TranslationMiss({ res, params }: { res: SearchResponse; params: Params }) {
   const missed = res.interpreted.untranslated ?? []
   return (
     <div className="mt-8 rounded-xl border p-6 text-center" style={{ borderColor: 'var(--border)' }}>
@@ -43,7 +48,33 @@ export function TranslationMiss({ res }: { res: SearchResponse }) {
       <p className="mt-3 text-sm" style={{ color: 'var(--text-muted)' }}>
         일본어를 아신다면 직접 입력해 보세요. 이 검색어는 기록해 두고 사전에 추가하겠습니다.
       </p>
+
+      {/*
+        막다른 길에서 사용자가 할 수 있는 일을 둔다.
+        - 아는 사람은 알려줄 수 있게: 사전이 자라는 유일한 사람 경로다
+        - 모르는 사람은 국내에서라도 찾을 수 있게: 일본에 없다고 국내에 없는 것은 아니다
+      */}
       <div className="mt-4 flex flex-wrap justify-center gap-2">
+        <a
+          href={reportMailto({ to: SITE.contactEmail, term: res.query, missed })}
+          className="inline-flex h-9 items-center rounded-lg px-4 text-sm font-semibold text-white"
+          style={{ background: 'var(--brand)' }}
+        >
+          일본어 표기 알려주기
+        </a>
+        <a
+          href={buildHref(params, { scope: undefined })}
+          className="inline-flex h-9 items-center rounded-lg border px-4 text-sm"
+          style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
+        >
+          국내 마켓에서 찾아보기
+        </a>
+      </div>
+
+      <p className="mt-4 text-xs" style={{ color: 'var(--text-muted)' }}>
+        사전에 있는 말은 이렇게 찾습니다
+      </p>
+      <div className="mt-2 flex flex-wrap justify-center gap-2">
         {['피규어', '넨도로이드', '아크릴스탠드', '캔뱃지', '주술회전', '포켓몬'].map((k) => (
           <a
             key={k}
