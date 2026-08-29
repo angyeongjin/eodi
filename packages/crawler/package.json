@@ -21,6 +21,7 @@
     "discover-regions": "tsx --env-file-if-exists=../../.env scripts/discover-regions.ts",
     "crawl:mercari": "tsx --env-file-if-exists=../../.env src/cli/crawl-mercari.ts",
     "untranslated": "tsx --env-file-if-exists=../../.env src/cli/untranslated.ts",
+    "metrics": "tsx --env-file-if-exists=../../.env src/cli/metrics.ts",
     "run-alerts": "tsx --env-file-if-exists=../../.env src/cli/run-alerts.ts",
     "vapid": "tsx src/cli/vapid.ts"
   },

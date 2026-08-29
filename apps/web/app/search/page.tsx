@@ -10,6 +10,7 @@ import ScopeTabs from '@/components/ScopeTabs'
 import AlertButton from '@/components/AlertButton'
 import OverseasNotice, { TranslationBar, TranslationMiss } from '@/components/OverseasNotice'
 import Pagination from '@/components/Pagination'
+import OutboundTracker from '@/components/OutboundTracker'
 import AdSlot from '@/components/AdSlot'
 import { Header, Footer } from '@/components/Layout'
 import { parseSearchParams, buildHref, scopeOf } from '@/lib/params'
@@ -143,18 +144,25 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             )}
           </div>
         ) : (
-          <ul className="mt-4 space-y-3">
-            {res.items.map((item, idx) => (
-              <li key={`${item.source}-${item.sourceItemId}`}>
-                <ResultCard item={item} now={now} query={highlightQuery} />
-                {idx === 5 && (
-                  <div className="mt-3">
-                    <AdSlot />
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <OutboundTracker scope={scope} normalized={i.normalized}>
+            <ul className="mt-4 space-y-3">
+              {res.items.map((item, idx) => (
+                <li key={`${item.source}-${item.sourceItemId}`}>
+                  <ResultCard
+                    item={item}
+                    now={now}
+                    query={highlightQuery}
+                    position={(res.page - 1) * res.perPage + idx}
+                  />
+                  {idx === 5 && (
+                    <div className="mt-3">
+                      <AdSlot />
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </OutboundTracker>
         )}
 
         <Pagination params={sp} page={res.page} perPage={res.perPage} total={res.total} />

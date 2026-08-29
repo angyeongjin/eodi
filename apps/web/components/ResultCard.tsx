@@ -27,11 +27,14 @@ export default function ResultCard({
   item,
   now,
   query = '',
+  position,
 }: {
   item: MergedListing
   now: number
   /** 제목에서 강조할 검색어 (해외 탭은 번역된 일본어) */
   query?: string
+  /** 결과에서 몇 번째인지(0-based). 클릭이 어느 순위에서 나오는지 세는 데만 쓴다 */
+  position?: number
 }) {
   const others = item.duplicates
   const showKind = item.kind !== 'item'
@@ -47,6 +50,9 @@ export default function ResultCard({
         target="_blank"
         rel="noopener noreferrer nofollow"
         className="flex min-w-0 flex-1 gap-3 sm:gap-4"
+        /* 이 두 값이 OutboundTracker 가 읽는 전부다. 개인을 식별하는 값은 없다 */
+        data-outbound={item.source}
+        data-pos={position}
       >
         <div
           className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-32 sm:w-32"
@@ -180,6 +186,8 @@ export default function ResultCard({
                 rel="noopener noreferrer nofollow"
                 className="rounded-md border px-2 py-1 text-xs"
                 style={{ borderColor: 'var(--border)' }}
+                data-outbound={d.source}
+                data-pos={position}
               >
                 {SOURCE_LABEL[d.source]} ·{' '}
                 <span className="tnum">

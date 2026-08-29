@@ -23,6 +23,7 @@
     "build:goods": "npm run build:goods -w @eodi/core",
     "crawl:mercari": "npm run crawl:mercari -w @eodi/crawler",
     "untranslated": "npm run untranslated -w @eodi/crawler",
+    "metrics": "npm run metrics -w @eodi/crawler",
     "run-alerts": "npm run run-alerts -w @eodi/crawler",
     "vapid": "npm run vapid -w @eodi/crawler",
     "preflight": "node --env-file-if-exists=.env scripts/preflight.mjs",

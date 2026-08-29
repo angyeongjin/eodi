@@ -107,6 +107,7 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
             resultCount: 0,
             tookMs: Date.now() - started,
             cached: false,
+            scope,
           }),
         ])
       }
@@ -192,7 +193,7 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
   }
 
   if (opts.persist !== false) {
-    await persistAfterSearch({ cached, key, marketTerm, interpreted, listings, statuses, built, response })
+    await persistAfterSearch({ cached, key, marketTerm, interpreted, listings, statuses, built, response, scope })
   }
 
   return response
@@ -208,6 +209,8 @@ async function persistAfterSearch(args: {
   statuses: SourceStatus[]
   built: ReturnType<typeof buildSearchResult>
   response: SearchResponse
+  /** 어느 탭의 검색이었는지 — 탭별 이용 비중을 세려면 로그에 남아야 한다 */
+  scope: MarketScope
 }): Promise<void> {
   const { cached, key, marketTerm, interpreted, listings, statuses, built, response } = args
   const tasks: Array<Promise<unknown>> = [
@@ -218,6 +221,7 @@ async function persistAfterSearch(args: {
       resultCount: response.total,
       tookMs: response.tookMs,
       cached,
+      scope: args.scope,
     }),
   ]
   if (interpreted.untranslated?.length) {
