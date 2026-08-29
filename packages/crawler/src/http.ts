@@ -105,12 +105,62 @@ async function loadRobots(origin: string): Promise<RobotsRules | null> {
   return p
 }
 
+/*
+  호스트가 우리를 막기 시작하면 물러선다.
+
+  403/429 를 받아도 그 요청만 포기하고 같은 속도로 계속 보내고 있었다.
+  실측: 중고나라가 한 시간에 241건 요청을 전부 403 으로 돌려줬다.
+  상대 서버에 민폐이고, 우리도 4분을 헛되이 쓰고, 차단은 더 길어진다.
+
+  연속으로 막히면 간격을 두 배씩 늘리고, 일정 횟수를 넘으면 아예 쉬어 간다.
+  성공하면 원래 간격으로 돌아온다 — 한 번 막혔다고 영영 느려지면 안 된다.
+*/
+interface HostState { strikes: number; intervalMs: number; pausedUntil: number }
+const hostState = new Map<string, HostState>()
+
+/** 몇 번 연속으로 막히면 쉬는가 */
+const STRIKES_BEFORE_PAUSE = 3
+/** 쉬는 시간 */
+const PAUSE_MS = 10 * 60_000
+/** 간격 상한 — 이보다 느려지면 예열이 끝나지 않는다 */
+const MAX_INTERVAL_MS = 20_000
+
+export class HostPausedError extends Error {
+  constructor(readonly host: string, readonly untilMs: number) {
+    super(`${host} 가 우리를 막고 있어 잠시 쉽니다`)
+    this.name = 'HostPausedError'
+  }
+}
+
+function noteBlocked(host: string, base: number): void {
+  const st = hostState.get(host) ?? { strikes: 0, intervalMs: base, pausedUntil: 0 }
+  st.strikes += 1
+  st.intervalMs = Math.min(MAX_INTERVAL_MS, Math.max(base, st.intervalMs) * 2)
+  if (st.strikes >= STRIKES_BEFORE_PAUSE) st.pausedUntil = Date.now() + PAUSE_MS
+  hostState.set(host, st)
+}
+
+function noteOk(host: string): void {
+  const st = hostState.get(host)
+  if (st) hostState.delete(host)
+}
+
+/** 테스트·운영 점검용 */
+export function hostBackoff(host: string): { strikes: number; intervalMs: number; pausedUntil: number } | null {
+  return hostState.get(host) ?? null
+}
+export function resetHostBackoff(): void {
+  hostState.clear()
+}
+
 /** 호스트별 직렬 실행 + 최소 간격 보장 */
 function enqueue<T>(host: string, minIntervalMs: number, fn: () => Promise<T>): Promise<T> {
   const prev = hostQueues.get(host) ?? Promise.resolve()
   const next = prev.then(async () => {
+    const st = hostState.get(host)
+    const effective = Math.max(minIntervalMs, st?.intervalMs ?? 0)
     const last = lastHit.get(host) ?? 0
-    const wait = last + minIntervalMs - Date.now()
+    const wait = last + effective - Date.now()
     if (wait > 0) await sleep(wait)
     try {
       return await fn()
@@ -152,6 +202,10 @@ export async function fetchText(url: string, opts: HttpOptions = {}): Promise<st
     if (rules?.crawlDelayMs && rules.crawlDelayMs > o.minIntervalMs) o.minIntervalMs = rules.crawlDelayMs
   }
 
+  // 쉬는 중이면 보내지 않는다. 막힌 상대에게 계속 두드리는 것이 가장 나쁘다.
+  const paused = hostState.get(u.host)
+  if (paused && paused.pausedUntil > Date.now()) throw new HostPausedError(u.host, paused.pausedUntil)
+
   return enqueue(u.host, o.minIntervalMs, async () => {
     let lastErr: unknown
     for (let attempt = 0; attempt <= o.maxRetries; attempt++) {
@@ -174,6 +228,8 @@ export async function fetchText(url: string, opts: HttpOptions = {}): Promise<st
             ? AbortSignal.any([o.signal, AbortSignal.timeout(o.timeoutMs)])
             : AbortSignal.timeout(o.timeoutMs),
         })
+        // 403·429 는 "그만 보내라"는 뜻이다. 다음 요청부터 간격을 벌린다.
+        if (res.status === 403 || res.status === 429) noteBlocked(u.host, o.minIntervalMs)
         // 4xx 는 우리 잘못이거나 차단이다. 재시도해도 소용없고 상대에게 민폐다.
         if (res.status >= 400 && res.status < 500 && res.status !== 429) {
           throw new HttpError(`HTTP ${res.status}`, res.status, url)
@@ -181,6 +237,7 @@ export async function fetchText(url: string, opts: HttpOptions = {}): Promise<st
         if (!res.ok) throw new HttpError(`HTTP ${res.status}`, res.status, url)
         const text = await res.text()
         stats.bytes += text.length
+        noteOk(u.host)
         return text
       } catch (err) {
         lastErr = err
