@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CATEGORY_LABEL, CATALOG, GOODS_TERMS, type CategoryId } from '@eodi/core'
+import { CATEGORY_LABEL, CATALOG, GOODS_TERMS, goodsWorks, type CategoryId } from '@eodi/core'
 import { popularQueries } from '@eodi/db'
 import { SEED_KEYWORDS, allAdapters } from '@eodi/crawler'
 import SearchBox from '@/components/SearchBox'
@@ -82,11 +82,13 @@ export default async function HomePage() {
         <section className="mt-8 grid gap-5 sm:grid-cols-2">
           <div>
             <h2 className="mb-2 text-sm font-semibold">작품으로 찾기</h2>
+            {/* 검색 결과(/jp/)가 아니라 작품 지면(/w/)으로 보낸다.
+                작품만 아는 사람에게 필요한 것은 매물이 아니라 캐릭터 목록이다. */}
             <ul className="space-y-1">
-              {GOODS_TERMS.filter((t) => t.kind === 'ip').slice(0, 10).map((t) => (
-                <li key={t.ja}>
-                  <Link href={`/jp/${encodeURIComponent(t.ko[0]!)}`} className="text-sm hover:underline" style={{ color: 'var(--text-muted)' }}>
-                    {t.ko[0]} <span className="opacity-60">{t.ja}</span>
+              {goodsWorks().slice(0, 10).map((w) => (
+                <li key={w.ja}>
+                  <Link href={`/w/${encodeURIComponent(w.ko)}`} className="text-sm hover:underline" style={{ color: 'var(--text-muted)' }}>
+                    {w.ko} <span className="opacity-60">캐릭터 {w.characters.length}</span>
                   </Link>
                 </li>
               ))}

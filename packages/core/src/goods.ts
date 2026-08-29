@@ -193,6 +193,40 @@ const STAPLE = STAPLE_KO.map((ko) => GOODS_TERMS.find((t) => t.ko[0] === ko)).fi
   (t): t is GoodsTerm => Boolean(t),
 )
 
+export interface GoodsWork {
+  /** 대표 한글 표기 */
+  ko: string
+  /** 일본 마켓에 보낼 말 */
+  ja: string
+  /** 사전이 아는 이 작품의 캐릭터 */
+  characters: GoodsTerm[]
+}
+
+/**
+ * 캐릭터를 가진 작품 목록.
+ *
+ * 지금 이 서비스는 검색창에 뭘 칠지 아는 사람만 쓸 수 있다.
+ * 작품 단위 지면을 만들려면 "어떤 작품을 아는지"가 먼저 있어야 한다.
+ * 캐릭터가 없는 작품은 보여줄 것이 없으므로 뺀다.
+ */
+export function goodsWorks(): GoodsWork[] {
+  const out: GoodsWork[] = []
+  for (const [ipKo, chars] of BY_IP) {
+    const work = IP_TERM.get(ipKo)
+    if (!work || chars.length === 0) continue
+    out.push({ ko: work.ko[0]!, ja: work.ja, characters: chars })
+  }
+  return out.sort((a, b) => b.characters.length - a.characters.length || a.ko.localeCompare(b.ko))
+}
+
+/** 한글 표기로 작품 하나를 찾는다. 표제어 변형(줄임말)도 받는다 */
+export function findGoodsWork(ko: string): GoodsWork | null {
+  const term = IP_TERM.get(normalizeText(ko))
+  if (!term) return null
+  const chars = BY_IP.get(term.ko[0]!) ?? []
+  return { ko: term.ko[0]!, ja: term.ja, characters: chars }
+}
+
 export interface RelatedTerms {
   /** 같은 작품의 다른 캐릭터 */
   siblings: GoodsTerm[]

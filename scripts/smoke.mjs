@@ -129,6 +129,11 @@ const PAGES = [
   ['/s/%EC%9E%90%EC%A0%84%EA%B1%B0', 500, '자전거'],
   ['/jp/%ED%94%BC%EA%B7%9C%EC%96%B4', 500, 'フィギュア'],
   ['/jp/%EC%A3%BC%EC%88%A0%ED%9A%8C%EC%A0%84', 500, '呪術廻戦'],
+  // 작품 지면 — 캐릭터 목록이 비면 지면의 존재 이유가 사라진다
+  ['/w/%EC%A3%BC%EC%88%A0%ED%9A%8C%EC%A0%84', 500, '캐릭터로 찾기'],
+  ['/w/%EC%A3%BC%EC%88%A0%ED%9A%8C%EC%A0%84', 500, '고죠'],
+  // 줄임말로 들어와도 정식 표기 지면이 나와야 한다
+  ['/w/%ED%9E%88%EB%A1%9C%EC%95%84%EC%B9%B4', 500, '나의히어로아카데미아'],
   ['/search?q=%ED%94%BC%EA%B7%9C%EC%96%B4&scope=overseas', 500, '구매대행'],
   ['/saved', 500, '찜한 매물'],
   ['/manifest.webmanifest', 100, 'standalone'],

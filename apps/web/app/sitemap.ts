@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { CATALOG } from '@eodi/core'
 import { SEED_KEYWORDS } from '@eodi/crawler'
-import { GOODS_TERMS } from '@eodi/core'
+import { GOODS_TERMS, goodsWorks } from '@eodi/core'
 import { SITE } from '@/lib/config'
 
 export const revalidate = 86400
@@ -36,8 +36,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const combos = ipKo.flatMap((ip) => formKo.slice(0, 6).map((f) => `${ip} ${f}`))
   const jpTerms = [...new Set([...goodsKo, ...combos])]
 
+  /*
+    작품 지면은 검색어를 모르는 사람의 입구다.
+    /s/, /jp/ 는 "그 말을 이미 아는 사람"에게 닿는 지면이라 서로 겹치지 않는다.
+  */
+  const works = goodsWorks().map((w) => w.ko)
+
   return [
     ...staticPages,
+    ...works.map((w) => ({
+      url: `${base}/w/${encodeURIComponent(w)}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    })),
     ...unique.map((t) => ({
       url: `${base}/s/${encodeURIComponent(t)}`,
       lastModified: now,

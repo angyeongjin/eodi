@@ -1,6 +1,8 @@
 import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
-import { translateToJapanese, suggestGoodsTerms, relatedTerms, GOODS_TERMS } from '../src/goods.js'
+import {
+  translateToJapanese, suggestGoodsTerms, relatedTerms, goodsWorks, findGoodsWork, GOODS_TERMS,
+} from '../src/goods.js'
 import { toKrw, setFxRate, getFxRate, formatMoney, formatApproxKrw, DEFAULT_JPY_KRW } from '../src/fx.js'
 import { tokenize } from '../src/text.js'
 import { enrichAll } from '../src/enrich.js'
@@ -482,5 +484,33 @@ describe('연관검색어: 사전이 아는 관계만 보여준다', () => {
   test('모든 캐릭터는 소속 작품을 안다', () => {
     const orphans = GOODS_TERMS.filter((t) => t.kind === 'character' && !t.ip)
     assert.equal(orphans.length, 0, `작품 없는 캐릭터: ${orphans.map((t) => t.ko[0]).join(', ')}`)
+  })
+})
+
+describe('작품 지면: 보여줄 것이 있는 작품만 만든다', () => {
+  test('캐릭터가 있는 작품만 목록에 든다', () => {
+    const works = goodsWorks()
+    assert.ok(works.length > 0)
+    for (const w of works) {
+      assert.ok(w.characters.length > 0, `${w.ko} 는 보여줄 캐릭터가 없다`)
+      assert.ok(w.ja, `${w.ko} 는 일본어 표기가 없다`)
+    }
+  })
+
+  test('줄임말로 찾아도 정식 표기 지면으로 모인다', () => {
+    // 같은 작품이 여러 주소로 갈라지면 검색엔진에도 사람에게도 손해다
+    assert.equal(findGoodsWork('히로아카')?.ko, '나의히어로아카데미아')
+    assert.equal(findGoodsWork('나의히어로아카데미아')?.ko, '나의히어로아카데미아')
+  })
+
+  test('사전에 없는 작품은 지면을 만들지 않는다', () => {
+    assert.equal(findGoodsWork('있을리없는작품이름'), null)
+  })
+
+  test('목록은 캐릭터가 많은 작품부터 준다', () => {
+    const counts = goodsWorks().map((w) => w.characters.length)
+    for (let i = 1; i < counts.length; i++) {
+      assert.ok(counts[i - 1]! >= counts[i]!, '캐릭터 수 내림차순이어야 한다')
+    }
   })
 })
