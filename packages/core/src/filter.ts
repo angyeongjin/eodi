@@ -2,6 +2,7 @@ import type {
   EnrichedListing, Facets, ListingKind, MergedListing, SearchFilters, SourceId,
 } from './types.js'
 import { HIDDEN_BY_DEFAULT } from './types.js'
+import { COLOR_LABEL } from './variant.js'
 
 /** 가격 패싯 구간 (원) */
 const PRICE_BUCKETS: Array<[number, number | null]> = [
@@ -21,7 +22,7 @@ export function visibleKinds(filters?: SearchFilters): ListingKind[] {
 }
 
 /** 패싯 계산 시 잠시 무시할 필터 축 */
-export type FilterAxis = 'price' | 'sources' | 'kinds' | 'region' | 'sold' | 'within'
+export type FilterAxis = 'price' | 'sources' | 'kinds' | 'region' | 'sold' | 'within' | 'colors'
 
 /**
  * 필터 통과 여부.
@@ -45,6 +46,10 @@ export function passesFilters<T extends MergedListing | EnrichedListing>(
   }
   if (skip !== 'kinds' && !visibleKinds(f).includes(l.kind)) return false
   if (skip !== 'region' && f.region && !(l.region ?? '').includes(f.region)) return false
+  if (skip !== 'colors' && f.colors?.length) {
+    const c = l.variant.color
+    if (!c || !f.colors.includes(c)) return false
+  }
   if (skip !== 'sold' && !f.includeSold && l.sold) return false
   if (skip !== 'within' && f.withinDays !== undefined) {
     if (!l.postedAt) return false
@@ -98,6 +103,13 @@ export function computeFacets(
     if (key) regionCounts.set(key, (regionCounts.get(key) ?? 0) + 1)
   }
 
+  const colorCounts = new Map<string, number>()
+  for (const l of on('colors')) {
+    const c = l.variant.color
+    if (!c) continue
+    colorCounts.set(c, (colorCounts.get(c) ?? 0) + 1)
+  }
+
   const priceBase = on('price')
   const priceBuckets = PRICE_BUCKETS.map(([from, to]) => ({
     from,
@@ -116,6 +128,10 @@ export function computeFacets(
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 12),
+    colors: [...colorCounts.entries()]
+      .map(([id, count]) => ({ id, label: COLOR_LABEL[id] ?? id, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10),
     priceBuckets,
   }
 }

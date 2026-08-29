@@ -66,7 +66,7 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
     page,
     perPage,
     sort,
-    facets: { sources: [], kinds: [], regions: [], priceBuckets: [] },
+    facets: { sources: [], kinds: [], regions: [], colors: [], priceBuckets: [] },
     sources: [],
     cached: false,
     tookMs: Date.now() - started,

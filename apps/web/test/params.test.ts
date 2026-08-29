@@ -84,3 +84,23 @@ describe('링크 생성', () => {
     assert.equal(toggleInList('a', 'b'), 'a,b')
   })
 })
+
+describe('색상 필터', () => {
+  test('사전에 있는 색만 받는다', () => {
+    assert.deepEqual(parseSearchParams({ q: 'x', color: 'black,white' }).filters.colors, ['black', 'white'])
+  })
+
+  test('모르는 색은 무시한다 — 필터가 아니라 오타로 본다', () => {
+    /*
+      형태만 검사하면 color=nope 가 통과해 결과가 통째로 0건이 된다.
+      max=abc 로 검색이 사라졌던 것과 같은 부류의 사고다.
+    */
+    assert.equal(parseSearchParams({ q: 'x', color: 'nope' }).filters.colors, undefined)
+    assert.deepEqual(parseSearchParams({ q: 'x', color: 'nope,black' }).filters.colors, ['black'])
+  })
+
+  test('빈 값이면 필터를 걸지 않는다', () => {
+    assert.equal(parseSearchParams({ q: 'x', color: '' }).filters.colors, undefined)
+    assert.equal(parseSearchParams({ q: 'x' }).filters.colors, undefined)
+  })
+})

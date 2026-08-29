@@ -97,6 +97,7 @@ export default function FilterBar({
   const activeKinds = cur('kind').split(',').filter(Boolean)
   const hasPrice = Boolean(cur('min') || cur('max'))
   const hasRegion = Boolean(cur('region'))
+  const activeColors = (cur('color') ?? '').split(',').filter(Boolean)
 
   return (
     <div className="space-y-2">
@@ -172,6 +173,22 @@ export default function FilterBar({
                 active={cur('region') === r.name}
                 label={r.name}
                 count={r.count}
+              />
+            ))}
+          </Dropdown>
+        )}
+
+        {/* 굿즈는 한정색이, 전자기기는 색상이 곧 구매 조건이다. 제목에서 이미 뽑고 있었는데 안 보여줬다. */}
+        {facets.colors.length > 0 && (
+          <Dropdown label={activeColors.length ? `색상 ${activeColors.length}` : '색상'} active={activeColors.length > 0}>
+            <Row href={buildHref(params, { color: undefined })} active={activeColors.length === 0} label="전체" />
+            {facets.colors.map((c) => (
+              <Row
+                key={c.id}
+                href={buildHref(params, { color: toggleInList(params.color, c.id) })}
+                active={activeColors.includes(c.id)}
+                label={c.label}
+                count={c.count}
               />
             ))}
           </Dropdown>

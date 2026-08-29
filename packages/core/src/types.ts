@@ -214,6 +214,8 @@ export interface SearchFilters {
   includeSold?: boolean
   /** 등록 후 경과일 상한 */
   withinDays?: number
+  /** 색상. variant 추출값(black, space-gray …) 기준 */
+  colors?: string[]
 }
 
 export interface SearchQuery {
@@ -233,6 +235,8 @@ export interface Facets {
   sources: Array<{ id: SourceId; count: number }>
   kinds: Array<{ id: ListingKind; count: number }>
   regions: Array<{ name: string; count: number }>
+  /** 제목에서 뽑은 색상. 굿즈는 한정색이, 전자기기는 색상이 곧 구매 조건이다 */
+  colors: Array<{ id: string; label: string; count: number }>
   priceBuckets: Array<{ from: number; to: number | null; count: number }>
 }
 

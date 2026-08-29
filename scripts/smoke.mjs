@@ -136,6 +136,8 @@ const PAGES = [
   ['/w/%ED%9E%88%EB%A1%9C%EC%95%84%EC%B9%B4', 500, '나의히어로아카데미아'],
   // 자판을 안 바꾸고 친 검색어. 마켓이 엉뚱한 결과를 주므로 0건 화면으로는 못 잡는다
   ['/search?q=wntnfghlwjs', 500, '한글로 바꾸면'],
+  // 색상은 제목에서 뽑아만 두고 오래 안 보여줬다
+  ['/search?q=%EC%95%84%EC%9D%B4%ED%8F%B016', 500, 'color='],
   ['/search?q=%ED%94%BC%EA%B7%9C%EC%96%B4&scope=overseas', 500, '구매대행'],
   ['/saved', 500, '찜한 매물'],
   ['/manifest.webmanifest', 100, 'standalone'],

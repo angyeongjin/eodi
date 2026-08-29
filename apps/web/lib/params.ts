@@ -1,3 +1,4 @@
+import { COLOR_LABEL } from '@eodi/core'
 import type { ListingKind, MarketScope, SearchFilters, SearchQuery, SortKey, SourceId } from '@eodi/core'
 
 const SORTS: SortKey[] = ['relevance', 'recent', 'price_asc', 'price_desc']
@@ -50,6 +51,13 @@ export function parseSearchParams(params: Params): SearchQuery {
   if (sources) filters.sources = sources
   const kinds = list(params.kind, KINDS)
   if (kinds) filters.kinds = kinds
+  /*
+    색상은 사전에 있는 값만 받는다. 형태만 검사하면 color=nope 가 그대로 통과해
+    결과가 0건이 된다 — max=abc 로 검색이 통째로 사라졌던 것과 같은 부류다.
+    모르는 값은 필터가 아니라 오타로 본다.
+  */
+  const colors = list(params.color, Object.keys(COLOR_LABEL))
+  if (colors) filters.colors = colors
   const region = one(params.region)?.trim()
   if (region) filters.region = region
   if (one(params.sold) === '1') filters.includeSold = true
