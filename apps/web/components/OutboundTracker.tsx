@@ -33,13 +33,15 @@ export default function OutboundTracker({
       if (!source) return
       const posAttr = link.getAttribute('data-pos')
       const position = posAttr === null ? null : Number(posAttr)
+      // 홈 피드처럼 검색을 거치지 않은 목록은 링크가 자기 키워드를 들고 있다
+      const linkTerm = link.getAttribute('data-term')
 
       const body = JSON.stringify({
         kind: 'outbound',
         scope,
         source,
         position: Number.isInteger(position) ? position : null,
-        normalized,
+        normalized: linkTerm ?? normalized,
       })
 
       if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
