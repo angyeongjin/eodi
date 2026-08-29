@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+
+/*
+ * 어디있지 디자인 토큰.
+ * 중고 거래는 돈과 의심의 영역이라 화려함보다 또렷함을 택한다.
+ */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f6f7f9;
+  --text: #16191d;
+  --text-muted: #5b6470;
+  --border: #e3e6ea;
+  --brand: #ff6b35;
+  --brand-weak: #fff1eb;
+  --brand-text: #b8410f;
+  --warn: #b45309;
+  --warn-weak: #fff7e6;
+  --danger: #b42318;
+  --danger-weak: #fee4e2;
+  --ok: #1a7f5a;
+}
+
+/*
+ * 다크 테마는 두 경로로 켜진다.
+ *  1) OS 설정 (prefers-color-scheme) — 아무것도 안 고른 기본값
+ *  2) 사용자가 직접 고른 값 (html[data-theme])
+ * 2가 1을 이겨야 하므로, data-theme 규칙을 뒤에 두고 :root[data-theme] 로 특정도를 높인다.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0e1116;
+    --surface: #161b22;
+    --surface-2: #1c222b;
+    --text: #e8eaed;
+    --text-muted: #9aa4b2;
+    --border: #2a313b;
+    --brand: #ff7d4d;
+    --brand-weak: #33201a;
+    --brand-text: #ffb094;
+    --warn: #f0b429;
+    --warn-weak: #33291a;
+    --danger: #ff8a7a;
+    --danger-weak: #3a1d1a;
+    --ok: #3fbf8f;
+  }
+}
+
+/* 사용자가 명시적으로 어둡게 고른 경우 — OS 설정과 무관하게 적용 */
+:root[data-theme='dark'] {
+  --bg: #0e1116;
+  --surface: #161b22;
+  --surface-2: #1c222b;
+  --text: #e8eaed;
+  --text-muted: #9aa4b2;
+  --border: #2a313b;
+  --brand: #ff7d4d;
+  --brand-weak: #33201a;
+  --brand-text: #ffb094;
+  --warn: #f0b429;
+  --warn-weak: #33291a;
+  --danger: #ff8a7a;
+  --danger-weak: #3a1d1a;
+  --ok: #3fbf8f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+  --color-line: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-weak: var(--brand-weak);
+  --color-brand-text: var(--brand-text);
+  --color-warn: var(--warn);
+  --color-warn-weak: var(--warn-weak);
+  --color-danger: var(--danger);
+  --color-danger-weak: var(--danger-weak);
+  --color-ok: var(--ok);
+  --font-sans: Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+    'Malgun Gothic', 'Segoe UI', Roboto, sans-serif;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+html[data-theme='light'] { color-scheme: light; }
+html[data-theme='dark'] { color-scheme: dark; }
+
+body {
+  /*
+   * 가로 스크롤은 모바일에서 즉시 티가 나는 결함이라 구조적으로 막는다.
+   * hidden 이 아니라 clip 을 쓰는 이유: hidden 은 스크롤 컨테이너를 만들어
+   * 헤더의 position: sticky 를 깨뜨린다.
+   */
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 가격은 자릿수를 맞춰야 비교가 된다 */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 포커스는 절대 지우지 않는다 */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .skeleton { animation: none; }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

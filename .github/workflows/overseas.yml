@@ -1,0 +1,94 @@
+name: 일본 굿즈 수집
+
+# 해외 소스는 성격이 달라 국내 예열과 분리한다.
+#  - 야후옥션: HTTP 로 읽히므로 예열만 하면 된다
+#  - 메루카리: 브라우저로 렌더해야 읽히므로 별도 크롤이 필요하다 (느리고 무겁다)
+on:
+  schedule:
+    # 하루 두 번 (UTC). 한국 기준 06시 / 18시.
+    - cron: '0 21,9 * * *'
+  workflow_dispatch:
+    inputs:
+      keywords:
+        description: '예열할 굿즈 검색어 수'
+        default: '60'
+      mercari_keywords:
+        description: '메루카리 수집 키워드 수'
+        default: '30'
+
+concurrency:
+  group: overseas
+  cancel-in-progress: false
+
+jobs:
+  yahoo-prewarm:
+    name: 야후옥션 예열
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:libs
+      - name: 예열
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          EODI_UA: ${{ vars.EODI_UA }}
+        run: |
+          npm run prewarm -w @eodi/crawler -- \
+            --scope=overseas --keywords=${{ github.event.inputs.keywords || '60' }} \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+
+  mercari-crawl:
+    name: 메루카리 수집
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:libs
+
+      # ubuntu-latest 러너에는 크롬이 미리 깔려 있다. 별도로 내려받지 않는다.
+      - name: 크롬 확인
+        id: chrome
+        run: |
+          for p in /usr/bin/google-chrome /usr/bin/chromium-browser /usr/bin/chromium; do
+            if [ -x "$p" ]; then echo "path=$p" >> "$GITHUB_OUTPUT"; exit 0; fi
+          done
+          sudo apt-get update && sudo apt-get install -y chromium-browser
+          echo "path=/usr/bin/chromium-browser" >> "$GITHUB_OUTPUT"
+
+      - name: 수집
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          CHROME_PATH: ${{ steps.chrome.outputs.path }}
+          MERCARI_GAP_MS: '5000'
+        run: |
+          npm run crawl:mercari -w @eodi/crawler -- \
+            --keywords=${{ github.event.inputs.mercari_keywords || '30' }} \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+
+  report:
+    name: 사전 보강 대상 보고
+    needs: [yahoo-prewarm, mercari-crawl]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:libs
+      - name: 번역하지 못한 검색어 상위 목록
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run untranslated -w @eodi/crawler | tee -a "$GITHUB_STEP_SUMMARY"

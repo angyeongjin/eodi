@@ -1,0 +1,279 @@
+import {
+  ProductMatcher, CATALOG, interpretQuery, buildSearchResult, translateToJapanese,
+  getFxRate, tokenize, suggestGoodsTerms, goodsLabel, GOODS_KIND_LABEL,
+  type SearchQuery, type SearchResponse, type SearchFilters, type SortKey,
+  type RawListing, type SourceStatus, type CatalogProduct, type MarketScope,
+} from '@eodi/core'
+import {
+  cacheKey, getCachedSearch, setCachedSearch, DEFAULT_TTL_MS,
+  upsertListings, searchStoredListings, logQuery, recordSourceHealth, popularQueries,
+  recordUntranslated,
+} from '@eodi/db'
+import { federate, type FederateOptions } from './federate.js'
+import { DEFAULT_REGION_SLUG, findRegion } from './regions.js'
+import { ensureFxRate } from './fx-refresh.js'
+
+/** 카탈로그는 프로세스당 한 번만 만든다 */
+let matcherInstance: ProductMatcher | null = null
+export function matcher(): ProductMatcher {
+  if (!matcherInstance) matcherInstance = new ProductMatcher(CATALOG as CatalogProduct[])
+  return matcherInstance
+}
+
+export interface SearchOptions {
+  /** 캐시를 무시하고 무조건 새로 수집 */
+  refresh?: boolean
+  ttlMs?: number
+  federate?: FederateOptions
+  /** 결과를 DB에 남길지 */
+  persist?: boolean
+}
+
+const PER_PAGE_MAX = 60
+
+function clampPaging(q: SearchQuery): { page: number; perPage: number } {
+  const perPage = Math.min(PER_PAGE_MAX, Math.max(1, q.perPage ?? 24))
+  const page = Math.max(1, Math.floor(q.page ?? 1))
+  return { page, perPage }
+}
+
+/**
+ * 통합 검색.
+ *
+ * 캐시 → 연합수집 → (전멸 시) 우리 인덱스 폴백 순으로 매물을 확보한 뒤,
+ * 정규화·중복병합·랭킹·필터를 거쳐 한 화면 분량으로 잘라 돌려준다.
+ */
+export async function search(query: SearchQuery, opts: SearchOptions = {}): Promise<SearchResponse> {
+  const started = Date.now()
+  const m = matcher()
+  const raw = (query.q ?? '').trim()
+  const interpreted = interpretQuery(raw, m)
+  const { page, perPage } = clampPaging(query)
+  const sort: SortKey = query.sort ?? 'relevance'
+  const filters: SearchFilters = query.filters ?? {}
+  const regionSlug = query.regionSlug ?? DEFAULT_REGION_SLUG
+  const region = findRegion(regionSlug)
+  const scope: MarketScope = query.scope ?? 'domestic'
+
+  // 해외 매물은 원화 환산이 필요하다. 국내 검색에서는 네트워크를 쓰지 않는다.
+  if (scope === 'overseas') await ensureFxRate()
+
+  const emptyResult = (): SearchResponse => ({
+    query: raw,
+    interpreted,
+    items: [],
+    total: 0,
+    page,
+    perPage,
+    sort,
+    facets: { sources: [], kinds: [], regions: [], priceBuckets: [] },
+    sources: [],
+    cached: false,
+    tookMs: Date.now() - started,
+    fromIndex: 0,
+    indexOnly: false,
+    regionSlug,
+    scope,
+    fx: getFxRate(),
+  })
+
+  if (!interpreted.searchTerm) return emptyResult()
+
+  /*
+    해외 마켓은 한글 검색어에 0건을 준다. 굿즈 사전으로 일본어로 옮겨 보내고,
+    옮기지 못하면 빈 결과 대신 "이 말은 아직 모른다"고 알린다(interpreted.overseasTerm === null).
+    엉뚱한 일본어를 지어내 보내는 것보다 모른다고 말하는 편이 낫다.
+  */
+  let marketTerm = interpreted.searchTerm
+  if (scope === 'overseas') {
+    const tr = translateToJapanese(interpreted.searchTerm)
+    interpreted.overseasTerm = tr.ja
+    interpreted.translationHits = tr.hits.map((h) => ({ ko: h.ko, ja: h.ja }))
+    interpreted.untranslated = tr.unresolved
+    if (!tr.ja) return emptyResult()
+    marketTerm = tr.ja
+    // 랭킹은 "실제로 마켓에 보낸 검색어" 기준이어야 한다.
+    // 한글 토큰으로 일본어 제목을 채점하면 관련도가 전부 0이 된다.
+    interpreted.tokens = tokenize(marketTerm)
+  }
+
+  // 필터는 우리가 로컬에서 적용하므로 캐시 키에서 제외한다 —
+  // 그래야 같은 검색어의 필터 조작이 남의 서버를 다시 때리지 않는다.
+  const key = cacheKey(marketTerm, { v: 4, r: regionSlug, s: scope })
+
+  let listings: RawListing[] = []
+  let statuses: SourceStatus[] = []
+  let cached = false
+  let fromIndex = 0
+  let indexOnly = false
+
+  if (!opts.refresh) {
+    const hit = await getCachedSearch(key)
+    if (hit) {
+      listings = hit.listings
+      statuses = hit.sources.map((s) => ({ ...s, cached: true }))
+      cached = true
+    }
+  }
+
+  if (!cached) {
+    const result = await federate(marketTerm, { ...opts.federate, regionSlug, scope })
+    listings = result.listings
+    statuses = result.statuses
+
+    /*
+     * 우리 인덱스로 보강한다.
+     * 당근은 지역 스코프라 실시간으로는 한 지역만 볼 수 있다.
+     * 예열 크론이 여러 지역을 돌며 쌓아둔 매물을 여기서 합쳐 커버리지를 넓힌다.
+     * 중복은 뒤에서 source+id 로 걸러지므로 그냥 이어 붙이면 된다.
+     */
+    const stored = await searchStoredListings(marketTerm, { limit: 200, freshDays: 14, scope })
+    if (stored.length > 0) {
+      const live = new Set(listings.map((l) => `${l.source}:${l.sourceItemId}`))
+      const extra = stored.filter((l) => !live.has(`${l.source}:${l.sourceItemId}`))
+      fromIndex = extra.length
+      listings = listings.concat(extra)
+    }
+
+    // 실시간 조회가 전멸했는데 인덱스가 답을 줬다면 사용자에게 사실대로 알린다
+    if (statuses.every((s) => !s.ok || s.disabled) && fromIndex > 0) {
+      indexOnly = true
+    }
+  }
+
+  if (region) {
+    for (const s of statuses) {
+      if (s.source === 'daangn') s.regionLabel = `${region.city} ${region.dong}`
+    }
+  }
+
+  const built = buildSearchResult({
+    interpreted, listings, matcher: m, sort, page, perPage, filters,
+  })
+
+  const response: SearchResponse = {
+    query: raw,
+    interpreted,
+    items: built.items,
+    total: built.total,
+    page: built.page,
+    perPage: built.perPage,
+    sort: built.sort,
+    facets: built.facets,
+    sources: statuses,
+    cached,
+    tookMs: Date.now() - started,
+    fromIndex,
+    indexOnly,
+    regionSlug,
+    scope,
+    fx: getFxRate(),
+  }
+
+  if (opts.persist !== false) {
+    await persistAfterSearch({ cached, key, marketTerm, interpreted, listings, statuses, built, response })
+  }
+
+  return response
+}
+
+async function persistAfterSearch(args: {
+  cached: boolean
+  key: string
+  /** 마켓에 실제로 보낸 검색어 (해외는 일본어) */
+  marketTerm: string
+  interpreted: SearchResponse['interpreted']
+  listings: RawListing[]
+  statuses: SourceStatus[]
+  built: ReturnType<typeof buildSearchResult>
+  response: SearchResponse
+}): Promise<void> {
+  const { cached, key, marketTerm, interpreted, listings, statuses, built, response } = args
+  const tasks: Array<Promise<unknown>> = [
+    logQuery({
+      term: interpreted.raw,
+      normalized: interpreted.normalized,
+      productId: interpreted.productId,
+      resultCount: response.total,
+      tookMs: response.tookMs,
+      cached,
+    }),
+  ]
+  if (interpreted.untranslated?.length) {
+    tasks.push(recordUntranslated(interpreted.untranslated))
+  }
+  if (!cached) {
+    /*
+      실패는 캐시하지 않는다.
+      모든 소스가 죽은 순간의 결과를 10분간 물고 있으면, 소스가 곧바로 복구돼도
+      사용자는 계속 열화된 목록을 보게 된다. 다음 요청이 다시 시도하게 두는 편이 낫다.
+    */
+    const anySourceAnswered = statuses.some((s) => s.ok)
+    if (anySourceAnswered) {
+      tasks.push(setCachedSearch(key, marketTerm, listings, statuses, DEFAULT_TTL_MS))
+    }
+    tasks.push(
+      upsertListings(built.enriched),
+      recordSourceHealth(statuses.filter((s) => s.durationMs > 0)),
+    )
+  }
+  await Promise.allSettled(tasks)
+}
+
+export interface Suggestion {
+  term: string
+  /** 어디서 온 제안인지 */
+  kind: 'goods' | 'product' | 'popular'
+  /** 굿즈 사전 항목이면 일본어 표기 (사용자에게 "이렇게 찾습니다"를 미리 보여준다) */
+  ja?: string
+  /** 굿즈 사전 항목의 분류: 작품 / 캐릭터 / 종류 … */
+  group?: string
+  /** 해외 탭으로 보낼 제안인지 */
+  scope?: 'domestic' | 'overseas'
+  productSlug?: string
+  category?: string
+}
+
+/**
+ * 자동완성.
+ *
+ * 굿즈 사전을 **맨 앞에** 둔다. 이 서비스에 굿즈를 찾으러 온 사람에게
+ * 전자기기 카탈로그가 먼저 뜨면 아무 도움이 안 된다.
+ * 초성 입력("ㅈㅅㅎㅈ")도 사전 쪽에서 받는다.
+ */
+export async function suggest(prefix: string, limit = 8): Promise<Suggestion[]> {
+  const q = (prefix ?? '').trim()
+  const out: Suggestion[] = []
+  const seen = new Set<string>()
+  const push = (s: Suggestion) => {
+    if (seen.has(s.term) || out.length >= limit) return
+    seen.add(s.term)
+    out.push(s)
+  }
+
+  if (q) {
+    for (const t of suggestGoodsTerms(q, limit)) {
+      push({
+        term: goodsLabel(t),
+        kind: 'goods',
+        ja: t.ja,
+        group: GOODS_KIND_LABEL[t.kind],
+        scope: 'overseas',
+      })
+    }
+    for (const p of matcher().suggest(q, limit)) {
+      push({ term: p.name, kind: 'product', productSlug: p.slug, category: p.category, scope: 'domestic' })
+    }
+  }
+
+  if (out.length < limit) {
+    const popular = await popularQueries(limit * 2)
+    const nq = q.toLowerCase()
+    for (const p of popular) {
+      if (q && !p.term.toLowerCase().includes(nq)) continue
+      push({ term: p.term, kind: 'popular' })
+    }
+  }
+
+  return out.slice(0, limit)
+}

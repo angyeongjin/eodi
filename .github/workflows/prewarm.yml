@@ -1,0 +1,51 @@
+name: 인기 검색어 예열
+
+# 두 가지를 한다.
+#  1) 자주 쓰는 검색어의 캐시를 미리 채워 사용자 요청이 즉답되게 한다
+#  2) 지역 스코프 소스(당근)를 여러 동네로 돌며 인덱스의 전국 커버리지를 넓힌다
+on:
+  schedule:
+    # 6시간마다 (UTC). 한국 기준 09/15/21/03시.
+    - cron: '0 0,6,12,18 * * *'
+  workflow_dispatch:
+    inputs:
+      keywords:
+        description: '예열할 검색어 수'
+        default: '40'
+      regions:
+        description: '순회할 지역 수'
+        default: '6'
+
+concurrency:
+  group: prewarm
+  cancel-in-progress: false
+
+jobs:
+  prewarm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:libs
+
+      - name: 예열
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          EODI_UA: ${{ vars.EODI_UA }}
+          DISABLED_SOURCES: ${{ vars.DISABLED_SOURCES }}
+        run: |
+          npm run prewarm -w @eodi/crawler -- \
+            --keywords=${{ github.event.inputs.keywords || '40' }} \
+            --regions=${{ github.event.inputs.regions || '6' }} \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: 정리 (무료 티어 용량 유지)
+        if: always()
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run maintain -w @eodi/crawler -- --listing-days=90 --log-days=180

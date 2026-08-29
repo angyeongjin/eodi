@@ -1,0 +1,51 @@
+{
+  "name": "eodi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "어디있지 — 중고마켓 통합 상품검색",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build:libs && npm run build -w @eodi/web",
+    "build:libs": "npm run build -w @eodi/core && npm run build -w @eodi/db && npm run build -w @eodi/crawler",
+    "dev": "npm run build:libs && npm run dev -w @eodi/web",
+    "start": "npm run start -w @eodi/web",
+    "test": "npm run test -w @eodi/core && npm run test -w @eodi/db && npm run test -w @eodi/crawler && npm run test -w @eodi/web",
+    "typecheck": "tsc -b --pretty",
+    "smoke": "node scripts/smoke.mjs",
+    "db:push": "npm run migrate -w @eodi/db",
+    "probe": "npm run probe -w @eodi/crawler",
+    "search": "npm run search -w @eodi/crawler",
+    "prewarm": "npm run prewarm -w @eodi/crawler",
+    "maintain": "npm run maintain -w @eodi/crawler",
+    "build:goods": "npm run build:goods -w @eodi/core",
+    "crawl:mercari": "npm run crawl:mercari -w @eodi/crawler",
+    "untranslated": "npm run untranslated -w @eodi/crawler",
+    "run-alerts": "npm run run-alerts -w @eodi/crawler",
+    "vapid": "npm run vapid -w @eodi/crawler",
+    "preflight": "node --env-file-if-exists=.env scripts/preflight.mjs",
+    "brand:lint": "node scripts/brand-lint.mjs",
+    "db:setup-app-role": "npm run setup-app-role -w @eodi/db",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "scan:staged": "node scripts/scan-staged.mjs"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angyeongjin/eodi.git"
+  },
+  "homepage": "https://github.com/angyeongjin/eodi#readme",
+  "bugs": {
+    "url": "https://github.com/angyeongjin/eodi/issues"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}

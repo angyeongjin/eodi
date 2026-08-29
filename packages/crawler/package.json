@@ -1,0 +1,36 @@
+{
+  "name": "@eodi/crawler",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --import tsx --test test/*.test.ts",
+    "probe": "tsx --env-file-if-exists=../../.env src/cli/probe.ts",
+    "search": "tsx --env-file-if-exists=../../.env src/cli/search.ts",
+    "prewarm": "tsx --env-file-if-exists=../../.env src/cli/prewarm.ts",
+    "maintain": "tsx --env-file-if-exists=../../.env src/cli/maintain.ts",
+    "discover-regions": "tsx --env-file-if-exists=../../.env scripts/discover-regions.ts",
+    "crawl:mercari": "tsx --env-file-if-exists=../../.env src/cli/crawl-mercari.ts",
+    "untranslated": "tsx --env-file-if-exists=../../.env src/cli/untranslated.ts",
+    "run-alerts": "tsx --env-file-if-exists=../../.env src/cli/run-alerts.ts",
+    "vapid": "tsx src/cli/vapid.ts"
+  },
+  "dependencies": {
+    "@eodi/core": "*",
+    "@eodi/db": "*",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "@types/web-push": "^3.6.4",
+    "puppeteer-core": "^24.43.1"
+  }
+}

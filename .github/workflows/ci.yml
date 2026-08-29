@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: 라이브러리 빌드
+        run: npm run build:libs
+
+      - name: 배포 전 점검
+        run: npm run preflight
+        env:
+          NEXT_PUBLIC_SITE_URL: https://eodizzi.com
+
+      - name: 브랜드 보이스 검사
+        run: npm run brand:lint
+
+      - name: 타입 체크
+        run: npm run typecheck
+
+      - name: 단위 테스트
+        run: npm test
+
+      - name: 웹 빌드
+        run: npm run build -w @eodi/web
+        env:
+          NEXT_PUBLIC_SITE_URL: https://eodizzi.com
+
+  # 외부 마켓의 응답 구조가 바뀌면 조용히 망가진다. 매일 실제로 찔러본다.
+  source-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name != 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:libs
+      - name: 국내 소스 연결 점검
+        run: npm run probe -w @eodi/crawler -- "아이폰16 프로" | tee /tmp/probe.txt
+
+      # 해외 소스도 같이 본다. 야후옥션 마크업이 바뀌면 여기서 먼저 걸린다.
+      - name: 해외 소스 연결 점검
+        run: npm run probe -w @eodi/crawler -- "ねんどろいど" | tee -a /tmp/probe.txt
+
+      - name: 굿즈 사전 번역 점검
+        run: |
+          npm run search -w @eodi/crawler -- --overseas "주술회전 아크릴스탠드" > /tmp/tr.txt
+          cat /tmp/tr.txt
+          grep -q '呪術廻戦' /tmp/tr.txt || { echo "::error title=사전 회귀::한→일 번역이 동작하지 않습니다"; exit 1; }
+      - name: 실패한 소스가 있으면 알림
+        run: |
+          if grep -q '^❌' /tmp/probe.txt; then
+            echo "::warning title=소스 점검 실패::하나 이상의 마켓 어댑터가 응답하지 않습니다"
+            grep '^❌' /tmp/probe.txt >> "$GITHUB_STEP_SUMMARY"
+          fi

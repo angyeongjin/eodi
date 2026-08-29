@@ -1,0 +1,3874 @@
+// 이 파일은 scripts/build-catalog.ts 가 생성합니다. 직접 수정하지 마세요.
+import type { CatalogProduct } from './types.js'
+
+export const CATALOG: CatalogProduct[] = [
+  {
+    "id": "iphone-11",
+    "slug": "iphone-11",
+    "brand": "애플",
+    "name": "아이폰 11",
+    "nameEn": "iPhone 11",
+    "category": "smartphone",
+    "releasedAt": "2019-09",
+    "msrp": 990000,
+    "match": {
+      "require": [
+        [
+          "아이폰11",
+          "iphone11",
+          "ip11"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰11",
+      "iphone11",
+      "ip11"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "iphone-11-pro",
+    "slug": "iphone-11-pro",
+    "brand": "애플",
+    "name": "아이폰 11 Pro",
+    "nameEn": "iPhone 11 Pro",
+    "category": "smartphone",
+    "releasedAt": "2019-09",
+    "msrp": 1390000,
+    "match": {
+      "require": [
+        [
+          "아이폰11프로",
+          "아이폰11pro",
+          "iphone11프로",
+          "iphone11pro",
+          "ip11프로",
+          "ip11pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰11프로",
+      "아이폰11pro",
+      "iphone11프로",
+      "iphone11pro",
+      "ip11프로",
+      "ip11pro"
+    ],
+    "storages": [
+      64,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-11-pro-max",
+    "slug": "iphone-11-pro-max",
+    "brand": "애플",
+    "name": "아이폰 11 Pro Max",
+    "nameEn": "iPhone 11 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2019-09",
+    "msrp": 1550000,
+    "match": {
+      "require": [
+        [
+          "아이폰11프로맥스",
+          "아이폰11promax",
+          "아이폰11프로max",
+          "아이폰11pro맥스",
+          "iphone11프로맥스",
+          "iphone11promax",
+          "iphone11프로max",
+          "iphone11pro맥스",
+          "ip11프로맥스",
+          "ip11promax",
+          "ip11프로max",
+          "ip11pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰11프로맥스",
+      "아이폰11promax",
+      "아이폰11프로max",
+      "아이폰11pro맥스",
+      "iphone11프로맥스",
+      "iphone11promax",
+      "iphone11프로max",
+      "iphone11pro맥스"
+    ],
+    "storages": [
+      64,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-12-mini",
+    "slug": "iphone-12-mini",
+    "brand": "애플",
+    "name": "아이폰 12 mini",
+    "nameEn": "iPhone 12 mini",
+    "category": "smartphone",
+    "releasedAt": "2020-10",
+    "msrp": 950000,
+    "match": {
+      "require": [
+        [
+          "아이폰12미니",
+          "아이폰12mini",
+          "iphone12미니",
+          "iphone12mini",
+          "ip12미니",
+          "ip12mini"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰12미니",
+      "아이폰12mini",
+      "iphone12미니",
+      "iphone12mini",
+      "ip12미니",
+      "ip12mini"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "iphone-12",
+    "slug": "iphone-12",
+    "brand": "애플",
+    "name": "아이폰 12",
+    "nameEn": "iPhone 12",
+    "category": "smartphone",
+    "releasedAt": "2020-10",
+    "msrp": 1090000,
+    "match": {
+      "require": [
+        [
+          "아이폰12",
+          "iphone12",
+          "ip12"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰12",
+      "iphone12",
+      "ip12"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "iphone-12-pro",
+    "slug": "iphone-12-pro",
+    "brand": "애플",
+    "name": "아이폰 12 Pro",
+    "nameEn": "iPhone 12 Pro",
+    "category": "smartphone",
+    "releasedAt": "2020-10",
+    "msrp": 1350000,
+    "match": {
+      "require": [
+        [
+          "아이폰12프로",
+          "아이폰12pro",
+          "iphone12프로",
+          "iphone12pro",
+          "ip12프로",
+          "ip12pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰12프로",
+      "아이폰12pro",
+      "iphone12프로",
+      "iphone12pro",
+      "ip12프로",
+      "ip12pro"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-12-pro-max",
+    "slug": "iphone-12-pro-max",
+    "brand": "애플",
+    "name": "아이폰 12 Pro Max",
+    "nameEn": "iPhone 12 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2020-10",
+    "msrp": 1490000,
+    "match": {
+      "require": [
+        [
+          "아이폰12프로맥스",
+          "아이폰12promax",
+          "아이폰12프로max",
+          "아이폰12pro맥스",
+          "iphone12프로맥스",
+          "iphone12promax",
+          "iphone12프로max",
+          "iphone12pro맥스",
+          "ip12프로맥스",
+          "ip12promax",
+          "ip12프로max",
+          "ip12pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰12프로맥스",
+      "아이폰12promax",
+      "아이폰12프로max",
+      "아이폰12pro맥스",
+      "iphone12프로맥스",
+      "iphone12promax",
+      "iphone12프로max",
+      "iphone12pro맥스"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-13-mini",
+    "slug": "iphone-13-mini",
+    "brand": "애플",
+    "name": "아이폰 13 mini",
+    "nameEn": "iPhone 13 mini",
+    "category": "smartphone",
+    "releasedAt": "2021-09",
+    "msrp": 950000,
+    "match": {
+      "require": [
+        [
+          "아이폰13미니",
+          "아이폰13mini",
+          "iphone13미니",
+          "iphone13mini",
+          "ip13미니",
+          "ip13mini"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰13미니",
+      "아이폰13mini",
+      "iphone13미니",
+      "iphone13mini",
+      "ip13미니",
+      "ip13mini"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "iphone-13",
+    "slug": "iphone-13",
+    "brand": "애플",
+    "name": "아이폰 13",
+    "nameEn": "iPhone 13",
+    "category": "smartphone",
+    "releasedAt": "2021-09",
+    "msrp": 1090000,
+    "match": {
+      "require": [
+        [
+          "아이폰13",
+          "iphone13",
+          "ip13"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰13",
+      "iphone13",
+      "ip13"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "iphone-13-pro",
+    "slug": "iphone-13-pro",
+    "brand": "애플",
+    "name": "아이폰 13 Pro",
+    "nameEn": "iPhone 13 Pro",
+    "category": "smartphone",
+    "releasedAt": "2021-09",
+    "msrp": 1350000,
+    "match": {
+      "require": [
+        [
+          "아이폰13프로",
+          "아이폰13pro",
+          "iphone13프로",
+          "iphone13pro",
+          "ip13프로",
+          "ip13pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰13프로",
+      "아이폰13pro",
+      "iphone13프로",
+      "iphone13pro",
+      "ip13프로",
+      "ip13pro"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-13-pro-max",
+    "slug": "iphone-13-pro-max",
+    "brand": "애플",
+    "name": "아이폰 13 Pro Max",
+    "nameEn": "iPhone 13 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2021-09",
+    "msrp": 1490000,
+    "match": {
+      "require": [
+        [
+          "아이폰13프로맥스",
+          "아이폰13promax",
+          "아이폰13프로max",
+          "아이폰13pro맥스",
+          "iphone13프로맥스",
+          "iphone13promax",
+          "iphone13프로max",
+          "iphone13pro맥스",
+          "ip13프로맥스",
+          "ip13promax",
+          "ip13프로max",
+          "ip13pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰13프로맥스",
+      "아이폰13promax",
+      "아이폰13프로max",
+      "아이폰13pro맥스",
+      "iphone13프로맥스",
+      "iphone13promax",
+      "iphone13프로max",
+      "iphone13pro맥스"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-14",
+    "slug": "iphone-14",
+    "brand": "애플",
+    "name": "아이폰 14",
+    "nameEn": "iPhone 14",
+    "category": "smartphone",
+    "releasedAt": "2022-09",
+    "msrp": 1250000,
+    "match": {
+      "require": [
+        [
+          "아이폰14",
+          "iphone14",
+          "ip14"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰14",
+      "iphone14",
+      "ip14"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-14-plus",
+    "slug": "iphone-14-plus",
+    "brand": "애플",
+    "name": "아이폰 14 Plus",
+    "nameEn": "iPhone 14 Plus",
+    "category": "smartphone",
+    "releasedAt": "2022-09",
+    "msrp": 1350000,
+    "match": {
+      "require": [
+        [
+          "아이폰14플러스",
+          "아이폰14plus",
+          "iphone14플러스",
+          "iphone14plus",
+          "ip14플러스",
+          "ip14plus"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰14플러스",
+      "아이폰14plus",
+      "iphone14플러스",
+      "iphone14plus",
+      "ip14플러스",
+      "ip14plus"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-14-pro",
+    "slug": "iphone-14-pro",
+    "brand": "애플",
+    "name": "아이폰 14 Pro",
+    "nameEn": "iPhone 14 Pro",
+    "category": "smartphone",
+    "releasedAt": "2022-09",
+    "msrp": 1550000,
+    "match": {
+      "require": [
+        [
+          "아이폰14프로",
+          "아이폰14pro",
+          "iphone14프로",
+          "iphone14pro",
+          "ip14프로",
+          "ip14pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰14프로",
+      "아이폰14pro",
+      "iphone14프로",
+      "iphone14pro",
+      "ip14프로",
+      "ip14pro"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-14-pro-max",
+    "slug": "iphone-14-pro-max",
+    "brand": "애플",
+    "name": "아이폰 14 Pro Max",
+    "nameEn": "iPhone 14 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2022-09",
+    "msrp": 1750000,
+    "match": {
+      "require": [
+        [
+          "아이폰14프로맥스",
+          "아이폰14promax",
+          "아이폰14프로max",
+          "아이폰14pro맥스",
+          "iphone14프로맥스",
+          "iphone14promax",
+          "iphone14프로max",
+          "iphone14pro맥스",
+          "ip14프로맥스",
+          "ip14promax",
+          "ip14프로max",
+          "ip14pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰14프로맥스",
+      "아이폰14promax",
+      "아이폰14프로max",
+      "아이폰14pro맥스",
+      "iphone14프로맥스",
+      "iphone14promax",
+      "iphone14프로max",
+      "iphone14pro맥스"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-15",
+    "slug": "iphone-15",
+    "brand": "애플",
+    "name": "아이폰 15",
+    "nameEn": "iPhone 15",
+    "category": "smartphone",
+    "releasedAt": "2023-09",
+    "msrp": 1250000,
+    "match": {
+      "require": [
+        [
+          "아이폰15",
+          "iphone15",
+          "ip15"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰15",
+      "iphone15",
+      "ip15"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-15-plus",
+    "slug": "iphone-15-plus",
+    "brand": "애플",
+    "name": "아이폰 15 Plus",
+    "nameEn": "iPhone 15 Plus",
+    "category": "smartphone",
+    "releasedAt": "2023-09",
+    "msrp": 1350000,
+    "match": {
+      "require": [
+        [
+          "아이폰15플러스",
+          "아이폰15plus",
+          "iphone15플러스",
+          "iphone15plus",
+          "ip15플러스",
+          "ip15plus"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰15플러스",
+      "아이폰15plus",
+      "iphone15플러스",
+      "iphone15plus",
+      "ip15플러스",
+      "ip15plus"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-15-pro",
+    "slug": "iphone-15-pro",
+    "brand": "애플",
+    "name": "아이폰 15 Pro",
+    "nameEn": "iPhone 15 Pro",
+    "category": "smartphone",
+    "releasedAt": "2023-09",
+    "msrp": 1550000,
+    "match": {
+      "require": [
+        [
+          "아이폰15프로",
+          "아이폰15pro",
+          "iphone15프로",
+          "iphone15pro",
+          "ip15프로",
+          "ip15pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰15프로",
+      "아이폰15pro",
+      "iphone15프로",
+      "iphone15pro",
+      "ip15프로",
+      "ip15pro"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-15-pro-max",
+    "slug": "iphone-15-pro-max",
+    "brand": "애플",
+    "name": "아이폰 15 Pro Max",
+    "nameEn": "iPhone 15 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2023-09",
+    "msrp": 1900000,
+    "match": {
+      "require": [
+        [
+          "아이폰15프로맥스",
+          "아이폰15promax",
+          "아이폰15프로max",
+          "아이폰15pro맥스",
+          "iphone15프로맥스",
+          "iphone15promax",
+          "iphone15프로max",
+          "iphone15pro맥스",
+          "ip15프로맥스",
+          "ip15promax",
+          "ip15프로max",
+          "ip15pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰15프로맥스",
+      "아이폰15promax",
+      "아이폰15프로max",
+      "아이폰15pro맥스",
+      "iphone15프로맥스",
+      "iphone15promax",
+      "iphone15프로max",
+      "iphone15pro맥스"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-16e",
+    "slug": "iphone-16e",
+    "brand": "애플",
+    "name": "아이폰 16e",
+    "nameEn": "iPhone 16e",
+    "category": "smartphone",
+    "releasedAt": "2025-02",
+    "msrp": 990000,
+    "match": {
+      "require": [
+        [
+          "아이폰16e",
+          "iphone16e",
+          "ip16e"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰16e",
+      "iphone16e",
+      "ip16e"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-16",
+    "slug": "iphone-16",
+    "brand": "애플",
+    "name": "아이폰 16",
+    "nameEn": "iPhone 16",
+    "category": "smartphone",
+    "releasedAt": "2024-09",
+    "msrp": 1250000,
+    "match": {
+      "require": [
+        [
+          "아이폰16",
+          "iphone16",
+          "ip16"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰16",
+      "iphone16",
+      "ip16"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-16-plus",
+    "slug": "iphone-16-plus",
+    "brand": "애플",
+    "name": "아이폰 16 Plus",
+    "nameEn": "iPhone 16 Plus",
+    "category": "smartphone",
+    "releasedAt": "2024-09",
+    "msrp": 1350000,
+    "match": {
+      "require": [
+        [
+          "아이폰16플러스",
+          "아이폰16plus",
+          "iphone16플러스",
+          "iphone16plus",
+          "ip16플러스",
+          "ip16plus"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰16플러스",
+      "아이폰16plus",
+      "iphone16플러스",
+      "iphone16plus",
+      "ip16플러스",
+      "ip16plus"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-16-pro",
+    "slug": "iphone-16-pro",
+    "brand": "애플",
+    "name": "아이폰 16 Pro",
+    "nameEn": "iPhone 16 Pro",
+    "category": "smartphone",
+    "releasedAt": "2024-09",
+    "msrp": 1550000,
+    "match": {
+      "require": [
+        [
+          "아이폰16프로",
+          "아이폰16pro",
+          "iphone16프로",
+          "iphone16pro",
+          "ip16프로",
+          "ip16pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰16프로",
+      "아이폰16pro",
+      "iphone16프로",
+      "iphone16pro",
+      "ip16프로",
+      "ip16pro"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-16-pro-max",
+    "slug": "iphone-16-pro-max",
+    "brand": "애플",
+    "name": "아이폰 16 Pro Max",
+    "nameEn": "iPhone 16 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2024-09",
+    "msrp": 1900000,
+    "match": {
+      "require": [
+        [
+          "아이폰16프로맥스",
+          "아이폰16promax",
+          "아이폰16프로max",
+          "아이폰16pro맥스",
+          "iphone16프로맥스",
+          "iphone16promax",
+          "iphone16프로max",
+          "iphone16pro맥스",
+          "ip16프로맥스",
+          "ip16promax",
+          "ip16프로max",
+          "ip16pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰16프로맥스",
+      "아이폰16promax",
+      "아이폰16프로max",
+      "아이폰16pro맥스",
+      "iphone16프로맥스",
+      "iphone16promax",
+      "iphone16프로max",
+      "iphone16pro맥스"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-17",
+    "slug": "iphone-17",
+    "brand": "애플",
+    "name": "아이폰 17",
+    "nameEn": "iPhone 17",
+    "category": "smartphone",
+    "releasedAt": "2025-09",
+    "msrp": 1290000,
+    "match": {
+      "require": [
+        [
+          "아이폰17",
+          "iphone17",
+          "ip17"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰17",
+      "iphone17",
+      "ip17"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "iphone-17-air",
+    "slug": "iphone-17-air",
+    "brand": "애플",
+    "name": "아이폰 17 Air",
+    "nameEn": "iPhone 17 Air",
+    "category": "smartphone",
+    "releasedAt": "2025-09",
+    "msrp": 1590000,
+    "match": {
+      "require": [
+        [
+          "아이폰17에어",
+          "아이폰17air",
+          "iphone17에어",
+          "iphone17air",
+          "ip17에어",
+          "ip17air"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰17에어",
+      "아이폰17air",
+      "iphone17에어",
+      "iphone17air",
+      "ip17에어",
+      "ip17air"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-17-pro",
+    "slug": "iphone-17-pro",
+    "brand": "애플",
+    "name": "아이폰 17 Pro",
+    "nameEn": "iPhone 17 Pro",
+    "category": "smartphone",
+    "releasedAt": "2025-09",
+    "msrp": 1790000,
+    "match": {
+      "require": [
+        [
+          "아이폰17프로",
+          "아이폰17pro",
+          "iphone17프로",
+          "iphone17pro",
+          "ip17프로",
+          "ip17pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰17프로",
+      "아이폰17pro",
+      "iphone17프로",
+      "iphone17pro",
+      "ip17프로",
+      "ip17pro"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "iphone-17-pro-max",
+    "slug": "iphone-17-pro-max",
+    "brand": "애플",
+    "name": "아이폰 17 Pro Max",
+    "nameEn": "iPhone 17 Pro Max",
+    "category": "smartphone",
+    "releasedAt": "2025-09",
+    "msrp": 1990000,
+    "match": {
+      "require": [
+        [
+          "아이폰17프로맥스",
+          "아이폰17promax",
+          "아이폰17프로max",
+          "아이폰17pro맥스",
+          "iphone17프로맥스",
+          "iphone17promax",
+          "iphone17프로max",
+          "iphone17pro맥스",
+          "ip17프로맥스",
+          "ip17promax",
+          "ip17프로max",
+          "ip17pro맥스"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰17프로맥스",
+      "아이폰17promax",
+      "아이폰17프로max",
+      "아이폰17pro맥스",
+      "iphone17프로맥스",
+      "iphone17promax",
+      "iphone17프로max",
+      "iphone17pro맥스"
+    ],
+    "storages": [
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "iphone-se-2",
+    "slug": "iphone-se-2",
+    "brand": "애플",
+    "name": "아이폰 SE 2세대",
+    "nameEn": "iPhone SE (2nd gen)",
+    "category": "smartphone",
+    "releasedAt": "2020-04",
+    "msrp": 550000,
+    "match": {
+      "require": [
+        [
+          "아이폰se2",
+          "아이폰se2세대",
+          "아이폰sese2",
+          "iphonese2",
+          "iphonese2세대",
+          "iphonesese2"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰se2",
+      "아이폰se2세대",
+      "아이폰sese2",
+      "iphonese2",
+      "iphonese2세대",
+      "iphonesese2"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "iphone-se-3",
+    "slug": "iphone-se-3",
+    "brand": "애플",
+    "name": "아이폰 SE 3세대",
+    "nameEn": "iPhone SE (3rd gen)",
+    "category": "smartphone",
+    "releasedAt": "2022-03",
+    "msrp": 590000,
+    "match": {
+      "require": [
+        [
+          "아이폰se3",
+          "아이폰se3세대",
+          "iphonese3",
+          "iphonese3세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이폰se3",
+      "아이폰se3세대",
+      "iphonese3",
+      "iphonese3세대"
+    ],
+    "storages": [
+      64,
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s21",
+    "slug": "galaxy-s21",
+    "brand": "삼성",
+    "name": "갤럭시 S21",
+    "nameEn": "Galaxy S21",
+    "category": "smartphone",
+    "releasedAt": "2021-01",
+    "msrp": 999900,
+    "match": {
+      "require": [
+        [
+          "갤럭시s21",
+          "galaxys21",
+          "겔럭시s21",
+          "gs21"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s21",
+      "galaxys21",
+      "겔럭시s21",
+      "gs21"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s21-plus",
+    "slug": "galaxy-s21-plus",
+    "brand": "삼성",
+    "name": "갤럭시 S21 Plus",
+    "nameEn": "Galaxy S21 Plus",
+    "category": "smartphone",
+    "releasedAt": "2021-01",
+    "msrp": 1199000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s21플러스",
+          "갤럭시s21plus",
+          "갤럭시s21+",
+          "galaxys21플러스",
+          "galaxys21plus",
+          "galaxys21+",
+          "겔럭시s21플러스",
+          "겔럭시s21plus",
+          "겔럭시s21+",
+          "gs21플러스",
+          "gs21plus",
+          "gs21+"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s21플러스",
+      "갤럭시s21plus",
+      "갤럭시s21+",
+      "galaxys21플러스",
+      "galaxys21plus",
+      "galaxys21+",
+      "겔럭시s21플러스",
+      "겔럭시s21plus"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s21-ultra",
+    "slug": "galaxy-s21-ultra",
+    "brand": "삼성",
+    "name": "갤럭시 S21 Ultra",
+    "nameEn": "Galaxy S21 Ultra",
+    "category": "smartphone",
+    "releasedAt": "2021-01",
+    "msrp": 1452000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s21울트라",
+          "갤럭시s21ultra",
+          "galaxys21울트라",
+          "galaxys21ultra",
+          "겔럭시s21울트라",
+          "겔럭시s21ultra",
+          "gs21울트라",
+          "gs21ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s21울트라",
+      "갤럭시s21ultra",
+      "galaxys21울트라",
+      "galaxys21ultra",
+      "겔럭시s21울트라",
+      "겔럭시s21ultra",
+      "gs21울트라",
+      "gs21ultra"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-s22",
+    "slug": "galaxy-s22",
+    "brand": "삼성",
+    "name": "갤럭시 S22",
+    "nameEn": "Galaxy S22",
+    "category": "smartphone",
+    "releasedAt": "2022-02",
+    "msrp": 999900,
+    "match": {
+      "require": [
+        [
+          "갤럭시s22",
+          "galaxys22",
+          "겔럭시s22",
+          "gs22"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s22",
+      "galaxys22",
+      "겔럭시s22",
+      "gs22"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s22-plus",
+    "slug": "galaxy-s22-plus",
+    "brand": "삼성",
+    "name": "갤럭시 S22 Plus",
+    "nameEn": "Galaxy S22 Plus",
+    "category": "smartphone",
+    "releasedAt": "2022-02",
+    "msrp": 1199000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s22플러스",
+          "갤럭시s22plus",
+          "갤럭시s22+",
+          "galaxys22플러스",
+          "galaxys22plus",
+          "galaxys22+",
+          "겔럭시s22플러스",
+          "겔럭시s22plus",
+          "겔럭시s22+",
+          "gs22플러스",
+          "gs22plus",
+          "gs22+"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s22플러스",
+      "갤럭시s22plus",
+      "갤럭시s22+",
+      "galaxys22플러스",
+      "galaxys22plus",
+      "galaxys22+",
+      "겔럭시s22플러스",
+      "겔럭시s22plus"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s22-ultra",
+    "slug": "galaxy-s22-ultra",
+    "brand": "삼성",
+    "name": "갤럭시 S22 Ultra",
+    "nameEn": "Galaxy S22 Ultra",
+    "category": "smartphone",
+    "releasedAt": "2022-02",
+    "msrp": 1452000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s22울트라",
+          "갤럭시s22ultra",
+          "galaxys22울트라",
+          "galaxys22ultra",
+          "겔럭시s22울트라",
+          "겔럭시s22ultra",
+          "gs22울트라",
+          "gs22ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s22울트라",
+      "갤럭시s22ultra",
+      "galaxys22울트라",
+      "galaxys22ultra",
+      "겔럭시s22울트라",
+      "겔럭시s22ultra",
+      "gs22울트라",
+      "gs22ultra"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-s23",
+    "slug": "galaxy-s23",
+    "brand": "삼성",
+    "name": "갤럭시 S23",
+    "nameEn": "Galaxy S23",
+    "category": "smartphone",
+    "releasedAt": "2023-02",
+    "msrp": 1155000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s23",
+          "galaxys23",
+          "겔럭시s23",
+          "gs23"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s23",
+      "galaxys23",
+      "겔럭시s23",
+      "gs23"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s23-plus",
+    "slug": "galaxy-s23-plus",
+    "brand": "삼성",
+    "name": "갤럭시 S23 Plus",
+    "nameEn": "Galaxy S23 Plus",
+    "category": "smartphone",
+    "releasedAt": "2023-02",
+    "msrp": 1353000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s23플러스",
+          "갤럭시s23plus",
+          "갤럭시s23+",
+          "galaxys23플러스",
+          "galaxys23plus",
+          "galaxys23+",
+          "겔럭시s23플러스",
+          "겔럭시s23plus",
+          "겔럭시s23+",
+          "gs23플러스",
+          "gs23plus",
+          "gs23+"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s23플러스",
+      "갤럭시s23plus",
+      "갤럭시s23+",
+      "galaxys23플러스",
+      "galaxys23plus",
+      "galaxys23+",
+      "겔럭시s23플러스",
+      "겔럭시s23plus"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-s23-ultra",
+    "slug": "galaxy-s23-ultra",
+    "brand": "삼성",
+    "name": "갤럭시 S23 Ultra",
+    "nameEn": "Galaxy S23 Ultra",
+    "category": "smartphone",
+    "releasedAt": "2023-02",
+    "msrp": 1599400,
+    "match": {
+      "require": [
+        [
+          "갤럭시s23울트라",
+          "갤럭시s23ultra",
+          "galaxys23울트라",
+          "galaxys23ultra",
+          "겔럭시s23울트라",
+          "겔럭시s23ultra",
+          "gs23울트라",
+          "gs23ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s23울트라",
+      "갤럭시s23ultra",
+      "galaxys23울트라",
+      "galaxys23ultra",
+      "겔럭시s23울트라",
+      "겔럭시s23ultra",
+      "gs23울트라",
+      "gs23ultra"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-s23-fe",
+    "slug": "galaxy-s23-fe",
+    "brand": "삼성",
+    "name": "갤럭시 S23 FE",
+    "nameEn": "Galaxy S23 FE",
+    "category": "smartphone",
+    "releasedAt": "2023-10",
+    "msrp": 848000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s23fe",
+          "galaxys23fe",
+          "겔럭시s23fe",
+          "gs23fe"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s23fe",
+      "galaxys23fe",
+      "겔럭시s23fe",
+      "gs23fe"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s24",
+    "slug": "galaxy-s24",
+    "brand": "삼성",
+    "name": "갤럭시 S24",
+    "nameEn": "Galaxy S24",
+    "category": "smartphone",
+    "releasedAt": "2024-01",
+    "msrp": 1155000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s24",
+          "galaxys24",
+          "겔럭시s24",
+          "gs24"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s24",
+      "galaxys24",
+      "겔럭시s24",
+      "gs24"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-s24-plus",
+    "slug": "galaxy-s24-plus",
+    "brand": "삼성",
+    "name": "갤럭시 S24 Plus",
+    "nameEn": "Galaxy S24 Plus",
+    "category": "smartphone",
+    "releasedAt": "2024-01",
+    "msrp": 1353000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s24플러스",
+          "갤럭시s24plus",
+          "갤럭시s24+",
+          "galaxys24플러스",
+          "galaxys24plus",
+          "galaxys24+",
+          "겔럭시s24플러스",
+          "겔럭시s24plus",
+          "겔럭시s24+",
+          "gs24플러스",
+          "gs24plus",
+          "gs24+"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s24플러스",
+      "갤럭시s24plus",
+      "갤럭시s24+",
+      "galaxys24플러스",
+      "galaxys24plus",
+      "galaxys24+",
+      "겔럭시s24플러스",
+      "겔럭시s24plus"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-s24-ultra",
+    "slug": "galaxy-s24-ultra",
+    "brand": "삼성",
+    "name": "갤럭시 S24 Ultra",
+    "nameEn": "Galaxy S24 Ultra",
+    "category": "smartphone",
+    "releasedAt": "2024-01",
+    "msrp": 1698400,
+    "match": {
+      "require": [
+        [
+          "갤럭시s24울트라",
+          "갤럭시s24ultra",
+          "galaxys24울트라",
+          "galaxys24ultra",
+          "겔럭시s24울트라",
+          "겔럭시s24ultra",
+          "gs24울트라",
+          "gs24ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s24울트라",
+      "갤럭시s24ultra",
+      "galaxys24울트라",
+      "galaxys24ultra",
+      "겔럭시s24울트라",
+      "겔럭시s24ultra",
+      "gs24울트라",
+      "gs24ultra"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-s24-fe",
+    "slug": "galaxy-s24-fe",
+    "brand": "삼성",
+    "name": "갤럭시 S24 FE",
+    "nameEn": "Galaxy S24 FE",
+    "category": "smartphone",
+    "releasedAt": "2024-10",
+    "msrp": 949300,
+    "match": {
+      "require": [
+        [
+          "갤럭시s24fe",
+          "galaxys24fe",
+          "겔럭시s24fe",
+          "gs24fe"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s24fe",
+      "galaxys24fe",
+      "겔럭시s24fe",
+      "gs24fe"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-s25",
+    "slug": "galaxy-s25",
+    "brand": "삼성",
+    "name": "갤럭시 S25",
+    "nameEn": "Galaxy S25",
+    "category": "smartphone",
+    "releasedAt": "2025-02",
+    "msrp": 1155000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s25",
+          "galaxys25",
+          "겔럭시s25",
+          "gs25"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s25",
+      "galaxys25",
+      "겔럭시s25",
+      "gs25"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-s25-plus",
+    "slug": "galaxy-s25-plus",
+    "brand": "삼성",
+    "name": "갤럭시 S25 Plus",
+    "nameEn": "Galaxy S25 Plus",
+    "category": "smartphone",
+    "releasedAt": "2025-02",
+    "msrp": 1353000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s25플러스",
+          "갤럭시s25plus",
+          "갤럭시s25+",
+          "galaxys25플러스",
+          "galaxys25plus",
+          "galaxys25+",
+          "겔럭시s25플러스",
+          "겔럭시s25plus",
+          "겔럭시s25+",
+          "gs25플러스",
+          "gs25plus",
+          "gs25+"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s25플러스",
+      "갤럭시s25plus",
+      "갤럭시s25+",
+      "galaxys25플러스",
+      "galaxys25plus",
+      "galaxys25+",
+      "겔럭시s25플러스",
+      "겔럭시s25plus"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-s25-ultra",
+    "slug": "galaxy-s25-ultra",
+    "brand": "삼성",
+    "name": "갤럭시 S25 Ultra",
+    "nameEn": "Galaxy S25 Ultra",
+    "category": "smartphone",
+    "releasedAt": "2025-02",
+    "msrp": 1698400,
+    "match": {
+      "require": [
+        [
+          "갤럭시s25울트라",
+          "갤럭시s25ultra",
+          "galaxys25울트라",
+          "galaxys25ultra",
+          "겔럭시s25울트라",
+          "겔럭시s25ultra",
+          "gs25울트라",
+          "gs25ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s25울트라",
+      "갤럭시s25ultra",
+      "galaxys25울트라",
+      "galaxys25ultra",
+      "겔럭시s25울트라",
+      "겔럭시s25ultra",
+      "gs25울트라",
+      "gs25ultra"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-s25-edge",
+    "slug": "galaxy-s25-edge",
+    "brand": "삼성",
+    "name": "갤럭시 S25 Edge",
+    "nameEn": "Galaxy S25 Edge",
+    "category": "smartphone",
+    "releasedAt": "2025-05",
+    "msrp": 1499000,
+    "match": {
+      "require": [
+        [
+          "갤럭시s25엣지",
+          "갤럭시s25edge",
+          "galaxys25엣지",
+          "galaxys25edge",
+          "겔럭시s25엣지",
+          "겔럭시s25edge",
+          "gs25엣지",
+          "gs25edge"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시s25엣지",
+      "갤럭시s25edge",
+      "galaxys25엣지",
+      "galaxys25edge",
+      "겔럭시s25엣지",
+      "겔럭시s25edge",
+      "gs25엣지",
+      "gs25edge"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-z-flip-3",
+    "slug": "galaxy-z-flip-3",
+    "brand": "삼성",
+    "name": "갤럭시 Z 플립 3",
+    "nameEn": "Galaxy Z Flip 3",
+    "category": "smartphone",
+    "releasedAt": "2021-08",
+    "msrp": 1254000,
+    "match": {
+      "require": [
+        [
+          "갤럭시z플립3",
+          "galaxyzflip3",
+          "z플립3",
+          "zflip3",
+          "제트플립3",
+          "갤럭시플립3"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z플립3",
+      "galaxyzflip3",
+      "z플립3",
+      "zflip3",
+      "제트플립3",
+      "갤럭시플립3"
+    ],
+    "storages": [
+      128,
+      256
+    ]
+  },
+  {
+    "id": "galaxy-z-flip-4",
+    "slug": "galaxy-z-flip-4",
+    "brand": "삼성",
+    "name": "갤럭시 Z 플립 4",
+    "nameEn": "Galaxy Z Flip 4",
+    "category": "smartphone",
+    "releasedAt": "2022-08",
+    "msrp": 1353000,
+    "match": {
+      "require": [
+        [
+          "갤럭시z플립4",
+          "galaxyzflip4",
+          "z플립4",
+          "zflip4",
+          "제트플립4",
+          "갤럭시플립4"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z플립4",
+      "galaxyzflip4",
+      "z플립4",
+      "zflip4",
+      "제트플립4",
+      "갤럭시플립4"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-z-flip-5",
+    "slug": "galaxy-z-flip-5",
+    "brand": "삼성",
+    "name": "갤럭시 Z 플립 5",
+    "nameEn": "Galaxy Z Flip 5",
+    "category": "smartphone",
+    "releasedAt": "2023-08",
+    "msrp": 1399200,
+    "match": {
+      "require": [
+        [
+          "갤럭시z플립5",
+          "galaxyzflip5",
+          "z플립5",
+          "zflip5",
+          "제트플립5",
+          "갤럭시플립5"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z플립5",
+      "galaxyzflip5",
+      "z플립5",
+      "zflip5",
+      "제트플립5",
+      "갤럭시플립5"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-z-flip-6",
+    "slug": "galaxy-z-flip-6",
+    "brand": "삼성",
+    "name": "갤럭시 Z 플립 6",
+    "nameEn": "Galaxy Z Flip 6",
+    "category": "smartphone",
+    "releasedAt": "2024-07",
+    "msrp": 1485000,
+    "match": {
+      "require": [
+        [
+          "갤럭시z플립6",
+          "galaxyzflip6",
+          "z플립6",
+          "zflip6",
+          "제트플립6",
+          "갤럭시플립6"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z플립6",
+      "galaxyzflip6",
+      "z플립6",
+      "zflip6",
+      "제트플립6",
+      "갤럭시플립6"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-z-flip-7",
+    "slug": "galaxy-z-flip-7",
+    "brand": "삼성",
+    "name": "갤럭시 Z 플립 7",
+    "nameEn": "Galaxy Z Flip 7",
+    "category": "smartphone",
+    "releasedAt": "2025-07",
+    "msrp": 1485000,
+    "match": {
+      "require": [
+        [
+          "갤럭시z플립7",
+          "galaxyzflip7",
+          "z플립7",
+          "zflip7",
+          "제트플립7",
+          "갤럭시플립7"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z플립7",
+      "galaxyzflip7",
+      "z플립7",
+      "zflip7",
+      "제트플립7",
+      "갤럭시플립7"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-z-fold-3",
+    "slug": "galaxy-z-fold-3",
+    "brand": "삼성",
+    "name": "갤럭시 Z 폴드 3",
+    "nameEn": "Galaxy Z Fold 3",
+    "category": "smartphone",
+    "releasedAt": "2021-08",
+    "msrp": 1998700,
+    "match": {
+      "require": [
+        [
+          "갤럭시z폴드3",
+          "galaxyzfold3",
+          "z폴드3",
+          "zfold3",
+          "제트폴드3",
+          "갤럭시폴드3"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z폴드3",
+      "galaxyzfold3",
+      "z폴드3",
+      "zfold3",
+      "제트폴드3",
+      "갤럭시폴드3"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-z-fold-4",
+    "slug": "galaxy-z-fold-4",
+    "brand": "삼성",
+    "name": "갤럭시 Z 폴드 4",
+    "nameEn": "Galaxy Z Fold 4",
+    "category": "smartphone",
+    "releasedAt": "2022-08",
+    "msrp": 1998700,
+    "match": {
+      "require": [
+        [
+          "갤럭시z폴드4",
+          "galaxyzfold4",
+          "z폴드4",
+          "zfold4",
+          "제트폴드4",
+          "갤럭시폴드4"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z폴드4",
+      "galaxyzfold4",
+      "z폴드4",
+      "zfold4",
+      "제트폴드4",
+      "갤럭시폴드4"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-z-fold-5",
+    "slug": "galaxy-z-fold-5",
+    "brand": "삼성",
+    "name": "갤럭시 Z 폴드 5",
+    "nameEn": "Galaxy Z Fold 5",
+    "category": "smartphone",
+    "releasedAt": "2023-08",
+    "msrp": 2098700,
+    "match": {
+      "require": [
+        [
+          "갤럭시z폴드5",
+          "galaxyzfold5",
+          "z폴드5",
+          "zfold5",
+          "제트폴드5",
+          "갤럭시폴드5"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z폴드5",
+      "galaxyzfold5",
+      "z폴드5",
+      "zfold5",
+      "제트폴드5",
+      "갤럭시폴드5"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-z-fold-6",
+    "slug": "galaxy-z-fold-6",
+    "brand": "삼성",
+    "name": "갤럭시 Z 폴드 6",
+    "nameEn": "Galaxy Z Fold 6",
+    "category": "smartphone",
+    "releasedAt": "2024-07",
+    "msrp": 2228700,
+    "match": {
+      "require": [
+        [
+          "갤럭시z폴드6",
+          "galaxyzfold6",
+          "z폴드6",
+          "zfold6",
+          "제트폴드6",
+          "갤럭시폴드6"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z폴드6",
+      "galaxyzfold6",
+      "z폴드6",
+      "zfold6",
+      "제트폴드6",
+      "갤럭시폴드6"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-z-fold-7",
+    "slug": "galaxy-z-fold-7",
+    "brand": "삼성",
+    "name": "갤럭시 Z 폴드 7",
+    "nameEn": "Galaxy Z Fold 7",
+    "category": "smartphone",
+    "releasedAt": "2025-07",
+    "msrp": 2388000,
+    "match": {
+      "require": [
+        [
+          "갤럭시z폴드7",
+          "galaxyzfold7",
+          "z폴드7",
+          "zfold7",
+          "제트폴드7",
+          "갤럭시폴드7"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시z폴드7",
+      "galaxyzfold7",
+      "z폴드7",
+      "zfold7",
+      "제트폴드7",
+      "갤럭시폴드7"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "ipad-pro-11-m4",
+    "slug": "ipad-pro-11-m4",
+    "brand": "애플",
+    "name": "아이패드 프로 11 (M4)",
+    "nameEn": "iPad Pro 11 M4",
+    "category": "tablet",
+    "releasedAt": "2024-05",
+    "msrp": 1499000,
+    "match": {
+      "require": [
+        [
+          "아이패드프로",
+          "아이패드pro",
+          "ipad프로",
+          "ipadpro"
+        ],
+        [
+          "11"
+        ],
+        [
+          "m4"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드프로",
+      "아이패드pro",
+      "ipad프로",
+      "ipadpro"
+    ],
+    "storages": [
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "ipad-pro-13-m4",
+    "slug": "ipad-pro-13-m4",
+    "brand": "애플",
+    "name": "아이패드 프로 13 (M4)",
+    "nameEn": "iPad Pro 13 M4",
+    "category": "tablet",
+    "releasedAt": "2024-05",
+    "msrp": 1999000,
+    "match": {
+      "require": [
+        [
+          "아이패드프로",
+          "아이패드pro",
+          "ipad프로",
+          "ipadpro"
+        ],
+        [
+          "13"
+        ],
+        [
+          "m4"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드프로",
+      "아이패드pro",
+      "ipad프로",
+      "ipadpro"
+    ],
+    "storages": [
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "ipad-pro-11-m2",
+    "slug": "ipad-pro-11-m2",
+    "brand": "애플",
+    "name": "아이패드 프로 11 (M2)",
+    "nameEn": "iPad Pro 11 M2",
+    "category": "tablet",
+    "releasedAt": "2022-10",
+    "msrp": 1249000,
+    "match": {
+      "require": [
+        [
+          "아이패드프로",
+          "아이패드pro",
+          "ipad프로",
+          "ipadpro"
+        ],
+        [
+          "11"
+        ],
+        [
+          "m2"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드프로",
+      "아이패드pro",
+      "ipad프로",
+      "ipadpro"
+    ],
+    "storages": [
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "ipad-air-11-m2",
+    "slug": "ipad-air-11-m2",
+    "brand": "애플",
+    "name": "아이패드 에어 11 (M2)",
+    "nameEn": "iPad Air 11 M2",
+    "category": "tablet",
+    "releasedAt": "2024-05",
+    "msrp": 899000,
+    "match": {
+      "require": [
+        [
+          "아이패드에어",
+          "아이패드air",
+          "ipad에어",
+          "ipadair"
+        ],
+        [
+          "11"
+        ],
+        [
+          "m2"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드에어",
+      "아이패드air",
+      "ipad에어",
+      "ipadair"
+    ],
+    "storages": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "ipad-air-5",
+    "slug": "ipad-air-5",
+    "brand": "애플",
+    "name": "아이패드 에어 5세대",
+    "nameEn": "iPad Air 5",
+    "category": "tablet",
+    "releasedAt": "2022-03",
+    "msrp": 929000,
+    "match": {
+      "require": [
+        [
+          "아이패드에어5",
+          "아이패드에어5세대",
+          "아이패드에어m1",
+          "아이패드air5",
+          "아이패드air5세대",
+          "아이패드airm1",
+          "ipad에어5",
+          "ipad에어5세대",
+          "ipad에어m1",
+          "ipadair5",
+          "ipadair5세대",
+          "ipadairm1"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드에어5",
+      "아이패드에어5세대",
+      "아이패드에어m1",
+      "아이패드air5",
+      "아이패드air5세대",
+      "아이패드airm1",
+      "ipad에어5",
+      "ipad에어5세대"
+    ],
+    "storages": [
+      64,
+      256
+    ]
+  },
+  {
+    "id": "ipad-10",
+    "slug": "ipad-10",
+    "brand": "애플",
+    "name": "아이패드 10세대",
+    "nameEn": "iPad 10th gen",
+    "category": "tablet",
+    "releasedAt": "2022-10",
+    "msrp": 679000,
+    "match": {
+      "require": [
+        [
+          "아이패드10세대",
+          "아이패드10th",
+          "ipad10세대",
+          "ipad10th"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드10세대",
+      "아이패드10th",
+      "ipad10세대",
+      "ipad10th"
+    ],
+    "storages": [
+      64,
+      256
+    ]
+  },
+  {
+    "id": "ipad-mini-6",
+    "slug": "ipad-mini-6",
+    "brand": "애플",
+    "name": "아이패드 미니 6세대",
+    "nameEn": "iPad mini 6",
+    "category": "tablet",
+    "releasedAt": "2021-09",
+    "msrp": 649000,
+    "match": {
+      "require": [
+        [
+          "아이패드미니6",
+          "아이패드미니6세대",
+          "아이패드mini6",
+          "아이패드mini6세대",
+          "ipad미니6",
+          "ipad미니6세대",
+          "ipadmini6",
+          "ipadmini6세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드미니6",
+      "아이패드미니6세대",
+      "아이패드mini6",
+      "아이패드mini6세대",
+      "ipad미니6",
+      "ipad미니6세대",
+      "ipadmini6",
+      "ipadmini6세대"
+    ],
+    "storages": [
+      64,
+      256
+    ]
+  },
+  {
+    "id": "ipad-mini-7",
+    "slug": "ipad-mini-7",
+    "brand": "애플",
+    "name": "아이패드 미니 7세대",
+    "nameEn": "iPad mini 7",
+    "category": "tablet",
+    "releasedAt": "2024-10",
+    "msrp": 749000,
+    "match": {
+      "require": [
+        [
+          "아이패드미니7",
+          "아이패드미니7세대",
+          "아이패드mini7",
+          "아이패드mini7세대",
+          "ipad미니7",
+          "ipad미니7세대",
+          "ipadmini7",
+          "ipadmini7세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "아이패드미니7",
+      "아이패드미니7세대",
+      "아이패드mini7",
+      "아이패드mini7세대",
+      "ipad미니7",
+      "ipad미니7세대",
+      "ipadmini7",
+      "ipadmini7세대"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-tab-s9",
+    "slug": "galaxy-tab-s9",
+    "brand": "삼성",
+    "name": "갤럭시 탭 S9",
+    "nameEn": "Galaxy Tab S9",
+    "category": "tablet",
+    "releasedAt": "2023-08",
+    "msrp": 1199000,
+    "match": {
+      "require": [
+        [
+          "갤럭시탭s9",
+          "galaxytabs9",
+          "갤탭s9"
+        ]
+      ],
+      "exclude": [
+        "s9plus",
+        "s9플러스",
+        "s9울트라",
+        "s9ultra",
+        "s9fe"
+      ]
+    },
+    "aliases": [
+      "갤럭시탭s9",
+      "galaxytabs9",
+      "갤탭s9"
+    ],
+    "storages": [
+      128,
+      256,
+      512
+    ]
+  },
+  {
+    "id": "galaxy-tab-s9-ultra",
+    "slug": "galaxy-tab-s9-ultra",
+    "brand": "삼성",
+    "name": "갤럭시 탭 S9 울트라",
+    "nameEn": "Galaxy Tab S9 Ultra",
+    "category": "tablet",
+    "releasedAt": "2023-08",
+    "msrp": 1699000,
+    "match": {
+      "require": [
+        [
+          "갤럭시탭s9울트라",
+          "갤럭시탭s9ultra",
+          "galaxytabs9울트라",
+          "galaxytabs9ultra",
+          "갤탭s9울트라",
+          "갤탭s9ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시탭s9울트라",
+      "갤럭시탭s9ultra",
+      "galaxytabs9울트라",
+      "galaxytabs9ultra",
+      "갤탭s9울트라",
+      "갤탭s9ultra"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-tab-s10-plus",
+    "slug": "galaxy-tab-s10-plus",
+    "brand": "삼성",
+    "name": "갤럭시 탭 S10+",
+    "nameEn": "Galaxy Tab S10 Plus",
+    "category": "tablet",
+    "releasedAt": "2024-10",
+    "msrp": 1399000,
+    "match": {
+      "require": [
+        [
+          "갤럭시탭s10플러스",
+          "갤럭시탭s10plus",
+          "갤럭시탭s10+",
+          "galaxytabs10플러스",
+          "galaxytabs10plus",
+          "galaxytabs10+",
+          "갤탭s10플러스",
+          "갤탭s10plus",
+          "갤탭s10+"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시탭s10플러스",
+      "갤럭시탭s10plus",
+      "갤럭시탭s10+",
+      "galaxytabs10플러스",
+      "galaxytabs10plus",
+      "galaxytabs10+",
+      "갤탭s10플러스",
+      "갤탭s10plus"
+    ],
+    "storages": [
+      256,
+      512
+    ]
+  },
+  {
+    "id": "macbook-air-m1-13",
+    "slug": "macbook-air-m1-13",
+    "brand": "애플",
+    "name": "맥북 에어 M1 13\"",
+    "nameEn": "MacBook Air M1 13",
+    "category": "laptop",
+    "releasedAt": "2020-11",
+    "msrp": 1290000,
+    "match": {
+      "require": [
+        [
+          "맥북에어",
+          "맥북air",
+          "macbook에어",
+          "macbookair"
+        ],
+        [
+          "m1"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북에어",
+      "맥북air",
+      "macbook에어",
+      "macbookair"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "macbook-air-m2-13",
+    "slug": "macbook-air-m2-13",
+    "brand": "애플",
+    "name": "맥북 에어 M2 13\"",
+    "nameEn": "MacBook Air M2 13",
+    "category": "laptop",
+    "releasedAt": "2022-07",
+    "msrp": 1690000,
+    "match": {
+      "require": [
+        [
+          "맥북에어",
+          "맥북air",
+          "macbook에어",
+          "macbookair"
+        ],
+        [
+          "m2"
+        ]
+      ],
+      "exclude": [
+        "15인치",
+        "15in",
+        "m215"
+      ]
+    },
+    "aliases": [
+      "맥북에어",
+      "맥북air",
+      "macbook에어",
+      "macbookair"
+    ],
+    "storages": [
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "macbook-air-m3-13",
+    "slug": "macbook-air-m3-13",
+    "brand": "애플",
+    "name": "맥북 에어 M3 13\"",
+    "nameEn": "MacBook Air M3 13",
+    "category": "laptop",
+    "releasedAt": "2024-03",
+    "msrp": 1690000,
+    "match": {
+      "require": [
+        [
+          "맥북에어",
+          "맥북air",
+          "macbook에어",
+          "macbookair"
+        ],
+        [
+          "m3"
+        ],
+        [
+          "13"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북에어",
+      "맥북air",
+      "macbook에어",
+      "macbookair"
+    ],
+    "storages": [
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "macbook-air-m3-15",
+    "slug": "macbook-air-m3-15",
+    "brand": "애플",
+    "name": "맥북 에어 M3 15\"",
+    "nameEn": "MacBook Air M3 15",
+    "category": "laptop",
+    "releasedAt": "2024-03",
+    "msrp": 1990000,
+    "match": {
+      "require": [
+        [
+          "맥북에어",
+          "맥북air",
+          "macbook에어",
+          "macbookair"
+        ],
+        [
+          "m3"
+        ],
+        [
+          "15"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북에어",
+      "맥북air",
+      "macbook에어",
+      "macbookair"
+    ],
+    "storages": [
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "macbook-air-m4-13",
+    "slug": "macbook-air-m4-13",
+    "brand": "애플",
+    "name": "맥북 에어 M4 13\"",
+    "nameEn": "MacBook Air M4 13",
+    "category": "laptop",
+    "releasedAt": "2025-03",
+    "msrp": 1590000,
+    "match": {
+      "require": [
+        [
+          "맥북에어",
+          "맥북air",
+          "macbook에어",
+          "macbookair"
+        ],
+        [
+          "m4"
+        ],
+        [
+          "13"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북에어",
+      "맥북air",
+      "macbook에어",
+      "macbookair"
+    ],
+    "storages": [
+      256,
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "macbook-pro-14-m3",
+    "slug": "macbook-pro-14-m3",
+    "brand": "애플",
+    "name": "맥북 프로 14\" M3",
+    "nameEn": "MacBook Pro 14 M3",
+    "category": "laptop",
+    "releasedAt": "2023-11",
+    "msrp": 2390000,
+    "match": {
+      "require": [
+        [
+          "맥북프로",
+          "맥북pro",
+          "macbook프로",
+          "macbookpro"
+        ],
+        [
+          "14"
+        ],
+        [
+          "m3"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북프로",
+      "맥북pro",
+      "macbook프로",
+      "macbookpro"
+    ],
+    "storages": [
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "macbook-pro-14-m4",
+    "slug": "macbook-pro-14-m4",
+    "brand": "애플",
+    "name": "맥북 프로 14\" M4",
+    "nameEn": "MacBook Pro 14 M4",
+    "category": "laptop",
+    "releasedAt": "2024-11",
+    "msrp": 2390000,
+    "match": {
+      "require": [
+        [
+          "맥북프로",
+          "맥북pro",
+          "macbook프로",
+          "macbookpro"
+        ],
+        [
+          "14"
+        ],
+        [
+          "m4"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북프로",
+      "맥북pro",
+      "macbook프로",
+      "macbookpro"
+    ],
+    "storages": [
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "macbook-pro-16-m3",
+    "slug": "macbook-pro-16-m3",
+    "brand": "애플",
+    "name": "맥북 프로 16\" M3",
+    "nameEn": "MacBook Pro 16 M3",
+    "category": "laptop",
+    "releasedAt": "2023-11",
+    "msrp": 3690000,
+    "match": {
+      "require": [
+        [
+          "맥북프로",
+          "맥북pro",
+          "macbook프로",
+          "macbookpro"
+        ],
+        [
+          "16"
+        ],
+        [
+          "m3"
+        ]
+      ]
+    },
+    "aliases": [
+      "맥북프로",
+      "맥북pro",
+      "macbook프로",
+      "macbookpro"
+    ],
+    "storages": [
+      512,
+      1024,
+      2048
+    ]
+  },
+  {
+    "id": "lg-gram-16",
+    "slug": "lg-gram-16",
+    "brand": "LG",
+    "name": "LG 그램 16",
+    "nameEn": "LG gram 16",
+    "category": "laptop",
+    "msrp": 1890000,
+    "match": {
+      "require": [
+        [
+          "lg그램",
+          "lggram",
+          "그램",
+          "gram"
+        ],
+        [
+          "16"
+        ]
+      ]
+    },
+    "aliases": [
+      "lg그램",
+      "lggram",
+      "그램",
+      "gram"
+    ],
+    "storages": [
+      256,
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "galaxy-book4-pro",
+    "slug": "galaxy-book4-pro",
+    "brand": "삼성",
+    "name": "갤럭시 북4 프로",
+    "nameEn": "Galaxy Book4 Pro",
+    "category": "laptop",
+    "releasedAt": "2024-02",
+    "msrp": 2299000,
+    "match": {
+      "require": [
+        [
+          "갤럭시북4",
+          "galaxybook4",
+          "갤북4"
+        ],
+        [
+          "프로",
+          "pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시북4",
+      "galaxybook4",
+      "갤북4"
+    ],
+    "storages": [
+      512,
+      1024
+    ]
+  },
+  {
+    "id": "airpods-2",
+    "slug": "airpods-2",
+    "brand": "애플",
+    "name": "에어팟 2세대",
+    "nameEn": "AirPods 2",
+    "category": "earbuds",
+    "releasedAt": "2019-03",
+    "msrp": 219000,
+    "match": {
+      "require": [
+        [
+          "에어팟2",
+          "에어팟2세대",
+          "airpods2",
+          "airpods2세대",
+          "에어팟2",
+          "에어팟2세대"
+        ]
+      ],
+      "exclude": [
+        "프로",
+        "pro",
+        "맥스",
+        "max"
+      ]
+    },
+    "aliases": [
+      "에어팟2",
+      "에어팟2세대",
+      "airpods2",
+      "airpods2세대"
+    ]
+  },
+  {
+    "id": "airpods-3",
+    "slug": "airpods-3",
+    "brand": "애플",
+    "name": "에어팟 3세대",
+    "nameEn": "AirPods 3",
+    "category": "earbuds",
+    "releasedAt": "2021-10",
+    "msrp": 249000,
+    "match": {
+      "require": [
+        [
+          "에어팟3",
+          "에어팟3세대",
+          "airpods3",
+          "airpods3세대"
+        ]
+      ],
+      "exclude": [
+        "프로",
+        "pro",
+        "맥스",
+        "max"
+      ]
+    },
+    "aliases": [
+      "에어팟3",
+      "에어팟3세대",
+      "airpods3",
+      "airpods3세대"
+    ]
+  },
+  {
+    "id": "airpods-4",
+    "slug": "airpods-4",
+    "brand": "애플",
+    "name": "에어팟 4세대",
+    "nameEn": "AirPods 4",
+    "category": "earbuds",
+    "releasedAt": "2024-09",
+    "msrp": 199000,
+    "match": {
+      "require": [
+        [
+          "에어팟4",
+          "에어팟4세대",
+          "airpods4",
+          "airpods4세대"
+        ]
+      ],
+      "exclude": [
+        "프로",
+        "pro",
+        "맥스",
+        "max"
+      ]
+    },
+    "aliases": [
+      "에어팟4",
+      "에어팟4세대",
+      "airpods4",
+      "airpods4세대"
+    ]
+  },
+  {
+    "id": "airpods-pro-1",
+    "slug": "airpods-pro-1",
+    "brand": "애플",
+    "name": "에어팟 프로 1세대",
+    "nameEn": "AirPods Pro",
+    "category": "earbuds",
+    "releasedAt": "2019-10",
+    "msrp": 329000,
+    "match": {
+      "require": [
+        [
+          "에어팟프로1",
+          "에어팟프로1세대",
+          "에어팟pro1",
+          "에어팟pro1세대",
+          "airpods프로1",
+          "airpods프로1세대",
+          "airpodspro1",
+          "airpodspro1세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "에어팟프로1",
+      "에어팟프로1세대",
+      "에어팟pro1",
+      "에어팟pro1세대",
+      "airpods프로1",
+      "airpods프로1세대",
+      "airpodspro1",
+      "airpodspro1세대"
+    ]
+  },
+  {
+    "id": "airpods-pro-2",
+    "slug": "airpods-pro-2",
+    "brand": "애플",
+    "name": "에어팟 프로 2세대",
+    "nameEn": "AirPods Pro 2",
+    "category": "earbuds",
+    "releasedAt": "2022-09",
+    "msrp": 359000,
+    "match": {
+      "require": [
+        [
+          "에어팟프로2",
+          "에어팟프로2세대",
+          "에어팟pro2",
+          "에어팟pro2세대",
+          "airpods프로2",
+          "airpods프로2세대",
+          "airpodspro2",
+          "airpodspro2세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "에어팟프로2",
+      "에어팟프로2세대",
+      "에어팟pro2",
+      "에어팟pro2세대",
+      "airpods프로2",
+      "airpods프로2세대",
+      "airpodspro2",
+      "airpodspro2세대"
+    ]
+  },
+  {
+    "id": "airpods-pro-3",
+    "slug": "airpods-pro-3",
+    "brand": "애플",
+    "name": "에어팟 프로 3세대",
+    "nameEn": "AirPods Pro 3",
+    "category": "earbuds",
+    "releasedAt": "2025-09",
+    "msrp": 359000,
+    "match": {
+      "require": [
+        [
+          "에어팟프로3",
+          "에어팟프로3세대",
+          "에어팟pro3",
+          "에어팟pro3세대",
+          "airpods프로3",
+          "airpods프로3세대",
+          "airpodspro3",
+          "airpodspro3세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "에어팟프로3",
+      "에어팟프로3세대",
+      "에어팟pro3",
+      "에어팟pro3세대",
+      "airpods프로3",
+      "airpods프로3세대",
+      "airpodspro3",
+      "airpodspro3세대"
+    ]
+  },
+  {
+    "id": "airpods-max",
+    "slug": "airpods-max",
+    "brand": "애플",
+    "name": "에어팟 맥스",
+    "nameEn": "AirPods Max",
+    "category": "earbuds",
+    "releasedAt": "2020-12",
+    "msrp": 769000,
+    "match": {
+      "require": [
+        [
+          "에어팟맥스",
+          "에어팟max",
+          "airpods맥스",
+          "airpodsmax"
+        ]
+      ]
+    },
+    "aliases": [
+      "에어팟맥스",
+      "에어팟max",
+      "airpods맥스",
+      "airpodsmax"
+    ]
+  },
+  {
+    "id": "galaxy-buds2-pro",
+    "slug": "galaxy-buds2-pro",
+    "brand": "삼성",
+    "name": "갤럭시 버즈2 프로",
+    "nameEn": "Galaxy Buds2 Pro",
+    "category": "earbuds",
+    "releasedAt": "2022-08",
+    "msrp": 259000,
+    "match": {
+      "require": [
+        [
+          "갤럭시버즈2프로",
+          "갤럭시버즈2pro",
+          "galaxybuds2프로",
+          "galaxybuds2pro",
+          "버즈2프로",
+          "버즈2pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시버즈2프로",
+      "갤럭시버즈2pro",
+      "galaxybuds2프로",
+      "galaxybuds2pro",
+      "버즈2프로",
+      "버즈2pro"
+    ]
+  },
+  {
+    "id": "galaxy-buds3-pro",
+    "slug": "galaxy-buds3-pro",
+    "brand": "삼성",
+    "name": "갤럭시 버즈3 프로",
+    "nameEn": "Galaxy Buds3 Pro",
+    "category": "earbuds",
+    "releasedAt": "2024-07",
+    "msrp": 309000,
+    "match": {
+      "require": [
+        [
+          "갤럭시버즈3프로",
+          "갤럭시버즈3pro",
+          "galaxybuds3프로",
+          "galaxybuds3pro",
+          "버즈3프로",
+          "버즈3pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시버즈3프로",
+      "갤럭시버즈3pro",
+      "galaxybuds3프로",
+      "galaxybuds3pro",
+      "버즈3프로",
+      "버즈3pro"
+    ]
+  },
+  {
+    "id": "sony-wh-1000xm4",
+    "slug": "sony-wh-1000xm4",
+    "brand": "소니",
+    "name": "소니 WH-1000XM4",
+    "nameEn": "Sony WH-1000XM4",
+    "category": "earbuds",
+    "releasedAt": "2020-08",
+    "msrp": 449000,
+    "match": {
+      "require": [
+        [
+          "1000xm4",
+          "wh1000xm4",
+          "xm4"
+        ]
+      ]
+    },
+    "aliases": [
+      "1000xm4",
+      "wh1000xm4",
+      "xm4"
+    ]
+  },
+  {
+    "id": "sony-wh-1000xm5",
+    "slug": "sony-wh-1000xm5",
+    "brand": "소니",
+    "name": "소니 WH-1000XM5",
+    "nameEn": "Sony WH-1000XM5",
+    "category": "earbuds",
+    "releasedAt": "2022-05",
+    "msrp": 499000,
+    "match": {
+      "require": [
+        [
+          "1000xm5",
+          "wh1000xm5",
+          "xm5"
+        ]
+      ]
+    },
+    "aliases": [
+      "1000xm5",
+      "wh1000xm5",
+      "xm5"
+    ]
+  },
+  {
+    "id": "bose-qc-ultra",
+    "slug": "bose-qc-ultra",
+    "brand": "보스",
+    "name": "보스 QC 울트라 헤드폰",
+    "nameEn": "Bose QuietComfort Ultra",
+    "category": "earbuds",
+    "releasedAt": "2023-10",
+    "msrp": 499000,
+    "match": {
+      "require": [
+        [
+          "qc울트라",
+          "qcultra",
+          "큐씨울트라",
+          "큐씨ultra"
+        ]
+      ]
+    },
+    "aliases": [
+      "qc울트라",
+      "qcultra",
+      "큐씨울트라",
+      "큐씨ultra"
+    ]
+  },
+  {
+    "id": "apple-watch-se-2",
+    "slug": "apple-watch-se-2",
+    "brand": "애플",
+    "name": "애플워치 SE 2세대",
+    "nameEn": "Apple Watch SE 2",
+    "category": "watch",
+    "releasedAt": "2022-09",
+    "msrp": 359000,
+    "match": {
+      "require": [
+        [
+          "애플워치se",
+          "applewatchse",
+          "애플와치se"
+        ],
+        [
+          "2",
+          "2세대"
+        ]
+      ]
+    },
+    "aliases": [
+      "애플워치se",
+      "applewatchse",
+      "애플와치se"
+    ]
+  },
+  {
+    "id": "apple-watch-s9",
+    "slug": "apple-watch-s9",
+    "brand": "애플",
+    "name": "애플워치 시리즈 9",
+    "nameEn": "Apple Watch Series 9",
+    "category": "watch",
+    "releasedAt": "2023-09",
+    "msrp": 599000,
+    "match": {
+      "require": [
+        [
+          "애플워치시리즈9",
+          "애플워치series9",
+          "애플워치s9",
+          "애플워치9",
+          "applewatch시리즈9",
+          "applewatchseries9",
+          "applewatchs9",
+          "applewatch9"
+        ]
+      ]
+    },
+    "aliases": [
+      "애플워치시리즈9",
+      "애플워치series9",
+      "애플워치s9",
+      "애플워치9",
+      "applewatch시리즈9",
+      "applewatchseries9",
+      "applewatchs9",
+      "applewatch9"
+    ]
+  },
+  {
+    "id": "apple-watch-s10",
+    "slug": "apple-watch-s10",
+    "brand": "애플",
+    "name": "애플워치 시리즈 10",
+    "nameEn": "Apple Watch Series 10",
+    "category": "watch",
+    "releasedAt": "2024-09",
+    "msrp": 599000,
+    "match": {
+      "require": [
+        [
+          "애플워치시리즈10",
+          "애플워치series10",
+          "애플워치s10",
+          "애플워치10",
+          "applewatch시리즈10",
+          "applewatchseries10",
+          "applewatchs10",
+          "applewatch10"
+        ]
+      ]
+    },
+    "aliases": [
+      "애플워치시리즈10",
+      "애플워치series10",
+      "애플워치s10",
+      "애플워치10",
+      "applewatch시리즈10",
+      "applewatchseries10",
+      "applewatchs10",
+      "applewatch10"
+    ]
+  },
+  {
+    "id": "apple-watch-ultra-2",
+    "slug": "apple-watch-ultra-2",
+    "brand": "애플",
+    "name": "애플워치 울트라 2",
+    "nameEn": "Apple Watch Ultra 2",
+    "category": "watch",
+    "releasedAt": "2023-09",
+    "msrp": 1149000,
+    "match": {
+      "require": [
+        [
+          "애플워치울트라",
+          "애플워치ultra",
+          "applewatch울트라",
+          "applewatchultra"
+        ],
+        [
+          "2"
+        ]
+      ]
+    },
+    "aliases": [
+      "애플워치울트라",
+      "애플워치ultra",
+      "applewatch울트라",
+      "applewatchultra"
+    ]
+  },
+  {
+    "id": "galaxy-watch-6",
+    "slug": "galaxy-watch-6",
+    "brand": "삼성",
+    "name": "갤럭시 워치6",
+    "nameEn": "Galaxy Watch6",
+    "category": "watch",
+    "releasedAt": "2023-08",
+    "msrp": 359000,
+    "match": {
+      "require": [
+        [
+          "갤럭시워치6",
+          "galaxywatch6",
+          "갤워치6"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시워치6",
+      "galaxywatch6",
+      "갤워치6"
+    ]
+  },
+  {
+    "id": "galaxy-watch-7",
+    "slug": "galaxy-watch-7",
+    "brand": "삼성",
+    "name": "갤럭시 워치7",
+    "nameEn": "Galaxy Watch7",
+    "category": "watch",
+    "releasedAt": "2024-07",
+    "msrp": 359000,
+    "match": {
+      "require": [
+        [
+          "갤럭시워치7",
+          "galaxywatch7",
+          "갤워치7"
+        ]
+      ]
+    },
+    "aliases": [
+      "갤럭시워치7",
+      "galaxywatch7",
+      "갤워치7"
+    ]
+  },
+  {
+    "id": "nintendo-switch-oled",
+    "slug": "nintendo-switch-oled",
+    "brand": "닌텐도",
+    "name": "닌텐도 스위치 OLED",
+    "nameEn": "Nintendo Switch OLED",
+    "category": "console",
+    "releasedAt": "2021-10",
+    "msrp": 415000,
+    "match": {
+      "require": [
+        [
+          "닌텐도스위치",
+          "닌텐도switch",
+          "nintendo스위치",
+          "nintendoswitch",
+          "닌텐스위치",
+          "닌텐switch",
+          "스위치",
+          "switch"
+        ],
+        [
+          "oled",
+          "올레드"
+        ]
+      ]
+    },
+    "aliases": [
+      "닌텐도스위치",
+      "닌텐도switch",
+      "nintendo스위치",
+      "nintendoswitch",
+      "닌텐스위치",
+      "닌텐switch",
+      "스위치",
+      "switch"
+    ]
+  },
+  {
+    "id": "nintendo-switch-lite",
+    "slug": "nintendo-switch-lite",
+    "brand": "닌텐도",
+    "name": "닌텐도 스위치 라이트",
+    "nameEn": "Nintendo Switch Lite",
+    "category": "console",
+    "releasedAt": "2019-09",
+    "msrp": 259000,
+    "match": {
+      "require": [
+        [
+          "닌텐도스위치",
+          "닌텐도switch",
+          "nintendo스위치",
+          "nintendoswitch",
+          "닌텐스위치",
+          "닌텐switch",
+          "스위치",
+          "switch"
+        ],
+        [
+          "라이트",
+          "lite"
+        ]
+      ]
+    },
+    "aliases": [
+      "닌텐도스위치",
+      "닌텐도switch",
+      "nintendo스위치",
+      "nintendoswitch",
+      "닌텐스위치",
+      "닌텐switch",
+      "스위치",
+      "switch"
+    ]
+  },
+  {
+    "id": "nintendo-switch-2",
+    "slug": "nintendo-switch-2",
+    "brand": "닌텐도",
+    "name": "닌텐도 스위치 2",
+    "nameEn": "Nintendo Switch 2",
+    "category": "console",
+    "releasedAt": "2025-06",
+    "msrp": 640000,
+    "match": {
+      "require": [
+        [
+          "닌텐도스위치2",
+          "닌텐도switch2",
+          "nintendo스위치2",
+          "nintendoswitch2",
+          "닌텐스위치2",
+          "닌텐switch2",
+          "스위치2",
+          "switch2"
+        ]
+      ]
+    },
+    "aliases": [
+      "닌텐도스위치2",
+      "닌텐도switch2",
+      "nintendo스위치2",
+      "nintendoswitch2",
+      "닌텐스위치2",
+      "닌텐switch2",
+      "스위치2",
+      "switch2"
+    ]
+  },
+  {
+    "id": "nintendo-switch",
+    "slug": "nintendo-switch",
+    "brand": "닌텐도",
+    "name": "닌텐도 스위치",
+    "nameEn": "Nintendo Switch",
+    "category": "console",
+    "releasedAt": "2017-03",
+    "msrp": 360000,
+    "match": {
+      "require": [
+        [
+          "닌텐도스위치",
+          "닌텐도switch",
+          "nintendo스위치",
+          "nintendoswitch",
+          "닌텐스위치",
+          "닌텐switch"
+        ]
+      ],
+      "exclude": [
+        "oled",
+        "올레드",
+        "라이트",
+        "lite",
+        "스위치2",
+        "switch2"
+      ]
+    },
+    "aliases": [
+      "닌텐도스위치",
+      "닌텐도switch",
+      "nintendo스위치",
+      "nintendoswitch",
+      "닌텐스위치",
+      "닌텐switch"
+    ]
+  },
+  {
+    "id": "ps5-slim",
+    "slug": "ps5-slim",
+    "brand": "소니",
+    "name": "플레이스테이션 5 슬림",
+    "nameEn": "PlayStation 5 Slim",
+    "category": "console",
+    "releasedAt": "2023-11",
+    "msrp": 688000,
+    "match": {
+      "require": [
+        [
+          "ps5",
+          "플스5",
+          "플레이스테이션5",
+          "playstation5"
+        ],
+        [
+          "슬림",
+          "slim"
+        ]
+      ]
+    },
+    "aliases": [
+      "ps5",
+      "플스5",
+      "플레이스테이션5",
+      "playstation5"
+    ]
+  },
+  {
+    "id": "ps5-digital",
+    "slug": "ps5-digital",
+    "brand": "소니",
+    "name": "플레이스테이션 5 디지털 에디션",
+    "nameEn": "PS5 Digital Edition",
+    "category": "console",
+    "releasedAt": "2020-11",
+    "msrp": 498000,
+    "match": {
+      "require": [
+        [
+          "ps5",
+          "플스5",
+          "플레이스테이션5",
+          "playstation5"
+        ],
+        [
+          "디지털",
+          "digital"
+        ]
+      ]
+    },
+    "aliases": [
+      "ps5",
+      "플스5",
+      "플레이스테이션5",
+      "playstation5"
+    ]
+  },
+  {
+    "id": "ps5",
+    "slug": "ps5",
+    "brand": "소니",
+    "name": "플레이스테이션 5",
+    "nameEn": "PlayStation 5",
+    "category": "console",
+    "releasedAt": "2020-11",
+    "msrp": 628000,
+    "match": {
+      "require": [
+        [
+          "ps5",
+          "플스5",
+          "플레이스테이션5",
+          "playstation5"
+        ]
+      ],
+      "exclude": [
+        "슬림",
+        "slim",
+        "디지털",
+        "digital",
+        "pro"
+      ]
+    },
+    "aliases": [
+      "ps5",
+      "플스5",
+      "플레이스테이션5",
+      "playstation5"
+    ]
+  },
+  {
+    "id": "ps5-pro",
+    "slug": "ps5-pro",
+    "brand": "소니",
+    "name": "플레이스테이션 5 프로",
+    "nameEn": "PlayStation 5 Pro",
+    "category": "console",
+    "releasedAt": "2024-11",
+    "msrp": 1118000,
+    "match": {
+      "require": [
+        [
+          "ps5",
+          "플스5",
+          "플레이스테이션5",
+          "playstation5"
+        ],
+        [
+          "프로",
+          "pro"
+        ]
+      ]
+    },
+    "aliases": [
+      "ps5",
+      "플스5",
+      "플레이스테이션5",
+      "playstation5"
+    ]
+  },
+  {
+    "id": "xbox-series-x",
+    "slug": "xbox-series-x",
+    "brand": "MS",
+    "name": "엑스박스 시리즈 X",
+    "nameEn": "Xbox Series X",
+    "category": "console",
+    "releasedAt": "2020-11",
+    "msrp": 598000,
+    "match": {
+      "require": [
+        [
+          "xbox",
+          "엑스박스",
+          "엑박"
+        ],
+        [
+          "시리즈x",
+          "seriesx"
+        ]
+      ]
+    },
+    "aliases": [
+      "xbox",
+      "엑스박스",
+      "엑박"
+    ]
+  },
+  {
+    "id": "steam-deck-oled",
+    "slug": "steam-deck-oled",
+    "brand": "밸브",
+    "name": "스팀덱 OLED",
+    "nameEn": "Steam Deck OLED",
+    "category": "console",
+    "releasedAt": "2023-11",
+    "msrp": 630000,
+    "match": {
+      "require": [
+        [
+          "스팀덱",
+          "steamdeck"
+        ],
+        [
+          "oled",
+          "올레드"
+        ]
+      ]
+    },
+    "aliases": [
+      "스팀덱",
+      "steamdeck"
+    ]
+  },
+  {
+    "id": "sony-a7m4",
+    "slug": "sony-a7m4",
+    "brand": "소니",
+    "name": "소니 A7 IV (A7M4)",
+    "nameEn": "Sony A7 IV",
+    "category": "camera",
+    "releasedAt": "2021-12",
+    "msrp": 3190000,
+    "match": {
+      "require": [
+        [
+          "a7m4",
+          "a74",
+          "a7iv",
+          "알파7m4",
+          "ilce7m4"
+        ]
+      ]
+    },
+    "aliases": [
+      "a7m4",
+      "a74",
+      "a7iv",
+      "알파7m4",
+      "ilce7m4"
+    ]
+  },
+  {
+    "id": "sony-a7m3",
+    "slug": "sony-a7m3",
+    "brand": "소니",
+    "name": "소니 A7 III (A7M3)",
+    "nameEn": "Sony A7 III",
+    "category": "camera",
+    "releasedAt": "2018-04",
+    "msrp": 2290000,
+    "match": {
+      "require": [
+        [
+          "a7m3",
+          "a73",
+          "a7iii",
+          "알파7m3",
+          "ilce7m3"
+        ]
+      ]
+    },
+    "aliases": [
+      "a7m3",
+      "a73",
+      "a7iii",
+      "알파7m3",
+      "ilce7m3"
+    ]
+  },
+  {
+    "id": "sony-a6400",
+    "slug": "sony-a6400",
+    "brand": "소니",
+    "name": "소니 A6400",
+    "nameEn": "Sony A6400",
+    "category": "camera",
+    "releasedAt": "2019-02",
+    "msrp": 1150000,
+    "match": {
+      "require": [
+        [
+          "a6400",
+          "ilce6400",
+          "알파6400"
+        ]
+      ]
+    },
+    "aliases": [
+      "a6400",
+      "ilce6400",
+      "알파6400"
+    ]
+  },
+  {
+    "id": "canon-r6-mark2",
+    "slug": "canon-r6-mark2",
+    "brand": "캐논",
+    "name": "캐논 EOS R6 Mark II",
+    "nameEn": "Canon EOS R6 Mark II",
+    "category": "camera",
+    "releasedAt": "2022-11",
+    "msrp": 3290000,
+    "match": {
+      "require": [
+        [
+          "r6"
+        ],
+        [
+          "mark2",
+          "markii",
+          "m2",
+          "2형",
+          "mk2"
+        ]
+      ]
+    },
+    "aliases": [
+      "r6"
+    ]
+  },
+  {
+    "id": "fujifilm-xt5",
+    "slug": "fujifilm-xt5",
+    "brand": "후지필름",
+    "name": "후지필름 X-T5",
+    "nameEn": "Fujifilm X-T5",
+    "category": "camera",
+    "releasedAt": "2022-11",
+    "msrp": 2490000,
+    "match": {
+      "require": [
+        [
+          "xt5"
+        ]
+      ]
+    },
+    "aliases": [
+      "xt5"
+    ]
+  },
+  {
+    "id": "apple-studio-display",
+    "slug": "apple-studio-display",
+    "brand": "애플",
+    "name": "애플 스튜디오 디스플레이",
+    "nameEn": "Apple Studio Display",
+    "category": "monitor",
+    "releasedAt": "2022-03",
+    "msrp": 1990000,
+    "match": {
+      "require": [
+        [
+          "스튜디오디스플레이",
+          "스튜디오display",
+          "studio디스플레이",
+          "studiodisplay"
+        ]
+      ]
+    },
+    "aliases": [
+      "스튜디오디스플레이",
+      "스튜디오display",
+      "studio디스플레이",
+      "studiodisplay"
+    ]
+  },
+  {
+    "id": "dell-u2723qe",
+    "slug": "dell-u2723qe",
+    "brand": "델",
+    "name": "델 U2723QE",
+    "nameEn": "Dell U2723QE",
+    "category": "monitor",
+    "msrp": 890000,
+    "match": {
+      "require": [
+        [
+          "u2723qe"
+        ]
+      ]
+    },
+    "aliases": [
+      "u2723qe"
+    ]
+  }
+]
