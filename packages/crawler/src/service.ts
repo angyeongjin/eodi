@@ -5,7 +5,7 @@ import {
   type RawListing, type SourceStatus, type CatalogProduct, type MarketScope,
 } from '@eodi/core'
 import {
-  cacheKey, getCachedSearch, setCachedSearch, DEFAULT_TTL_MS,
+  cacheKey, getCachedSearch, setCachedSearch, DEFAULT_TTL_MS, isCacheFresh, isCacheUsable,
   upsertListings, searchStoredListings, logQuery, recordSourceHealth, popularQueries,
   recordUntranslated,
 } from '@eodi/db'
@@ -27,6 +27,20 @@ export interface SearchOptions {
   federate?: FederateOptions
   /** 결과를 DB에 남길지 */
   persist?: boolean
+  /**
+   * 응답 이후로 미룰 작업을 받는 곳.
+   *
+   * 주면 매물 저장·캐시 쓰기·로그가 사용자 응답 경로에서 빠지고, 낡은 캐시를 뒤에서
+   * 갱신하는 일도 여기로 간다. 안 주면 예전처럼 응답 전에 끝낸다 —
+   * CLI·크론은 곧 프로세스가 끝나므로 기다리지 않으면 아무것도 저장되지 않는다.
+   */
+  defer?: (task: () => Promise<void>) => void
+  /**
+   * 사용자 요청이 아니라 뒤에서 도는 갱신인지.
+   * 검색 로그·미번역 기록은 남기지 않는다 — 사용자가 한 번 검색한 것이 두 번으로 세지면
+   * 클릭률 분모가 부풀고, 그 숫자로 랭킹과 제휴를 판단하게 된다.
+   */
+  background?: boolean
 }
 
 const PER_PAGE_MAX = 60
@@ -97,8 +111,8 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
         정작 배워야 할 단어만 기록되지 않고 있었다 — 부분 번역된 것만 남았다.
         빈 결과를 돌려주더라도 무엇을 몰랐는지는 남긴다.
       */
-      if (opts.persist !== false) {
-        await Promise.allSettled([
+      if (opts.persist !== false && !opts.background) {
+        const record = () => Promise.allSettled([
           recordUntranslated(tr.unresolved),
           logQuery({
             term: interpreted.raw,
@@ -107,8 +121,12 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
             resultCount: 0,
             tookMs: Date.now() - started,
             cached: false,
+            scope,
           }),
         ])
+        // 사전 보강 신호는 사용자를 세워두지 않고 남긴다
+        if (opts.defer) opts.defer(async () => { await record() })
+        else await record()
       }
       return emptyResult()
     }
@@ -128,12 +146,23 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
   let fromIndex = 0
   let indexOnly = false
 
+  let stale = false
   if (!opts.refresh) {
     const hit = await getCachedSearch(key)
-    if (hit) {
+    /*
+      신선 기한이 지난 캐시라도, 뒤에서 갱신할 수단이 있으면 그대로 답한다.
+      기다려서 얻는 차이는 대개 매물 몇 건이고, 잃는 것은 4초다.
+      갱신할 수단이 없으면(CLI·크론) 낡은 답을 주지 않고 새로 수집한다.
+    */
+    const ttl = opts.ttlMs ?? DEFAULT_TTL_MS
+    const fresh = hit ? isCacheFresh(hit.createdAt, ttl) : false
+    // 낡은 답을 쓰더라도 상한은 지킨다. 상한을 넘겼으면 캐시가 없는 것과 같이 취급한다.
+    const usable = hit ? fresh || (Boolean(opts.defer) && isCacheUsable(hit.createdAt, ttl)) : false
+    if (hit && usable) {
       listings = hit.listings
       statuses = hit.sources.map((s) => ({ ...s, cached: true }))
       cached = true
+      stale = !fresh
     }
   }
 
@@ -183,6 +212,7 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
     facets: built.facets,
     sources: statuses,
     cached,
+    stale,
     tookMs: Date.now() - started,
     fromIndex,
     indexOnly,
@@ -192,7 +222,23 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
   }
 
   if (opts.persist !== false) {
-    await persistAfterSearch({ cached, key, marketTerm, interpreted, listings, statuses, built, response })
+    const persist = () =>
+      persistAfterSearch({
+        cached, key, marketTerm, interpreted, listings, statuses, built, response, scope,
+        background: opts.background === true,
+      })
+    if (opts.defer) opts.defer(persist)
+    else await persist()
+  }
+
+  /*
+    낡은 캐시로 답했으면 여기서 새로 받아 둔다. 이번 사용자는 이미 답을 받았고,
+    이 갱신의 수혜자는 다음 사람이다. background 를 켜 검색 로그가 두 번 세지지 않게 한다.
+  */
+  if (stale && opts.defer) {
+    opts.defer(async () => {
+      await search(query, { ...opts, refresh: true, background: true, defer: undefined })
+    })
   }
 
   return response
@@ -208,20 +254,28 @@ async function persistAfterSearch(args: {
   statuses: SourceStatus[]
   built: ReturnType<typeof buildSearchResult>
   response: SearchResponse
+  /** 어느 탭의 검색이었는지 — 탭별 이용 비중을 세려면 로그에 남아야 한다 */
+  scope: MarketScope
+  /** 뒤에서 도는 갱신이면 검색 로그를 남기지 않는다 */
+  background?: boolean
 }): Promise<void> {
   const { cached, key, marketTerm, interpreted, listings, statuses, built, response } = args
-  const tasks: Array<Promise<unknown>> = [
-    logQuery({
-      term: interpreted.raw,
-      normalized: interpreted.normalized,
-      productId: interpreted.productId,
-      resultCount: response.total,
-      tookMs: response.tookMs,
-      cached,
-    }),
-  ]
-  if (interpreted.untranslated?.length) {
-    tasks.push(recordUntranslated(interpreted.untranslated))
+  const tasks: Array<Promise<unknown>> = []
+  if (!args.background) {
+    tasks.push(
+      logQuery({
+        term: interpreted.raw,
+        normalized: interpreted.normalized,
+        productId: interpreted.productId,
+        resultCount: response.total,
+        tookMs: response.tookMs,
+        cached,
+        scope: args.scope,
+      }),
+    )
+    if (interpreted.untranslated?.length) {
+      tasks.push(recordUntranslated(interpreted.untranslated))
+    }
   }
   if (!cached) {
     /*

@@ -1,7 +1,7 @@
 import type { MergedListing } from '@eodi/core'
 import {
   KIND_LABEL, PRICE_FLAG_LABEL, SOURCE_LABEL, WARNING_LABEL, WARNING_DESC,
-  formatMoney, formatApproxKrw,
+  formatMoney, formatApproxKrw, estimateLandedCost, formatCostRange, toKrw,
 } from '@eodi/core'
 import { relativeTime, remainingTime, shortRegion, won } from '@/lib/format'
 import SaveButton from './SaveButton'
@@ -27,14 +27,29 @@ export default function ResultCard({
   item,
   now,
   query = '',
+  position,
 }: {
   item: MergedListing
   now: number
   /** 제목에서 강조할 검색어 (해외 탭은 번역된 일본어) */
   query?: string
+  /** 결과에서 몇 번째인지(0-based). 클릭이 어느 순위에서 나오는지 세는 데만 쓴다 */
+  position?: number
 }) {
   const others = item.duplicates
   const showKind = item.kind !== 'item'
+  /*
+    일본 매물의 표시가는 지불액이 아니다. 대행 수수료·국제배송·관세가 붙는데,
+    그걸 결제 직전에 알게 되면 우리가 싸 보이게 속인 셈이 된다.
+    정확한 값은 낼 수 없으므로 범위로, "추정"이라고 밝히고 보여준다.
+  */
+  const landed =
+    item.currency === 'JPY'
+      ? estimateLandedCost({
+          priceKrw: item.priceKrw,
+          domesticShippingKrw: toKrw(item.shippingFee ?? 0, item.currency),
+        })
+      : null
 
   return (
     <article
@@ -47,6 +62,9 @@ export default function ResultCard({
         target="_blank"
         rel="noopener noreferrer nofollow"
         className="flex min-w-0 flex-1 gap-3 sm:gap-4"
+        /* 이 두 값이 OutboundTracker 가 읽는 전부다. 개인을 식별하는 값은 없다 */
+        data-outbound={item.source}
+        data-pos={position}
       >
         <div
           className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-32 sm:w-32"
@@ -98,6 +116,19 @@ export default function ResultCard({
               </span>
             )}
           </div>
+
+          {landed && (
+            <p className="mt-0.5 text-xs" style={{ color: 'var(--text-muted)' }}>
+              예상 총액 <span className="tnum">{formatCostRange(landed.low, landed.high)}</span>
+              {/*
+                경매의 price 는 확정가가 아니라 현재 입찰가다(1엔 시작이 흔하다).
+                그 위에 계산한 총액을 그냥 "추정"이라고만 하면 낙찰가처럼 읽힌다.
+              */}
+              <span className="ml-1 opacity-80">
+                {item.listingType === 'auction' ? '현재 입찰가 기준' : '추정'}
+              </span>
+            </p>
+          )}
 
           <h3 className="line-clamp-2 mt-1 text-sm leading-snug sm:text-[15px]">
             <Highlight text={item.title} query={query} />
@@ -180,6 +211,8 @@ export default function ResultCard({
                 rel="noopener noreferrer nofollow"
                 className="rounded-md border px-2 py-1 text-xs"
                 style={{ borderColor: 'var(--border)' }}
+                data-outbound={d.source}
+                data-pos={position}
               >
                 {SOURCE_LABEL[d.source]} ·{' '}
                 <span className="tnum">

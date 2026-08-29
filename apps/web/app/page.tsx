@@ -3,6 +3,8 @@ import { CATEGORY_LABEL, CATALOG, GOODS_TERMS, goodsWorks, type CategoryId } fro
 import { popularQueries } from '@eodi/db'
 import { SEED_KEYWORDS, allAdapters } from '@eodi/crawler'
 import SearchBox from '@/components/SearchBox'
+import HomeFeed from '@/components/HomeFeed'
+import OutboundTracker from '@/components/OutboundTracker'
 import Wordmark from '@/components/Wordmark'
 import { Footer } from '@/components/Layout'
 import { SITE } from '@/lib/config'
@@ -50,6 +52,14 @@ export default async function HomePage() {
         <p className="mt-3 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
           {allAdapters('domestic').filter((a) => a.enabled).map((a) => a.label).join(' · ')}
         </p>
+
+        {/*
+          내가 남긴 흔적에서 뽑은 최근 매물. 개인화는 브라우저 안에서만 일어나고,
+          서버는 "이 키워드들의 최근 매물"만 답한다(app/api/feed).
+        */}
+        <OutboundTracker scope="domestic" normalized="" surface="feed">
+          <HomeFeed fallbackTerms={keywords} />
+        </OutboundTracker>
 
         {/*
           타깃이 굿즈 수집가로 옮겨간 뒤로, 첫 화면의 주인공도 굿즈여야 한다.

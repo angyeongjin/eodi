@@ -270,6 +270,12 @@ export interface SearchResponse {
   sources: SourceStatus[]
   /** 전체 결과가 캐시에서 나왔는지 */
   cached: boolean
+  /**
+   * 캐시가 신선 기한을 넘겼는데도 그대로 답했는지.
+   * 기다리게 하는 대신 낡은 답을 먼저 주고 뒤에서 새로 받아둔다.
+   * 사용자에게는 이 사실을 숨기지 않는다.
+   */
+  stale?: boolean
   tookMs: number
   /** 우리 인덱스에서 보강한 매물 수 */
   fromIndex: number

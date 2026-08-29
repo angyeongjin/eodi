@@ -86,3 +86,102 @@ export class MemoryTermCounter {
 
   clear(): void { this.counts.clear() }
 }
+
+/**
+ * 계측의 메모리 폴백.
+ *
+ * DB 없이 `npm run dev` 만으로 서비스가 뜨는 것이 이 저장소의 전제다. 계측만 예외로 두면
+ * "로컬에서는 클릭이 안 세진다"는 함정이 생기고, 그건 계측이 깨져 있어도 눈치채지 못한다는 뜻이다.
+ * 프로세스 수명만큼만 살지만, 짜는 동안 확인할 수 있다는 점이 중요하다.
+ */
+export class MemoryMetrics {
+  private searches = new Map<string, number>()
+  private zero = new Map<string, { term: string; scope: string; count: number; last: number }>()
+  private clicksByScope = new Map<string, number>()
+  private searchClicksByScope = new Map<string, number>()
+  private clicksBySurface = new Map<string, number>()
+  private clicksBySource = new Map<string, number>()
+  private clicksByPositionMap = new Map<number, number>()
+  private clickTotal = 0
+
+  addSearch(scope: string, normalized: string, term: string, resultCount: number): void {
+    this.searches.set(scope, (this.searches.get(scope) ?? 0) + 1)
+    if (resultCount > 0 || !normalized) return
+
+    const key = `${scope} ${normalized}`
+    const cur = this.zero.get(key)
+    if (cur) {
+      cur.count++
+      cur.last = Date.now()
+      return
+    }
+    if (this.zero.size > 2000) this.zero.clear()
+    this.zero.set(key, { term, scope, count: 1, last: Date.now() })
+  }
+
+  addClick(scope: string, surface: string, source: string | null, position: number | null): void {
+    this.clickTotal++
+    this.clicksByScope.set(scope, (this.clicksByScope.get(scope) ?? 0) + 1)
+    if (surface === 'search') {
+      this.searchClicksByScope.set(scope, (this.searchClicksByScope.get(scope) ?? 0) + 1)
+    }
+    this.clicksBySurface.set(surface, (this.clicksBySurface.get(surface) ?? 0) + 1)
+    if (source) this.clicksBySource.set(source, (this.clicksBySource.get(source) ?? 0) + 1)
+    if (position !== null) {
+      this.clicksByPositionMap.set(position, (this.clicksByPositionMap.get(position) ?? 0) + 1)
+    }
+  }
+
+  searchCount(scope?: string): number {
+    if (scope) return this.searches.get(scope) ?? 0
+    let n = 0
+    for (const v of this.searches.values()) n += v
+    return n
+  }
+
+  clickCount(scope?: string): number {
+    if (scope) return this.clicksByScope.get(scope) ?? 0
+    return this.clickTotal
+  }
+
+  clicksBySourceTop(): Array<{ source: string; clicks: number }> {
+    return [...this.clicksBySource.entries()]
+      .map(([source, clicks]) => ({ source, clicks }))
+      .sort((a, b) => b.clicks - a.clicks)
+  }
+
+  /** 탭별 "검색 결과에서 나간" 클릭 */
+  searchClickCount(scope: string): number {
+    return this.searchClicksByScope.get(scope) ?? 0
+  }
+
+  clickCountBySurface(surface: string): number {
+    return this.clicksBySurface.get(surface) ?? 0
+  }
+
+  /** 순위 오름차순. 화면에 "1위부터" 찍으려면 정렬 기준이 순위여야 한다 */
+  clicksByPosition(limit = 20): Array<{ position: number; clicks: number }> {
+    return [...this.clicksByPositionMap.entries()]
+      .map(([position, clicks]) => ({ position, clicks }))
+      .sort((a, b) => a.position - b.position)
+      .slice(0, limit)
+  }
+
+  zeroTop(limit: number): Array<{ term: string; scope: string; count: number; lastSeen: Date }> {
+    return [...this.zero.values()]
+      .sort((a, b) => b.count - a.count || b.last - a.last)
+      .slice(0, limit)
+      .map((z) => ({ term: z.term, scope: z.scope, count: z.count, lastSeen: new Date(z.last) }))
+  }
+
+  clear(): void {
+    this.searches.clear()
+    this.zero.clear()
+    this.clicksByScope.clear()
+    this.searchClicksByScope.clear()
+    this.clicksBySurface.clear()
+    this.clicksBySource.clear()
+    this.clicksByPositionMap.clear()
+    this.clickTotal = 0
+  }
+}

@@ -71,6 +71,29 @@ if (process.env.NEXT_PUBLIC_SITE_URL) {
   if (u.endsWith('/')) caution('NEXT_PUBLIC_SITE_URL 끝에 / 가 있습니다. 링크가 //로 겹칠 수 있습니다')
 }
 
+/*
+  도메인 전환 설정. 옛 호스트에 새 호스트가 섞이면 사이트 전체가 무한 리다이렉트로 죽는다.
+  배포 전에 여기서 잡는다.
+*/
+if (process.env.LEGACY_HOSTS) {
+  const hosts = process.env.LEGACY_HOSTS.split(',').map((h) => h.trim().toLowerCase()).filter(Boolean)
+  if (!process.env.NEXT_PUBLIC_SITE_URL) {
+    bad('LEGACY_HOSTS 가 있는데 NEXT_PUBLIC_SITE_URL 이 없습니다 — 어디로 보낼지 알 수 없어 리다이렉트가 만들어지지 않습니다')
+  } else {
+    let canonicalHost = ''
+    try {
+      canonicalHost = new URL(process.env.NEXT_PUBLIC_SITE_URL).host.toLowerCase()
+    } catch {
+      bad('NEXT_PUBLIC_SITE_URL 을 주소로 해석하지 못했습니다')
+    }
+    if (canonicalHost && hosts.includes(canonicalHost)) {
+      bad(`LEGACY_HOSTS 에 현재 호스트(${canonicalHost})가 들어 있습니다 — 무한 리다이렉트가 됩니다`)
+    } else if (canonicalHost) {
+      ok(`옛 호스트 ${hosts.length}개를 ${canonicalHost} 로 301`)
+    }
+  }
+}
+
 // 런타임 계정과 오너 계정이 같으면 최소권한이 아니다
 if (process.env.DATABASE_URL && process.env.DATABASE_URL_OWNER) {
   if (process.env.DATABASE_URL === process.env.DATABASE_URL_OWNER) {

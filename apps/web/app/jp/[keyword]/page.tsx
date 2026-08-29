@@ -4,6 +4,7 @@ import { search } from '@eodi/crawler'
 import { SOURCE_LABEL, escapeJsonForHtml, formatMoney } from '@eodi/core'
 import SearchBox from '@/components/SearchBox'
 import ResultCard from '@/components/ResultCard'
+import OutboundTracker from '@/components/OutboundTracker'
 import OverseasNotice from '@/components/OverseasNotice'
 import AdSlot from '@/components/AdSlot'
 import { Header, Footer } from '@/components/Layout'
@@ -41,7 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function JpKeywordPage({ params }: Props) {
   const { keyword } = await params
   const q = decodeURIComponent(keyword).trim()
-  const res = await search({ q, perPage: 20, scope: 'overseas' })
+  // 이 페이지는 ISR 로 다시 그려진다. 렌더는 사용자의 검색이 아니므로 검색 로그에 넣지 않는다.
+  const res = await search({ q, perPage: 20, scope: 'overseas' }, { background: true })
   const now = Date.now()
 
   const jsonLd = {
@@ -107,7 +109,13 @@ export default async function JpKeywordPage({ params }: Props) {
             지금은 매물이 없습니다. 잠시 후 다시 확인해 주세요.
           </p>
         ) : (
-          <ul className="mt-5 space-y-3">
+          // 랜딩에서 나간 클릭도 센다. 검색을 거치지 않았으므로 surface 를 나눠 둔다
+          <OutboundTracker
+            scope="overseas"
+            normalized={res.interpreted.normalized}
+            surface="landing"
+          >
+            <ul className="mt-5 space-y-3">
             {res.items.map((item, idx) => (
               <li key={`${item.source}-${item.sourceItemId}`}>
                 <ResultCard item={item} now={now} query={res.interpreted.overseasTerm ?? q} />
@@ -119,6 +127,7 @@ export default async function JpKeywordPage({ params }: Props) {
               </li>
             ))}
           </ul>
+          </OutboundTracker>
         )}
 
         {res.items.length > 0 && (

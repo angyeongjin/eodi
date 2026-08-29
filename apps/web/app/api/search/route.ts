@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { search } from '@eodi/crawler'
+import { searchForRequest } from '@/lib/search'
 import { parseSearchParams } from '@/lib/params'
 import { clientKey, consume } from '@/lib/ratelimit'
 
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const res = await search(query)
+    const res = await searchForRequest(query)
     return NextResponse.json(res, {
       headers: {
         // 같은 검색어는 엣지에서 잠깐 재사용한다

@@ -83,8 +83,33 @@ CREATE TABLE IF NOT EXISTS query_log (
   created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- 어느 탭에서 검색했는지. 해외 탭 이용 비중이 런치 성공/실패 판단 기준이라 세야 한다.
+ALTER TABLE query_log ADD COLUMN IF NOT EXISTS scope TEXT NOT NULL DEFAULT 'domestic';
+
 CREATE INDEX IF NOT EXISTS query_log_created_idx    ON query_log (created_at DESC);
 CREATE INDEX IF NOT EXISTS query_log_normalized_idx ON query_log (normalized);
+-- 0건 검색어 집계용. 사전·카탈로그를 무엇으로 채울지 알려주는 신호다.
+CREATE INDEX IF NOT EXISTS query_log_zero_idx       ON query_log (created_at DESC) WHERE result_count = 0;
+
+-- 화면에서 일어난 행동. 지금은 원본 마켓으로 나간 클릭 하나뿐이다.
+--
+-- 사람을 식별하지 않는다. 세션 ID·IP·UA 를 저장하지 않으므로 같은 사람의 두 번째 클릭인지
+-- 알 수 없고, 알 필요도 없다. 우리가 답해야 하는 질문은 "이 결과가 쓸모 있었나"이지
+-- "누가 눌렀나"가 아니다.
+CREATE TABLE IF NOT EXISTS event (
+  id          BIGSERIAL   PRIMARY KEY,
+  kind        TEXT        NOT NULL,
+  scope       TEXT        NOT NULL DEFAULT 'domestic',
+  source      TEXT,
+  position    INTEGER,
+  normalized  TEXT,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 어느 화면에서 눌렀는지. 검색 결과 / SEO 랜딩 / 홈 피드는 분모가 다르다.
+ALTER TABLE event ADD COLUMN IF NOT EXISTS surface TEXT NOT NULL DEFAULT 'search';
+
+CREATE INDEX IF NOT EXISTS event_kind_created_idx ON event (kind, created_at DESC);
 
 -- 소스 상태 이력. "번개장터가 언제부터 안 되는지" 를 사람이 알 수 있어야 한다.
 CREATE TABLE IF NOT EXISTS source_health (
