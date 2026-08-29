@@ -1,9 +1,21 @@
+import { legacyRedirects } from './lib/redirects.mjs'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   // 워크스페이스 패키지는 빌드된 dist 를 그대로 쓴다
   serverExternalPackages: ['postgres'],
+  /*
+    도메인 전환용. LEGACY_HOSTS 가 비어 있으면 규칙이 만들어지지 않으므로
+    이 코드가 배포돼 있어도 현재 동작은 그대로다. 자세한 건 lib/redirects.mjs.
+  */
+  async redirects() {
+    return legacyRedirects({
+      siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+      legacyHosts: process.env.LEGACY_HOSTS,
+    })
+  },
   async headers() {
     const adsense = process.env.NEXT_PUBLIC_ADSENSE_CLIENT
       ? ' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com'
