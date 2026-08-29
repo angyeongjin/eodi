@@ -10,7 +10,7 @@
  * 무엇을 가정했는지 함께 보여준다. 모르는 것을 아는 척하느니 폭을 넓게 잡는 편이 낫다.
  */
 
-/** 구매대행 수수료율. 업계 통상 5~10% (docs/02-business/business-model.md) */
+/** 구매대행 수수료율. 업계 통상 5~10% (비즈니스 모델 문서의 근거값) */
 export const AGENT_FEE_RATE = { low: 0.05, high: 0.1 } as const
 /** 대행사 대부분이 최소 수수료를 둔다 */
 export const AGENT_FEE_MIN_KRW = 3_000

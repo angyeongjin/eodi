@@ -205,7 +205,7 @@ function ratio(part: number, whole: number): number {
  *
  * 원본 클릭률은 랭킹을 고칠 근거이자 마켓 제휴 제안의 유일한 물증이고,
  * 탭별 비중은 굿즈 타깃 가설이 맞았는지를 말해준다.
- * 둘 다 [런치 플랜](docs/06-growth/launch.md)의 성공/실패 판단 기준에 그대로 들어간다.
+ * 둘 다 런치 플랜의 성공/실패 판단 기준(클릭률 25%, 해외 탭 10%)에 그대로 들어간다.
  */
 export async function outboundStats(days = 7): Promise<OutboundStats> {
   const interval = `${days} days`
