@@ -19,7 +19,8 @@ export default function OverseasNotice({ res }: { res: SearchResponse }) {
       style={{ background: 'var(--warn-weak)', borderColor: 'var(--border)', color: 'var(--warn)' }}
     >
       <strong>표시 가격은 일본 현지 판매가입니다.</strong> 실제 지출에는 구매대행 수수료·국제배송비·관세가
-      더해집니다. 직접 구매·배송은 되지 않으며 구매대행 서비스가 필요합니다.
+      더해집니다. 직접 구매·배송은 되지 않으며 구매대행 서비스가 필요합니다.{' '}
+      <a href="/cost" className="underline">얼마나 더 붙는지 보기</a>
       {fx && (
         <span className="ml-1 opacity-80">
           (환산 기준 100엔 = {Math.round(fx.jpyToKrw * 100).toLocaleString('ko-KR')}원

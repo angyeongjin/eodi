@@ -1,7 +1,7 @@
 import type { MergedListing } from '@eodi/core'
 import {
   KIND_LABEL, PRICE_FLAG_LABEL, SOURCE_LABEL, WARNING_LABEL, WARNING_DESC,
-  formatMoney, formatApproxKrw,
+  formatMoney, formatApproxKrw, estimateLandedCost, formatCostRange, toKrw,
 } from '@eodi/core'
 import { relativeTime, remainingTime, shortRegion, won } from '@/lib/format'
 import SaveButton from './SaveButton'
@@ -38,6 +38,18 @@ export default function ResultCard({
 }) {
   const others = item.duplicates
   const showKind = item.kind !== 'item'
+  /*
+    일본 매물의 표시가는 지불액이 아니다. 대행 수수료·국제배송·관세가 붙는데,
+    그걸 결제 직전에 알게 되면 우리가 싸 보이게 속인 셈이 된다.
+    정확한 값은 낼 수 없으므로 범위로, "추정"이라고 밝히고 보여준다.
+  */
+  const landed =
+    item.currency === 'JPY'
+      ? estimateLandedCost({
+          priceKrw: item.priceKrw,
+          domesticShippingKrw: toKrw(item.shippingFee ?? 0, item.currency),
+        })
+      : null
 
   return (
     <article
@@ -104,6 +116,13 @@ export default function ResultCard({
               </span>
             )}
           </div>
+
+          {landed && (
+            <p className="mt-0.5 text-xs" style={{ color: 'var(--text-muted)' }}>
+              예상 총액 <span className="tnum">{formatCostRange(landed.low, landed.high)}</span>
+              <span className="ml-1 opacity-80">추정</span>
+            </p>
+          )}
 
           <h3 className="line-clamp-2 mt-1 text-sm leading-snug sm:text-[15px]">
             <Highlight text={item.title} query={query} />
