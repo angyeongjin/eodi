@@ -1,4 +1,5 @@
 import type { SearchResponse } from '@eodi/core'
+import DidYouMean from './DidYouMean'
 
 /**
  * 해외 탭 고정 안내.
@@ -40,6 +41,8 @@ export function TranslationMiss({ res }: { res: SearchResponse }) {
         <br className="hidden sm:block" />
         아직 사전에 없는 말이라 엉뚱한 결과를 보여주는 대신 솔직히 말씀드립니다.
       </p>
+      {/* 사전에 없는 게 아니라 오타일 수 있다. 그 경우 먼저 되물어야 한다. */}
+      <DidYouMean query={res.query} scope="overseas" />
       <p className="mt-3 text-sm" style={{ color: 'var(--text-muted)' }}>
         일본어를 아신다면 직접 입력해 보세요. 이 검색어는 기록해 두고 사전에 추가하겠습니다.
       </p>

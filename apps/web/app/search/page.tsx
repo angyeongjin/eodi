@@ -11,6 +11,7 @@ import AlertButton from '@/components/AlertButton'
 import OverseasNotice, { TranslationBar, TranslationMiss } from '@/components/OverseasNotice'
 import Pagination from '@/components/Pagination'
 import RelatedTerms from '@/components/RelatedTerms'
+import DidYouMean from '@/components/DidYouMean'
 import AdSlot from '@/components/AdSlot'
 import { Header, Footer } from '@/components/Layout'
 import { parseSearchParams, buildHref, scopeOf } from '@/lib/params'
@@ -118,6 +119,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <div className="mb-2">
               <AlertButton term={res.query} scope={scope} filters={query.filters ?? {}} />
             </div>
+            <DidYouMean query={res.query} scope={scope} resultCount={res.total} />
             <FilterBar params={sp} facets={res.facets} res={res} />
             <div className="mt-3">
               <SourceStatusBar res={res} />
@@ -133,6 +135,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <p className="mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
               {hasFilters ? '필터를 풀면 더 많은 매물이 나올 수 있습니다.' : '검색어를 조금 넓혀보세요.'}
             </p>
+            <DidYouMean query={res.query} scope={scope} resultCount={0} />
             {hasFilters && (
               <Link
                 href={buildHref({ q: sp.q, in: sp.in }, {})}
