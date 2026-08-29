@@ -57,7 +57,7 @@ export default async function HomePage() {
           내가 남긴 흔적에서 뽑은 최근 매물. 개인화는 브라우저 안에서만 일어나고,
           서버는 "이 키워드들의 최근 매물"만 답한다(app/api/feed).
         */}
-        <OutboundTracker scope="domestic" normalized="">
+        <OutboundTracker scope="domestic" normalized="" surface="feed">
           <HomeFeed fallbackTerms={keywords} />
         </OutboundTracker>
 

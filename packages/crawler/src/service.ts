@@ -5,7 +5,7 @@ import {
   type RawListing, type SourceStatus, type CatalogProduct, type MarketScope,
 } from '@eodi/core'
 import {
-  cacheKey, getCachedSearch, setCachedSearch, DEFAULT_TTL_MS, isCacheFresh,
+  cacheKey, getCachedSearch, setCachedSearch, DEFAULT_TTL_MS, isCacheFresh, isCacheUsable,
   upsertListings, searchStoredListings, logQuery, recordSourceHealth, popularQueries,
   recordUntranslated,
 } from '@eodi/db'
@@ -154,11 +154,15 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
       기다려서 얻는 차이는 대개 매물 몇 건이고, 잃는 것은 4초다.
       갱신할 수단이 없으면(CLI·크론) 낡은 답을 주지 않고 새로 수집한다.
     */
-    if (hit && (isCacheFresh(hit.createdAt, opts.ttlMs ?? DEFAULT_TTL_MS) || opts.defer)) {
+    const ttl = opts.ttlMs ?? DEFAULT_TTL_MS
+    const fresh = hit ? isCacheFresh(hit.createdAt, ttl) : false
+    // 낡은 답을 쓰더라도 상한은 지킨다. 상한을 넘겼으면 캐시가 없는 것과 같이 취급한다.
+    const usable = hit ? fresh || (Boolean(opts.defer) && isCacheUsable(hit.createdAt, ttl)) : false
+    if (hit && usable) {
       listings = hit.listings
       statuses = hit.sources.map((s) => ({ ...s, cached: true }))
       cached = true
-      stale = !isCacheFresh(hit.createdAt, opts.ttlMs ?? DEFAULT_TTL_MS)
+      stale = !fresh
     }
   }
 

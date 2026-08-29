@@ -12,6 +12,7 @@ describe('parseEvent — 받아들이는 것', () => {
     const e = parseEvent({
       kind: 'outbound',
       scope: 'overseas',
+      surface: 'landing',
       source: 'yahoo_auction',
       position: 3,
       normalized: '주술회전 아크릴스탠드',
@@ -19,10 +20,20 @@ describe('parseEvent — 받아들이는 것', () => {
     assert.deepEqual(e, {
       kind: 'outbound',
       scope: 'overseas',
+      surface: 'landing',
       source: 'yahoo_auction',
       position: 3,
       normalized: '주술회전 아크릴스탠드',
     })
+  })
+
+  test('화면을 안 알려주면 검색으로 본다 — 기존 클라이언트와의 호환', () => {
+    assert.equal(parseEvent({ kind: 'outbound', source: 'bunjang' })?.surface, 'search')
+  })
+
+  test('모르는 화면 이름은 검색으로 떨어진다', () => {
+    // 여기서 이벤트를 버리면 클릭이 통째로 사라진다. 대신 가장 보수적인 칸에 넣는다.
+    assert.equal(parseEvent({ kind: 'outbound', source: 'bunjang', surface: '어딘가' })?.surface, 'search')
   })
 
   test('scope 를 안 주면 국내로 본다', () => {

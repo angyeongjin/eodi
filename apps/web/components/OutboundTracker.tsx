@@ -1,6 +1,6 @@
 'use client'
 
-import type { MarketScope } from '@eodi/core'
+import type { EventSurface, MarketScope } from '@eodi/core'
 
 /**
  * 원본 마켓으로 나가는 클릭을 센다.
@@ -15,15 +15,24 @@ import type { MarketScope } from '@eodi/core'
 export default function OutboundTracker({
   scope,
   normalized,
+  surface = 'search',
   children,
 }: {
   scope: MarketScope
   /** 정규화된 검색어. 원문 대신 이것만 보낸다 */
   normalized: string
+  /** 어느 화면인지. 검색을 거치지 않은 화면의 클릭은 클릭률 분자에 넣지 않는다 */
+  surface?: EventSurface
   children: React.ReactNode
 }) {
   function track(e: React.MouseEvent<HTMLDivElement>) {
     try {
+      /*
+        auxclick 은 가운데 버튼만이 아니라 **우클릭에도** 발화한다.
+        "링크 주소 복사"나 그냥 눌렀다 만 우클릭까지 이탈로 세면,
+        랭킹과 제휴 판단에 쓰는 숫자가 실제 이동보다 부풀어 오른다.
+      */
+      if (e.type === 'auxclick' && e.button !== 1) return
       const target = e.target
       if (!(target instanceof Element)) return
       const link = target.closest('a[data-outbound]')
@@ -39,6 +48,7 @@ export default function OutboundTracker({
       const body = JSON.stringify({
         kind: 'outbound',
         scope,
+        surface,
         source,
         position: Number.isInteger(position) ? position : null,
         normalized: linkTerm ?? normalized,

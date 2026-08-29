@@ -56,8 +56,13 @@ for (const term of keywords) {
     try {
       const res = await search(
         { q: term, regionSlug: region.slug || undefined, perPage: 1, scope },
-        // 예열은 사용자를 기다리게 하지 않으므로 페이지를 더 넘겨 인덱스를 깊게 판다
-        { refresh: true, federate: { limitPerSource: 200, maxRequests: 3, timeoutMs: 25_000 } },
+        // 예열은 사용자를 기다리게 하지 않으므로 페이지를 더 넘겨 인덱스를 깊게 판다.
+        // background: 크론이 돈 것은 검색이 아니다. 로그에 섞이면 클릭률 분모가 크론으로 채워진다.
+        {
+          refresh: true,
+          background: true,
+          federate: { limitPerSource: 200, maxRequests: 3, timeoutMs: 25_000 },
+        },
       )
       totalItems += res.total
       done++

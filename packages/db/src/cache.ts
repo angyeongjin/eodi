@@ -28,6 +28,17 @@ export function isCacheFresh(createdAt: Date, ttlMs: number = DEFAULT_TTL_MS): b
   return Date.now() - createdAt.getTime() <= ttlMs
 }
 
+/**
+ * 답으로 쓸 수 있는가 — 신선 기한 + STALE_MS 안인가.
+ *
+ * 이 상한이 없으면 "낡아도 쓴다"가 "얼마나 낡았든 쓴다"가 된다.
+ * 실제로 그랬다: 소스가 전부 죽어 갱신이 실패하면 갱신 시도조차 하지 않고
+ * 30분도 더 된 목록을 계속 돌려줬다.
+ */
+export function isCacheUsable(createdAt: Date, ttlMs: number = DEFAULT_TTL_MS): boolean {
+  return Date.now() - createdAt.getTime() <= ttlMs + STALE_MS
+}
+
 const memory = new MemoryTtlMap<CachedSearch>(300)
 
 export function cacheKey(term: string, extra: Record<string, unknown> = {}): string {
@@ -78,7 +89,14 @@ export async function getCachedSearch(key: string): Promise<CachedSearch | null>
       sources: (row.sources as SourceStatus[]) ?? [],
       createdAt: row.created_at,
     }
-    memory.set(key, value, DEFAULT_TTL_MS)
+    /*
+      메모리에는 "남은 수명"만큼만 둔다.
+      여기서 DEFAULT_TTL_MS 를 다시 주면 DB 에서 읽을 때마다 수명이 연장돼,
+      폐기했어야 할 캐시가 프로세스가 살아 있는 한 계속 살아난다.
+    */
+    const remaining = value.createdAt.getTime() + DEFAULT_TTL_MS + STALE_MS - Date.now()
+    if (remaining <= 0) return null
+    memory.set(key, value, remaining)
     return value
   }, null)
 }

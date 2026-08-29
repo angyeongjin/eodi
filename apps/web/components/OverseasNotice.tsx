@@ -64,7 +64,8 @@ export function TranslationMiss({ res, params }: { res: SearchResponse; params: 
           일본어 표기 알려주기
         </a>
         <a
-          href={buildHref(params, { scope: undefined })}
+          /* 일본 소스·지역 필터를 들고 국내 탭으로 가면 또 0건이다 — 없애려던 막다른 길이 그대로 남는다 */
+          href={buildHref(params, { scope: undefined, src: undefined, region: undefined })}
           className="inline-flex h-9 items-center rounded-lg border px-4 text-sm"
           style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
         >

@@ -13,7 +13,8 @@ const sortArg = args.find((a) => a.startsWith('--sort='))?.split('=')[1] as Sort
 const scope: MarketScope = args.includes('--overseas') ? 'overseas' : 'domestic'
 const term = args.filter((a) => !a.startsWith('--')).join(' ') || '아이폰16 프로'
 
-const res = await search({ q: term, sort: sortArg ?? 'relevance', perPage: 12, scope })
+// 개발용 CLI 도 사용자 검색이 아니므로 계측에 넣지 않는다
+const res = await search({ q: term, sort: sortArg ?? 'relevance', perPage: 12, scope }, { background: true })
 
 const won = (n: number) => n.toLocaleString('ko-KR') + '원'
 

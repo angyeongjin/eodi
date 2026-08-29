@@ -1,4 +1,4 @@
-import type { EventInput, MarketScope, SourceId, SourceStatus } from '@eodi/core'
+import type { EventInput, EventSurface, MarketScope, SourceId, SourceStatus } from '@eodi/core'
 import { tryDb } from './client.js'
 import { MemoryCounter, MemoryTermCounter, MemoryMetrics } from './memory.js'
 
@@ -165,12 +165,12 @@ export async function topUntranslated(limit = 50): Promise<UntranslatedTerm[]> {
  * 우리가 세지 못하는 것보다 사용자가 원본으로 못 가는 것이 훨씬 나쁘다.
  */
 export async function recordEvent(input: EventInput): Promise<void> {
-  memMetrics.addClick(input.scope, input.source, input.position)
+  memMetrics.addClick(input.scope, input.surface, input.source, input.position)
 
   await tryDb(async (sql) => {
     await sql`
-      INSERT INTO event (kind, scope, source, position, normalized)
-      VALUES (${input.kind}, ${input.scope}, ${input.source},
+      INSERT INTO event (kind, scope, surface, source, position, normalized)
+      VALUES (${input.kind}, ${input.scope}, ${input.surface}, ${input.source},
               ${input.position}, ${input.normalized})
     `
     return undefined
@@ -180,12 +180,20 @@ export async function recordEvent(input: EventInput): Promise<void> {
 export interface OutboundStats {
   days: number
   searches: number
+  /** 모든 화면에서 나간 클릭 */
   clicks: number
-  /** 클릭 / 검색. 검색 한 번에 원본으로 나간 횟수 */
+  /** 그중 검색 결과에서 나간 클릭 — 클릭률의 분자는 이것뿐이다 */
+  searchClicks: number
+  /** 검색 결과 클릭 / 검색 */
   ctr: number
+  /** 탭별. clicks 는 검색 결과에서 나간 클릭만 센다 (클릭률의 분자와 같은 기준) */
   byScope: Array<{ scope: MarketScope; searches: number; clicks: number; ctr: number }>
+  bySurface: Array<{ surface: EventSurface; clicks: number }>
   bySource: Array<{ source: SourceId; clicks: number; share: number }>
+  /** 순위별 클릭 (순위 오름차순). 순위가 없는 클릭은 빠진다 */
   byPosition: Array<{ position: number; clicks: number }>
+  /** 순위가 기록된 클릭 수 — byPosition 의 분모 */
+  positionedClicks: number
 }
 
 function ratio(part: number, whole: number): number {
@@ -209,11 +217,13 @@ export async function outboundStats(days = 7): Promise<OutboundStats> {
       WHERE created_at > NOW() - ${interval}::interval
       GROUP BY scope
     `
-    const clickRows = await sql<Array<{ scope: string; source: string | null; n: string }>>`
-      SELECT scope, source, COUNT(*)::text AS n
+    const clickRows = await sql<
+      Array<{ scope: string; surface: string; source: string | null; n: string }>
+    >`
+      SELECT scope, surface, source, COUNT(*)::text AS n
       FROM event
       WHERE kind = 'outbound' AND created_at > NOW() - ${interval}::interval
-      GROUP BY scope, source
+      GROUP BY scope, surface, source
     `
     const positionRows = await sql<Array<{ position: number; n: string }>>`
       SELECT position, COUNT(*)::text AS n
@@ -221,37 +231,54 @@ export async function outboundStats(days = 7): Promise<OutboundStats> {
       WHERE kind = 'outbound' AND position IS NOT NULL
         AND created_at > NOW() - ${interval}::interval
       GROUP BY position
-      ORDER BY COUNT(*) DESC
-      LIMIT 10
+      ORDER BY position ASC
+      LIMIT 20
     `
 
     const searchByScope = new Map<string, number>()
     for (const r of searchRows) searchByScope.set(r.scope, Number(r.n))
 
     const clickByScope = new Map<string, number>()
+    // 탭별 클릭률의 분자도 검색 결과 클릭이어야 한다. 안 나누면 랜딩·피드 클릭이 섞여 100% 를 넘는다.
+    const searchClickByScope = new Map<string, number>()
+    const clickBySurface = new Map<string, number>()
     const clickBySource = new Map<string, number>()
     for (const r of clickRows) {
-      clickByScope.set(r.scope, (clickByScope.get(r.scope) ?? 0) + Number(r.n))
-      if (r.source) clickBySource.set(r.source, (clickBySource.get(r.source) ?? 0) + Number(r.n))
+      const n = Number(r.n)
+      clickByScope.set(r.scope, (clickByScope.get(r.scope) ?? 0) + n)
+      if (r.surface === 'search') {
+        searchClickByScope.set(r.scope, (searchClickByScope.get(r.scope) ?? 0) + n)
+      }
+      clickBySurface.set(r.surface, (clickBySurface.get(r.surface) ?? 0) + n)
+      if (r.source) clickBySource.set(r.source, (clickBySource.get(r.source) ?? 0) + n)
     }
 
     const searches = [...searchByScope.values()].reduce((a, b) => a + b, 0)
     const clicks = [...clickByScope.values()].reduce((a, b) => a + b, 0)
+    const searchClicks = clickBySurface.get('search') ?? 0
+    const byPosition = positionRows.map((r) => ({ position: r.position, clicks: Number(r.n) }))
 
     return {
       days,
       searches,
       clicks,
-      ctr: ratio(clicks, searches),
+      searchClicks,
+      // 분자는 검색 결과에서 나간 클릭만. 랜딩·홈 피드 클릭은 분모가 되는 검색이 없다.
+      ctr: ratio(searchClicks, searches),
       byScope: (['domestic', 'overseas'] as const).map((scope) => {
         const s = searchByScope.get(scope) ?? 0
-        const c = clickByScope.get(scope) ?? 0
+        const c = searchClickByScope.get(scope) ?? 0
         return { scope, searches: s, clicks: c, ctr: ratio(c, s) }
       }),
+      bySurface: (['search', 'landing', 'feed'] as const).map((surface) => ({
+        surface,
+        clicks: clickBySurface.get(surface) ?? 0,
+      })),
       bySource: [...clickBySource.entries()]
         .map(([source, n]) => ({ source: source as SourceId, clicks: n, share: ratio(n, clicks) }))
         .sort((a, b) => b.clicks - a.clicks),
-      byPosition: positionRows.map((r) => ({ position: r.position, clicks: Number(r.n) })),
+      byPosition,
+      positionedClicks: byPosition.reduce((a, b) => a + b.clicks, 0),
     }
   }, null)
 
@@ -260,20 +287,28 @@ export async function outboundStats(days = 7): Promise<OutboundStats> {
   // DB 가 없거나 아직 아무것도 안 쌓였으면 이번 프로세스가 본 것이라도 보여준다
   const clicks = memMetrics.clickCount()
   const searches = memMetrics.searchCount()
+  const searchClicks = memMetrics.clickCountBySurface('search')
+  const byPosition = memMetrics.clicksByPosition()
   return {
     days,
     searches,
     clicks,
-    ctr: ratio(clicks, searches),
+    searchClicks,
+    ctr: ratio(searchClicks, searches),
     byScope: (['domestic', 'overseas'] as const).map((scope) => {
       const s = memMetrics.searchCount(scope)
-      const c = memMetrics.clickCount(scope)
+      const c = memMetrics.searchClickCount(scope)
       return { scope, searches: s, clicks: c, ctr: ratio(c, s) }
     }),
+    bySurface: (['search', 'landing', 'feed'] as const).map((surface) => ({
+      surface,
+      clicks: memMetrics.clickCountBySurface(surface),
+    })),
     bySource: memMetrics
       .clicksBySourceTop()
       .map((r) => ({ source: r.source as SourceId, clicks: r.clicks, share: ratio(r.clicks, clicks) })),
-    byPosition: memMetrics.clicksByPositionTop(10),
+    byPosition,
+    positionedClicks: byPosition.reduce((a, b) => a + b.clicks, 0),
   }
 }
 

@@ -108,7 +108,9 @@ export function estimateLandedCost(input: LandedCostInput): LandedCostEstimate |
       label: '관세·부가세',
       low: round100(taxLow),
       high: round100(taxHigh),
-      note: '15만원(미화 150달러) 이하는 보통 면세입니다. 관세율은 품목마다 다릅니다',
+      note:
+        `${(DUTY_FREE_LIMIT_KRW / 10_000).toLocaleString('ko-KR')}만원(미화 150달러) 이하는 보통 면세입니다. ` +
+        '관세율은 품목마다 다릅니다',
     })
   }
 

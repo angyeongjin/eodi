@@ -14,9 +14,21 @@ import { SOURCE_LABEL, type SourceId, type MarketScope } from './types.js'
 export const EVENT_KINDS = ['outbound'] as const
 export type EventKind = (typeof EVENT_KINDS)[number]
 
+/**
+ * 어느 화면에서 눌렀는지.
+ *
+ * 클릭률의 분모는 "사용자가 친 검색"인데, 클릭은 검색 결과 말고도 여러 곳에서 나온다 —
+ * SEO 랜딩(`/s`·`/jp`)과 홈 피드는 검색을 거치지 않는다. 이걸 구분하지 않으면
+ * 분자에는 들어가고 분모에는 없는 클릭이 섞여 검색 클릭률이 부풀어 오른다.
+ */
+export const EVENT_SURFACES = ['search', 'landing', 'feed'] as const
+export type EventSurface = (typeof EVENT_SURFACES)[number]
+
 export interface EventInput {
   kind: EventKind
   scope: MarketScope
+  /** 어느 화면에서 나간 클릭인지 */
+  surface: EventSurface
   /** 어느 마켓으로 나갔는지 */
   source: SourceId | null
   /** 결과 목록에서 몇 번째였는지(0-based). 랭킹이 위쪽을 맞히고 있는지 본다 */
@@ -45,6 +57,12 @@ export function parseEvent(raw: unknown): EventInput | null {
 
   const scope: MarketScope = o.scope === 'overseas' ? 'overseas' : 'domestic'
 
+  // 모르는 값은 검색으로 두지 않는다. 검색 클릭률을 오염시키느니 따로 세는 편이 낫다.
+  const surface: EventSurface =
+    typeof o.surface === 'string' && (EVENT_SURFACES as readonly string[]).includes(o.surface)
+      ? (o.surface as EventSurface)
+      : 'search'
+
   const source =
     typeof o.source === 'string' && Object.prototype.hasOwnProperty.call(SOURCE_LABEL, o.source)
       ? (o.source as SourceId)
@@ -68,5 +86,5 @@ export function parseEvent(raw: unknown): EventInput | null {
   // 소스별 비중이 이 이벤트의 존재 이유이기 때문이다.
   if (kind === 'outbound' && source === null) return null
 
-  return { kind: kind as EventKind, scope, source, position, normalized }
+  return { kind: kind as EventKind, scope, surface, source, position, normalized }
 }

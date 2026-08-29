@@ -106,6 +106,9 @@ CREATE TABLE IF NOT EXISTS event (
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- 어느 화면에서 눌렀는지. 검색 결과 / SEO 랜딩 / 홈 피드는 분모가 다르다.
+ALTER TABLE event ADD COLUMN IF NOT EXISTS surface TEXT NOT NULL DEFAULT 'search';
+
 CREATE INDEX IF NOT EXISTS event_kind_created_idx ON event (kind, created_at DESC);
 
 -- 소스 상태 이력. "번개장터가 언제부터 안 되는지" 를 사람이 알 수 있어야 한다.

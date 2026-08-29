@@ -19,6 +19,12 @@ if (!hasDb()) {
 
 const pct = (n: number) => `${(n * 100).toFixed(1)}%`
 
+const SURFACE_LABEL: Record<string, string> = {
+  search: '검색 결과',
+  landing: 'SEO 랜딩',
+  feed: '홈 피드',
+}
+
 const stats = await outboundStats(days)
 
 console.log(`## 최근 ${days}일 계측\n`)
@@ -27,8 +33,12 @@ if (stats.searches === 0) {
   console.log('아직 검색이 없습니다. 유입이 먼저입니다.')
 } else {
   console.log(`- 검색 ${stats.searches.toLocaleString('ko-KR')}회`)
-  console.log(`- 원본 클릭 ${stats.clicks.toLocaleString('ko-KR')}회`)
-  console.log(`- **클릭률 ${pct(stats.ctr)}** ${stats.ctr < 0.25 ? '— 기준(25%) 미달. 랭킹 가중치를 본다' : '— 기준 충족'}`)
+  console.log(
+    `- 원본 클릭 ${stats.clicks.toLocaleString('ko-KR')}회` +
+      ` (검색 결과에서 ${stats.searchClicks.toLocaleString('ko-KR')}회)`,
+  )
+  // 분자는 검색 결과 클릭만. 랜딩·홈 피드 클릭에는 짝이 되는 검색이 없다.
+  console.log(`- **검색 클릭률 ${pct(stats.ctr)}** ${stats.ctr < 0.25 ? '— 기준(25%) 미달. 랭킹 가중치를 본다' : '— 기준 충족'}`)
 
   const overseas = stats.byScope.find((s) => s.scope === 'overseas')
   const overseasShare = stats.searches > 0 ? (overseas?.searches ?? 0) / stats.searches : 0
@@ -55,14 +65,22 @@ if (stats.searches === 0) {
     }
   }
 
+  const surfaces = stats.bySurface.filter((s) => s.clicks > 0)
+  if (surfaces.length > 1) {
+    console.log('\n### 어느 화면에서 눌렸나\n')
+    console.log(surfaces.map((s) => `${SURFACE_LABEL[s.surface]} ${s.clicks}회`).join(' · '))
+  }
+
   if (stats.byPosition.length > 0) {
     console.log('\n### 몇 번째 결과가 눌렸나\n')
-    const top = stats.byPosition.slice(0, 5)
-    console.log(top.map((r) => `${r.position + 1}위 ${r.clicks}회`).join(' · '))
+    console.log(stats.byPosition.slice(0, 5).map((r) => `${r.position + 1}위 ${r.clicks}회`).join(' · '))
     const firstThree = stats.byPosition
       .filter((r) => r.position < 3)
       .reduce((a, b) => a + b.clicks, 0)
-    console.log(`\n상위 3개가 전체 클릭의 ${pct(stats.clicks > 0 ? firstThree / stats.clicks : 0)}`)
+    // 분모는 순위가 기록된 클릭만. 홈 피드처럼 순위가 없는 클릭을 섞으면 비율이 낮게 나온다.
+    console.log(
+      `\n상위 3개가 순위 있는 클릭의 ${pct(stats.positionedClicks > 0 ? firstThree / stats.positionedClicks : 0)}`,
+    )
   }
 }
 

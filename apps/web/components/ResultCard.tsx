@@ -120,7 +120,13 @@ export default function ResultCard({
           {landed && (
             <p className="mt-0.5 text-xs" style={{ color: 'var(--text-muted)' }}>
               예상 총액 <span className="tnum">{formatCostRange(landed.low, landed.high)}</span>
-              <span className="ml-1 opacity-80">추정</span>
+              {/*
+                경매의 price 는 확정가가 아니라 현재 입찰가다(1엔 시작이 흔하다).
+                그 위에 계산한 총액을 그냥 "추정"이라고만 하면 낙찰가처럼 읽힌다.
+              */}
+              <span className="ml-1 opacity-80">
+                {item.listingType === 'auction' ? '현재 입찰가 기준' : '추정'}
+              </span>
             </p>
           )}
 

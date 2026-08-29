@@ -42,7 +42,8 @@ for (const a of alerts) {
   try {
     const res = await search(
       { q: a.term, scope: a.scope, filters: a.filters, perPage: 30 },
-      { federate: { timeoutMs: 12_000 } },
+      // 알림 확인도 사용자가 친 검색이 아니다 (계측 분모에서 제외)
+      { background: true, federate: { timeoutMs: 12_000 } },
     )
     /*
       처음 등록한 알림은 기존 매물을 쏟아내지 않는다. 현재 목록을 기억만 하고 넘어간다.

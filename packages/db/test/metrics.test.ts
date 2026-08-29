@@ -18,7 +18,7 @@ describe('계측: 검색과 클릭을 나눠 센다', () => {
 
     await logQuery({ term: '아이폰16', normalized: '아이폰16', resultCount: 12, tookMs: 100, cached: false })
     await logQuery({ term: '아이폰16', normalized: '아이폰16', resultCount: 12, tookMs: 90, cached: true })
-    await recordEvent({ kind: 'outbound', scope: 'domestic', source: 'bunjang', position: 0, normalized: '아이폰16' })
+    await recordEvent({ kind: 'outbound', scope: 'domestic', surface: 'search', source: 'bunjang', position: 0, normalized: '아이폰16' })
 
     const after = await outboundStats(7)
     assert.equal(after.searches - before.searches, 2)
@@ -41,6 +41,7 @@ describe('계측: 검색과 클릭을 나눠 센다', () => {
     await recordEvent({
       kind: 'outbound',
       scope: 'overseas',
+      surface: 'search',
       source: 'yahoo_auction',
       position: 1,
       normalized: '주술회전 아크릴스탠드',
@@ -64,11 +65,36 @@ describe('계측: 검색과 클릭을 나눠 센다', () => {
   })
 
   test('어느 마켓으로 보냈는지 집계된다 — 제휴 제안의 근거', async () => {
-    await recordEvent({ kind: 'outbound', scope: 'domestic', source: 'daangn', position: 2, normalized: '자전거' })
+    await recordEvent({ kind: 'outbound', scope: 'domestic', surface: 'search', source: 'daangn', position: 2, normalized: '자전거' })
     const stats = await outboundStats(7)
     const daangn = stats.bySource.find((s) => s.source === 'daangn')
     assert.ok(daangn && daangn.clicks >= 1, '당근 클릭이 집계돼야 한다')
     assert.ok(daangn!.share > 0 && daangn!.share <= 1)
+  })
+})
+
+describe('계측: 화면을 나눠 센다', () => {
+  test('랜딩·홈 피드 클릭은 검색 클릭률의 분자에 들어가지 않는다', async () => {
+    const before = await outboundStats(7)
+
+    // 검색을 거치지 않은 클릭 두 건. 짝이 되는 검색이 없으므로 분자에 넣으면 클릭률이 부풀어 오른다.
+    await recordEvent({ kind: 'outbound', scope: 'overseas', surface: 'landing', source: 'yahoo_auction', position: 0, normalized: '피규어' })
+    await recordEvent({ kind: 'outbound', scope: 'domestic', surface: 'feed', source: 'bunjang', position: null, normalized: '자전거' })
+
+    const after = await outboundStats(7)
+    assert.equal(after.clicks - before.clicks, 2, '전체 클릭에는 잡힌다')
+    assert.equal(after.searchClicks - before.searchClicks, 0, '검색 결과 클릭은 늘지 않는다')
+
+    const landing = after.bySurface.find((s) => s.surface === 'landing')
+    const feed = after.bySurface.find((s) => s.surface === 'feed')
+    assert.ok((landing?.clicks ?? 0) >= 1 && (feed?.clicks ?? 0) >= 1, '화면별로 따로 세진다')
+  })
+
+  test('순위가 없는 클릭은 순위 집계에서 빠진다', async () => {
+    const before = await outboundStats(7)
+    await recordEvent({ kind: 'outbound', scope: 'domestic', surface: 'feed', source: 'daangn', position: null, normalized: '책상' })
+    const after = await outboundStats(7)
+    assert.equal(after.positionedClicks - before.positionedClicks, 0)
   })
 })
 

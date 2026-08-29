@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { normalizeText, type MarketScope, type RawListing } from '@eodi/core'
+import { normalizeText, toKrw, type MarketScope, type RawListing } from '@eodi/core'
 import { searchStoredListings } from '@eodi/db'
 import { clientKey, consume } from '@/lib/ratelimit'
 import { interleaveByTerm } from '@/lib/feed'
@@ -62,8 +62,17 @@ export async function GET(req: Request): Promise<Response> {
     (row) => `${row.listing.source}:${row.listing.sourceItemId}`,
   )
 
+  /*
+    RawListing 에는 priceKrw 가 없다 — 원화 환산은 병합 단계에서 붙는다.
+    피드는 그 단계를 거치지 않으므로 여기서 만들어 준다. 없는 필드를 화면이 읽으면 NaN 이 뜬다.
+  */
+  const withKrw = items.map(({ term, listing }) => ({
+    term,
+    listing: { ...listing, priceKrw: toKrw(listing.price, listing.currency) },
+  }))
+
   return NextResponse.json(
-    { terms, items },
+    { terms, items: withKrw },
     // 같은 키워드 조합은 잠깐 재사용한다. 인덱스는 예열 크론이 채우므로 초 단위로 바뀌지 않는다.
     { headers: { 'Cache-Control': 'private, max-age=120' } },
   )

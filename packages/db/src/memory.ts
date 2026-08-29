@@ -98,8 +98,10 @@ export class MemoryMetrics {
   private searches = new Map<string, number>()
   private zero = new Map<string, { term: string; scope: string; count: number; last: number }>()
   private clicksByScope = new Map<string, number>()
+  private searchClicksByScope = new Map<string, number>()
+  private clicksBySurface = new Map<string, number>()
   private clicksBySource = new Map<string, number>()
-  private clicksByPosition = new Map<number, number>()
+  private clicksByPositionMap = new Map<number, number>()
   private clickTotal = 0
 
   addSearch(scope: string, normalized: string, term: string, resultCount: number): void {
@@ -117,12 +119,16 @@ export class MemoryMetrics {
     this.zero.set(key, { term, scope, count: 1, last: Date.now() })
   }
 
-  addClick(scope: string, source: string | null, position: number | null): void {
+  addClick(scope: string, surface: string, source: string | null, position: number | null): void {
     this.clickTotal++
     this.clicksByScope.set(scope, (this.clicksByScope.get(scope) ?? 0) + 1)
+    if (surface === 'search') {
+      this.searchClicksByScope.set(scope, (this.searchClicksByScope.get(scope) ?? 0) + 1)
+    }
+    this.clicksBySurface.set(surface, (this.clicksBySurface.get(surface) ?? 0) + 1)
     if (source) this.clicksBySource.set(source, (this.clicksBySource.get(source) ?? 0) + 1)
     if (position !== null) {
-      this.clicksByPosition.set(position, (this.clicksByPosition.get(position) ?? 0) + 1)
+      this.clicksByPositionMap.set(position, (this.clicksByPositionMap.get(position) ?? 0) + 1)
     }
   }
 
@@ -144,10 +150,20 @@ export class MemoryMetrics {
       .sort((a, b) => b.clicks - a.clicks)
   }
 
-  clicksByPositionTop(limit: number): Array<{ position: number; clicks: number }> {
-    return [...this.clicksByPosition.entries()]
+  /** 탭별 "검색 결과에서 나간" 클릭 */
+  searchClickCount(scope: string): number {
+    return this.searchClicksByScope.get(scope) ?? 0
+  }
+
+  clickCountBySurface(surface: string): number {
+    return this.clicksBySurface.get(surface) ?? 0
+  }
+
+  /** 순위 오름차순. 화면에 "1위부터" 찍으려면 정렬 기준이 순위여야 한다 */
+  clicksByPosition(limit = 20): Array<{ position: number; clicks: number }> {
+    return [...this.clicksByPositionMap.entries()]
       .map(([position, clicks]) => ({ position, clicks }))
-      .sort((a, b) => b.clicks - a.clicks)
+      .sort((a, b) => a.position - b.position)
       .slice(0, limit)
   }
 
@@ -162,8 +178,10 @@ export class MemoryMetrics {
     this.searches.clear()
     this.zero.clear()
     this.clicksByScope.clear()
+    this.searchClicksByScope.clear()
+    this.clicksBySurface.clear()
     this.clicksBySource.clear()
-    this.clicksByPosition.clear()
+    this.clicksByPositionMap.clear()
     this.clickTotal = 0
   }
 }

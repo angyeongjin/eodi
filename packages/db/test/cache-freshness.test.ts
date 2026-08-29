@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
-import { isCacheFresh, DEFAULT_TTL_MS, STALE_MS } from '../src/cache.js'
+import { isCacheFresh, isCacheUsable, DEFAULT_TTL_MS, STALE_MS } from '../src/cache.js'
 
 /*
   캐시를 "버릴 때"와 "낡았지만 쓸 때"를 가르는 판정이다.
@@ -27,5 +27,16 @@ describe('캐시 신선도', () => {
     // 이 관계가 뒤집히면 stale-while-revalidate 가 성립하지 않는다
     assert.ok(STALE_MS > 0)
     assert.ok(DEFAULT_TTL_MS + STALE_MS > DEFAULT_TTL_MS)
+  })
+
+  test('신선하지 않아도 상한 안이면 답으로 쓸 수 있다', () => {
+    const stale = new Date(Date.now() - DEFAULT_TTL_MS - 1_000)
+    assert.equal(isCacheFresh(stale), false)
+    assert.equal(isCacheUsable(stale), true)
+  })
+
+  test('상한을 넘기면 쓰지 않는다 — "낡아도 쓴다"가 "얼마나 낡았든 쓴다"가 되면 안 된다', () => {
+    const tooOld = new Date(Date.now() - DEFAULT_TTL_MS - STALE_MS - 1_000)
+    assert.equal(isCacheUsable(tooOld), false)
   })
 })
