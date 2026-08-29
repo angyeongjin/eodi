@@ -405,3 +405,45 @@ describe('굿즈 사전: 커뮤니티에서 실제로 쓰는 말', () => {
     }
   })
 })
+
+describe('사전 매칭: 토큰을 남김없이 덮을 때만 인정한다', () => {
+  /*
+    예전에는 부분 문자열로 찾았다. 사전이 900 표제어로 커지자
+    "수건걸이"의 수건, "명조체"의 명조, "니케이"의 니케가 굿즈로 잡혔다.
+    사전을 키울수록 오탐도 같이 커지는 구조였다.
+  */
+  test('붙여 쓴 말과 조사 붙은 말은 옮긴다', () => {
+    assert.equal(translateToJapanese('주술회전피규어').ja, '呪術廻戦 フィギュア')
+    assert.equal(translateToJapanese('주술회전의 굿즈').ja, '呪術廻戦 グッズ')
+  })
+
+  test('표제어를 품고 있을 뿐인 다른 말은 잡지 않는다', () => {
+    const traps = [
+      '수건걸이', '타올걸이', '명조체 폰트', '니케이 신문', '레고랜드 티켓',
+      '아리스타 노트북', '디무브 스피커', '카우스랜드', '부스터샷 예약', '몰리는 사람',
+    ]
+    for (const q of traps) {
+      assert.equal(translateToJapanese(q).ja, null, `"${q}" 를 굿즈로 오인했다`)
+    }
+  })
+
+  test('수식어만 맞고 정작 무엇인지 모르면 번역하지 않는다', () => {
+    // "수건 세트" 로 セット 만 검색하면 아무 의미가 없다. 모른다고 답하고 사전 보강 대상으로 남긴다.
+    const r = translateToJapanese('수건 세트')
+    assert.equal(r.ja, null)
+    assert.ok(r.unresolved.includes('수건'), '못 옮긴 말은 기록 대상으로 남아야 한다')
+    // 반대로 못 옮긴 말이 없으면 수식어만으로도 검색할 수 있다
+    assert.equal(translateToJapanese('피규어 미개봉').ja, 'フィギュア 未開封')
+  })
+
+  test('게임·아트토이·TCG·아이돌도 옮긴다', () => {
+    const cases: Array<[string, string]> = [
+      ['라부부 시크릿', 'ラブブ シークレット'],
+      ['우마무스메 골드쉽', 'ウマ娘 ゴールドシップ'],
+      ['블루아카이브 아로나', 'ブルーアーカイブ アロナ'],
+      ['포켓몬카드 프로모', 'ポケモンカード プロモ'],
+      ['노기자카 생사진', '乃木坂46 生写真'],
+    ]
+    for (const [ko, ja] of cases) assert.equal(translateToJapanese(ko).ja, ja, `"${ko}"`)
+  })
+})

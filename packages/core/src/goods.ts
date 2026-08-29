@@ -65,6 +65,62 @@ export interface Translation {
  * 사전에 없는 말은 지어내지 않고 `unresolved` 로 돌려준다 — 엉뚱한 결과를 주느니
  * "이 단어는 아직 모른다"고 말하는 편이 낫다.
  */
+/*
+  한국어는 붙여 쓰고 조사가 붙는다. "주술회전피규어" 는 띄어쓰기가 없고
+  "주술회전의" 는 조사가 붙는다. 그렇다고 아무 데서나 부분 문자열로 찾으면
+  "수건걸이"의 수건, "명조체"의 명조, "니케이"의 니케가 굿즈로 잡힌다.
+  사전이 커질수록 이런 오탐이 같이 커진다 — 실제로 900 표제어에서 16건 나왔다.
+
+  그래서 토큰 하나를 사전 표제어로 **남김없이 덮을 수 있을 때만** 인정한다.
+  "주술회전피규어" 는 주술회전+피규어로 완전히 덮이고,
+  "수건걸이" 는 "걸이" 가 남아 탈락한다.
+*/
+const PARTICLE = new Set([
+  '의', '은', '는', '이', '가', '을', '를', '에', '에서', '으로', '로',
+  '도', '만', '과', '와', '랑', '이랑', '님', '요',
+])
+
+interface Segment { ko?: string; term?: GoodsTerm; keep?: string }
+
+/** 토큰을 사전 표제어(+비한글 조각)로 완전히 분해한다. 못 하면 null */
+function segmentToken(token: string): Segment[] | null {
+  const memo = new Map<number, Segment[] | null>()
+
+  const walk = (i: number, lastKoLen: number): Segment[] | null => {
+    if (i >= token.length) return []
+    const cached = memo.get(i)
+    if (cached !== undefined && lastKoLen >= 3) return cached
+
+    for (const { ko, term } of INDEX) {
+      if (!token.startsWith(ko, i)) continue
+      const tail = walk(i + ko.length, ko.length)
+      if (tail) {
+        const out = [{ ko, term }, ...tail]
+        if (lastKoLen >= 3) memo.set(i, out)
+        return out
+      }
+    }
+
+    // 비한글 조각(숫자·영문·일본어)은 그대로 살려 보낸다
+    const nonHangul = /^[^가-힣]+/.exec(token.slice(i))
+    if (nonHangul) {
+      const tail = walk(i + nonHangul[0].length, 0)
+      if (tail) return [{ keep: nonHangul[0] }, ...tail]
+    }
+
+    /*
+      조사만 남았으면 덮은 것으로 친다. 단 바로 앞 표제어가 세 글자 이상일 때만이다.
+      두 글자에 조사를 허용하면 "몰리는"의 몰리, "니케이"의 니케가 다시 살아난다.
+    */
+    if (lastKoLen >= 3 && PARTICLE.has(token.slice(i))) return []
+
+    if (lastKoLen >= 3) memo.set(i, null)
+    return null
+  }
+
+  return walk(0, 0)
+}
+
 export function translateToJapanese(rawQuery: string): Translation {
   const q = normalizeText(rawQuery)
   if (!q) return { ja: null, hits: [], unresolved: [], passthrough: false }
@@ -73,32 +129,39 @@ export function translateToJapanese(rawQuery: string): Translation {
   if (!HANGUL.test(q)) return { ja: q, hits: [], unresolved: [], passthrough: true }
 
   const hits: TranslationHit[] = []
-  // 매칭된 구간을 지워가며 진행한다. 지운 자리는 공백으로 바꿔 인접어가 붙지 않게 한다.
-  let rest = q.replace(/\s+/g, ' ')
+  const out: string[] = []
+  const unresolved: string[] = []
 
-  for (const { ko, term } of INDEX) {
-    if (!rest.includes(ko)) continue
-    hits.push({ ko, ja: term.ja, kind: term.kind })
-    rest = rest.split(ko).join(' ')
+  for (const token of q.split(/\s+/).filter(Boolean)) {
+    const segs = segmentToken(token)
+    if (!segs) {
+      // 못 덮은 토큰. 한글이면 사전 보강 대상이고, 아니면 그대로 살려 보낸다.
+      if (HANGUL.test(token)) unresolved.push(token)
+      else out.push(token)
+      continue
+    }
+    for (const seg of segs) {
+      if (seg.term && seg.ko) {
+        hits.push({ ko: seg.ko, ja: seg.term.ja, kind: seg.term.kind })
+        out.push(seg.term.ja)
+      } else if (seg.keep) out.push(seg.keep)
+    }
   }
 
-  // 남은 한글 덩어리는 못 옮긴 것
-  const unresolved = [...new Set(rest.match(HANGUL_RUN) ?? [])]
-  // 한글이 아닌 잔여물(숫자·영문·일본어)은 그대로 검색어에 살려 보낸다
-  const keep = rest
-    .replace(HANGUL_RUN, ' ')
-    .replace(/[가-힣]/g, ' ')
-    .split(/\s+/)
-    .filter((w) => w.length > 0)
+  if (hits.length === 0) return { ja: null, hits: [], unresolved, passthrough: false }
 
-  if (hits.length === 0) {
+  /*
+    "수건 세트" 는 세트만 맞고 수건은 모른다. 이걸 번역 성공으로 치면
+    일본 마켓에 セット 만 던지게 된다 — 아무 의미 없는 검색이다.
+    무엇을 찾는지(작품·캐릭터·브랜드)를 하나도 모른 채 수식어만 맞았고
+    못 옮긴 말이 남았다면, 모른다고 답하는 편이 낫다. 그래야 사전 보강 대상으로도 남는다.
+  */
+  const onlyModifiers = hits.every((h) => h.kind === 'condition' || h.kind === 'category')
+  if (onlyModifiers && unresolved.length > 0) {
     return { ja: null, hits: [], unresolved, passthrough: false }
   }
 
-  // 사전 순서가 아니라 원문 등장 순서를 따라야 자연스러운 검색어가 된다
-  hits.sort((a, b) => q.indexOf(a.ko) - q.indexOf(b.ko))
-
-  const ja = [...new Set([...hits.map((h) => h.ja), ...keep])].join(' ').trim()
+  const ja = [...new Set(out)].join(' ').trim()
   return { ja: ja || null, hits, unresolved, passthrough: false }
 }
 
