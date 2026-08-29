@@ -6,7 +6,7 @@ import SearchBox from '@/components/SearchBox'
 import HomeFeed from '@/components/HomeFeed'
 import OutboundTracker from '@/components/OutboundTracker'
 import Wordmark from '@/components/Wordmark'
-import { Footer } from '@/components/Layout'
+import { Footer, TopActions } from '@/components/Layout'
 import { SITE } from '@/lib/config'
 
 export const revalidate = 3600
@@ -33,7 +33,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <main id="main" className="mx-auto max-w-3xl px-4 pb-8 pt-16 sm:pt-24">
+      {/* 홈은 헤더가 없다. 워드마크는 히어로에 있으니 액션만 올린다. */}
+      <div className="mx-auto flex max-w-3xl items-center justify-end gap-3 px-4 pt-4">
+        <TopActions />
+      </div>
+      <main id="main" className="mx-auto max-w-3xl px-4 pb-8 pt-10 sm:pt-16">
         <div className="text-center">
           <h1 className="flex justify-center">
             <Wordmark size="lg" />

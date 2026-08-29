@@ -150,11 +150,28 @@ export async function searchStoredListings(
   const freshDays = opts.freshDays ?? 14
   const scopeSources = sourcesForScope(opts.scope)
 
+  /*
+    질의가 여러 낱말이면 **전부** 들어있는 제목만 본다.
+
+    예전에는 trigram 유사도(%)로 느슨하게 골랐다. 그러면 "카단 피규어" 가
+    "미쿠 피규어 일괄" 과도 매칭돼, 마켓이 1건을 준 검색에 인덱스가 89건을 더 얹었다.
+    사용자에게는 "피규어만 검색된다" 로 보인다 — 실제로 그런 제보를 받았다.
+
+    인덱스 보강은 커버리지를 넓히라고 둔 것이지 아무거나 채우라고 둔 게 아니다.
+    한 낱말짜리 질의에서만 유사도를 쓴다(표기 흔들림·오타를 잡아주므로).
+  */
+  const words = term.split(/\s+/).filter((w) => w.length >= 2)
+  const strict = words.length >= 2
+
   return tryDb(async (sql) => {
     const rows = await sql<ListingRow[]>`
       SELECT ${sql.unsafe(LISTING_COLUMNS)}
       FROM listings
-      WHERE (norm_title % ${term} OR norm_title ILIKE ${'%' + term + '%'})
+      WHERE ${
+        strict
+          ? sql`${words.map((w) => sql`norm_title ILIKE ${'%' + w + '%'}`).reduce((a, b) => sql`${a} AND ${b}`)}`
+          : sql`(norm_title % ${term} OR norm_title ILIKE ${'%' + term + '%'})`
+      }
         AND last_seen_at > NOW() - ${`${freshDays} days`}::interval
         ${opts.includeSold ? sql`` : sql`AND sold = FALSE`}
         ${scopeSources ? sql`AND source = ANY(${scopeSources})` : sql``}

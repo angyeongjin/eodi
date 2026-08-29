@@ -12,6 +12,7 @@ import OverseasNotice, { TranslationBar, TranslationMiss } from '@/components/Ov
 import Pagination from '@/components/Pagination'
 import RelatedTerms from '@/components/RelatedTerms'
 import DidYouMean from '@/components/DidYouMean'
+import CrossScopeHint from '@/components/CrossScopeHint'
 import OutboundTracker from '@/components/OutboundTracker'
 import AdSlot from '@/components/AdSlot'
 import { Header, Footer } from '@/components/Layout'
@@ -144,6 +145,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
             {/* 오타부터 되묻는다. 사전에 없는 게 아니라 잘못 친 것일 수 있다 */}
             <DidYouMean query={res.query} scope={scope} resultCount={0} />
+            {/* 반대편 탭에 답이 있으면 알려준다 — 특히 국내 전용 상품은 일본에 없다 */}
+            <CrossScopeHint query={res.query} scope={scope} />
 
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               {hasFilters && (

@@ -1,5 +1,5 @@
 import {
-  ProductMatcher, CATALOG, interpretQuery, buildSearchResult, translateToJapanese,
+  ProductMatcher, CATALOG, interpretQuery, buildSearchResult, translateToJapanese, suggestCorrection,
   getFxRate, tokenize, suggestGoodsTerms, goodsLabel, GOODS_KIND_LABEL,
   type SearchQuery, type SearchResponse, type SearchFilters, type SortKey,
   type RawListing, type SourceStatus, type CatalogProduct, type MarketScope,
@@ -12,6 +12,23 @@ import {
 import { federate, type FederateOptions } from './federate.js'
 import { DEFAULT_REGION_SLUG, findRegion } from './regions.js'
 import { ensureFxRate } from './fx-refresh.js'
+
+/*
+  사전 보강 대상으로 남길 말만 고른다.
+
+  미번역 목록은 "사전에 무엇을 넣어야 하는가" 하나만 답해야 하는데,
+  실제로 보니 오타("주슬회전")와 이미 넣은 말이 상위를 채우고 있었다.
+  신호에 잡음이 섞이면 목록을 안 보게 되고, 그러면 사전이 안 자란다.
+*/
+function worthRecording(terms: readonly string[]): string[] {
+  return terms.filter((t) => {
+    // 오타면 사전 구멍이 아니다. 화면에서 이미 고쳐 물어본다.
+    if (suggestCorrection(t)) return false
+    // 이미 옮길 수 있는 말이면 기록할 이유가 없다
+    if (translateToJapanese(t).ja) return false
+    return true
+  })
+}
 
 /** 카탈로그는 프로세스당 한 번만 만든다 */
 let matcherInstance: ProductMatcher | null = null
@@ -113,7 +130,7 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
       */
       if (opts.persist !== false && !opts.background) {
         const record = () => Promise.allSettled([
-          recordUntranslated(tr.unresolved),
+          recordUntranslated(worthRecording(tr.unresolved)),
           logQuery({
             term: interpreted.raw,
             normalized: interpreted.normalized,
@@ -274,7 +291,7 @@ async function persistAfterSearch(args: {
       }),
     )
     if (interpreted.untranslated?.length) {
-      tasks.push(recordUntranslated(interpreted.untranslated))
+      tasks.push(recordUntranslated(worthRecording(interpreted.untranslated)))
     }
   }
   if (!cached) {

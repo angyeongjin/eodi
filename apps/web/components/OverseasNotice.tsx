@@ -1,5 +1,6 @@
 import type { SearchResponse } from '@eodi/core'
 import DidYouMean from './DidYouMean'
+import CrossScopeHint from './CrossScopeHint'
 import { buildHref } from '@/lib/params'
 import { reportMailto } from '@/lib/report'
 import { SITE } from '@/lib/config'
@@ -49,6 +50,8 @@ export function TranslationMiss({ res, params }: { res: SearchResponse; params: 
       </p>
       {/* 사전에 없는 게 아니라 오타일 수 있다. 그 경우 먼저 되물어야 한다. */}
       <DidYouMean query={res.query} scope="overseas" />
+      {/* 일본에 없는 물건일 수도 있다. 사전을 키워 맞히려 들기 전에 국내를 세어 준다. */}
+      <CrossScopeHint query={res.query} scope="overseas" />
       <p className="mt-3 text-sm" style={{ color: 'var(--text-muted)' }}>
         일본어를 아신다면 직접 입력해 보세요. 이 검색어는 기록해 두고 사전에 추가하겠습니다.
       </p>

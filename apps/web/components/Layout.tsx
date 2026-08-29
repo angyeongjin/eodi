@@ -3,17 +3,15 @@ import { SITE } from '@/lib/config'
 import ThemeToggle from './ThemeToggle'
 import Wordmark from './Wordmark'
 
-export function Header({ children }: { children?: React.ReactNode }) {
+/**
+ * 테마 토글과 찜 바로가기.
+ *
+ * 헤더가 없는 홈에서도 같은 걸 써야 한다. 사용자가 "홈에서는 찜·다크모드가 안 보인다"고
+ * 알려줬는데, 홈만 Header 를 쓰지 않아 생긴 구멍이었다. 한 곳에 두고 양쪽이 쓴다.
+ */
+export function TopActions() {
   return (
-    <header
-      className="sticky top-0 z-40 border-b backdrop-blur"
-      style={{ background: 'color-mix(in srgb, var(--bg) 88%, transparent)', borderColor: 'var(--border)' }}
-    >
-      <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
-        <Link href="/" className="shrink-0" aria-label={`${SITE.name} 홈`}>
-          <Wordmark />
-        </Link>
-        <div className="min-w-0 flex-1">{children}</div>
+    <>
         <ThemeToggle />
         <Link
           href="/saved"
@@ -29,6 +27,22 @@ export function Header({ children }: { children?: React.ReactNode }) {
             />
           </svg>
         </Link>
+    </>
+  )
+}
+
+export function Header({ children }: { children?: React.ReactNode }) {
+  return (
+    <header
+      className="sticky top-0 z-40 border-b backdrop-blur"
+      style={{ background: 'color-mix(in srgb, var(--bg) 88%, transparent)', borderColor: 'var(--border)' }}
+    >
+      <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
+        <Link href="/" className="shrink-0" aria-label={`${SITE.name} 홈`}>
+          <Wordmark />
+        </Link>
+        <div className="min-w-0 flex-1">{children}</div>
+        <TopActions />
       </div>
     </header>
   )

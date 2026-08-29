@@ -137,6 +137,33 @@ export async function recordUntranslated(terms: readonly string[]): Promise<void
   }, undefined)
 }
 
+/**
+ * 이제는 옮길 수 있게 된 말을 목록에서 내린다.
+ *
+ * 사전에 넣어도 예전 기록은 그대로 남아, 보강 대상 상위가 이미 해결된 말로 채워졌다.
+ * 무엇을 아는지는 도메인 쪽이 판단하고, 여기서는 받은 목록만 닫는다.
+ */
+export async function resolveUntranslated(terms: readonly string[]): Promise<number> {
+  const clean = [...new Set(terms.map((t) => t.trim()).filter(Boolean))]
+  if (clean.length === 0) return 0
+  return tryDb(async (sql) => {
+    const rows = await sql`
+      UPDATE untranslated_term SET resolved = TRUE
+      WHERE NOT resolved AND term = ANY(${clean})
+      RETURNING term
+    `
+    return rows.length
+  }, 0)
+}
+
+/** 아직 해결되지 않은 미번역어 전체 (정리 작업용) */
+export async function allUnresolvedTerms(): Promise<string[]> {
+  return tryDb(async (sql) => {
+    const rows = await sql<Array<{ term: string }>>`SELECT term FROM untranslated_term WHERE NOT resolved`
+    return rows.map((r) => r.term)
+  }, [])
+}
+
 export interface UntranslatedTerm {
   term: string
   hits: number
