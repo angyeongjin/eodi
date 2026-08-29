@@ -61,3 +61,28 @@ export class MemoryCounter {
       .map((x) => ({ term: x.term, count: x.n }))
   }
 }
+
+/**
+ * 번역 못 한 말을 DB 없이도 쌓아 둔다.
+ * 사전을 무엇으로 채울지 알려주는 유일한 신호라, DATABASE_URL 이 없는 로컬에서도
+ * 보이는 편이 낫다. 프로세스 수명만큼만 산다.
+ */
+export class MemoryTermCounter {
+  private counts = new Map<string, { hits: number; last: number }>()
+
+  add(term: string): void {
+    const cur = this.counts.get(term)
+    if (cur) { cur.hits++; cur.last = Date.now(); return }
+    if (this.counts.size > 2000) this.counts.clear()
+    this.counts.set(term, { hits: 1, last: Date.now() })
+  }
+
+  top(limit: number): Array<{ term: string; hits: number; lastSeen: Date }> {
+    return [...this.counts.entries()]
+      .sort((a, b) => b[1].hits - a[1].hits || b[1].last - a[1].last)
+      .slice(0, limit)
+      .map(([term, v]) => ({ term, hits: v.hits, lastSeen: new Date(v.last) }))
+  }
+
+  clear(): void { this.counts.clear() }
+}

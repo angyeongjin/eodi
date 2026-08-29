@@ -90,7 +90,28 @@ export async function search(query: SearchQuery, opts: SearchOptions = {}): Prom
     interpreted.overseasTerm = tr.ja
     interpreted.translationHits = tr.hits.map((h) => ({ ko: h.ko, ja: h.ja }))
     interpreted.untranslated = tr.unresolved
-    if (!tr.ja) return emptyResult()
+    if (!tr.ja) {
+      /*
+        여기서 그냥 빠져나가면 아래 persistAfterSearch 를 통째로 건너뛴다.
+        그런데 "한 단어도 못 옮긴 검색"이야말로 사전에 가장 먼저 넣어야 할 말이다.
+        정작 배워야 할 단어만 기록되지 않고 있었다 — 부분 번역된 것만 남았다.
+        빈 결과를 돌려주더라도 무엇을 몰랐는지는 남긴다.
+      */
+      if (opts.persist !== false) {
+        await Promise.allSettled([
+          recordUntranslated(tr.unresolved),
+          logQuery({
+            term: interpreted.raw,
+            normalized: interpreted.normalized,
+            productId: interpreted.productId,
+            resultCount: 0,
+            tookMs: Date.now() - started,
+            cached: false,
+          }),
+        ])
+      }
+      return emptyResult()
+    }
     marketTerm = tr.ja
     // 랭킹은 "실제로 마켓에 보낸 검색어" 기준이어야 한다.
     // 한글 토큰으로 일본어 제목을 채점하면 관련도가 전부 0이 된다.

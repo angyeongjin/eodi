@@ -1,8 +1,9 @@
 import type { SourceStatus } from '@eodi/core'
 import { tryDb } from './client.js'
-import { MemoryCounter } from './memory.js'
+import { MemoryCounter, MemoryTermCounter } from './memory.js'
 
 const memCounter = new MemoryCounter()
+const memUntranslated = new MemoryTermCounter()
 
 export interface LogQueryInput {
   term: string
@@ -115,6 +116,7 @@ export async function pruneOldLogs(days = 180): Promise<void> {
 export async function recordUntranslated(terms: readonly string[]): Promise<void> {
   const clean = [...new Set(terms.map((t) => t.trim()).filter((t) => t.length >= 2 && t.length <= 40))]
   if (clean.length === 0) return
+  for (const term of clean) memUntranslated.add(term)
   await tryDb(async (sql) => {
     for (const term of clean) {
       await sql`
@@ -135,7 +137,7 @@ export interface UntranslatedTerm {
 
 /** 사전 보강 우선순위 — 많이 검색됐는데 아직 못 옮기는 말부터 */
 export async function topUntranslated(limit = 50): Promise<UntranslatedTerm[]> {
-  return tryDb(async (sql) => {
+  const fromDb = await tryDb(async (sql) => {
     const rows = await sql<Array<{ term: string; hits: number; last_seen: Date }>>`
       SELECT term, hits, last_seen FROM untranslated_term
       WHERE NOT resolved
@@ -144,4 +146,6 @@ export async function topUntranslated(limit = 50): Promise<UntranslatedTerm[]> {
     `
     return rows.map((r) => ({ term: r.term, hits: r.hits, lastSeen: r.last_seen }))
   }, [])
+  // popularQueries 와 같은 규칙: DB 가 비었거나 없으면 이번 프로세스가 본 것이라도 보여준다
+  return fromDb.length > 0 ? fromDb : memUntranslated.top(limit)
 }
