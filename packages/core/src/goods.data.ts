@@ -1452,6 +1452,821 @@ export const GOODS_TERMS: GoodsTerm[] = [
     "ja": "パタモン"
   },
   {
+    "kind": "character",
+    "ko": [
+      "데쿠"
+    ],
+    "ja": "デク"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미도리야",
+      "이즈쿠"
+    ],
+    "ja": "緑谷出久"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "바쿠고",
+      "카츠키"
+    ],
+    "ja": "爆豪勝己"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토도로키",
+      "쇼토"
+    ],
+    "ja": "轟焦凍"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "오차코"
+    ],
+    "ja": "麗日お茶子"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "올마이트"
+    ],
+    "ja": "オールマイト"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "시가라키"
+    ],
+    "ja": "死柄木弔"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "다비"
+    ],
+    "ja": "荼毘"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토가"
+    ],
+    "ja": "トガヒミコ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "키리시마"
+    ],
+    "ja": "切島鋭児郎"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "호크스"
+    ],
+    "ja": "ホークス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "엔데버"
+    ],
+    "ja": "エンデヴァー"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "타케미치"
+    ],
+    "ja": "タケミチ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마이키"
+    ],
+    "ja": "マイキー"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "드라켄"
+    ],
+    "ja": "ドラケン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미츠야"
+    ],
+    "ja": "三ツ谷"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "치후유"
+    ],
+    "ja": "千冬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "페른"
+    ],
+    "ja": "フェルン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "슈타르크"
+    ],
+    "ja": "シュタルク"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "힘멜"
+    ],
+    "ja": "ヒンメル"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히토리",
+      "고토히토리"
+    ],
+    "ja": "後藤ひとり"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "니지카"
+    ],
+    "ja": "伊地知虹夏"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "료우"
+    ],
+    "ja": "山田リョウ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "키타"
+    ],
+    "ja": "喜多郁代"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "신이치",
+      "쿠도신이치"
+    ],
+    "ja": "工藤新一"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "모리란"
+    ],
+    "ja": "毛利蘭"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카이토키드"
+    ],
+    "ja": "怪盗キッド"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "하이바라"
+    ],
+    "ja": "灰原哀"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "핫토리"
+    ],
+    "ja": "服部平次"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "곤프릭스"
+    ],
+    "ja": "ゴン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "키르아"
+    ],
+    "ja": "キルア"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "크라피카"
+    ],
+    "ja": "クラピカ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "레오리오"
+    ],
+    "ja": "レオリオ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히소카"
+    ],
+    "ja": "ヒソカ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "긴토키"
+    ],
+    "ja": "銀時"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카구라"
+    ],
+    "ja": "神楽"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "신파치"
+    ],
+    "ja": "新八"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히지카타"
+    ],
+    "ja": "土方十四郎"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "오키타"
+    ],
+    "ja": "沖田総悟"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "세바스찬"
+    ],
+    "ja": "セバスチャン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "시엘"
+    ],
+    "ja": "シエル"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카네키"
+    ],
+    "ja": "カネキ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토우카"
+    ],
+    "ja": "トーカ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "에드워드"
+    ],
+    "ja": "エドワード"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "알폰스"
+    ],
+    "ja": "アルフォンス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "머스탱"
+    ],
+    "ja": "マスタング"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "윈리"
+    ],
+    "ja": "ウィンリィ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "세이버"
+    ],
+    "ja": "セイバー"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아르토리아"
+    ],
+    "ja": "アルトリア"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "길가메시"
+    ],
+    "ja": "ギルガメッシュ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토오사카"
+    ],
+    "ja": "遠坂凛"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마슈"
+    ],
+    "ja": "マシュ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "에밀리아"
+    ],
+    "ja": "エミリア"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "스바루"
+    ],
+    "ja": "スバル"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "베아트리스"
+    ],
+    "ja": "ベアトリス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "리무루"
+    ],
+    "ja": "リムル"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "밀림"
+    ],
+    "ja": "ミリム"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "슈나"
+    ],
+    "ja": "シュナ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아쿠아"
+    ],
+    "ja": "アクア"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "메구밍"
+    ],
+    "ja": "めぐみん"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "다크니스"
+    ],
+    "ja": "ダクネス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카즈마"
+    ],
+    "ja": "カズマ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사이타마"
+    ],
+    "ja": "サイタマ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "제노스"
+    ],
+    "ja": "ジェノス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "가로우"
+    ],
+    "ja": "ガロウ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이치카"
+    ],
+    "ja": "一花"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "니노"
+    ],
+    "ja": "二乃"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "요츠바"
+    ],
+    "ja": "四葉"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이츠키"
+    ],
+    "ja": "五月"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "시로가네"
+    ],
+    "ja": "白銀"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "후지와라"
+    ],
+    "ja": "藤原千花"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "엠마"
+    ],
+    "ja": "エマ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "노먼"
+    ],
+    "ja": "ノーマン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "센쿠"
+    ],
+    "ja": "千空"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "크롬"
+    ],
+    "ja": "クロム"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카프카"
+    ],
+    "ja": "カフカ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마도카"
+    ],
+    "ja": "まどか"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "호무라"
+    ],
+    "ja": "ほむら"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사야카"
+    ],
+    "ja": "さやか"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마미"
+    ],
+    "ja": "マミ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "쿄코"
+    ],
+    "ja": "杏子"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "큐베"
+    ],
+    "ja": "キュゥべえ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "페코라",
+      "우사다페코라"
+    ],
+    "ja": "兎田ぺこら"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마린",
+      "호쇼마린"
+    ],
+    "ja": "宝鐘マリン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "후부키",
+      "시라카미후부키"
+    ],
+    "ja": "白上フブキ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "구라",
+      "가우르구라"
+    ],
+    "ja": "がうる・ぐら"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "스이세이",
+      "호시마치스이세이"
+    ],
+    "ja": "星街すいせい"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "코로네"
+    ],
+    "ja": "戌神ころね"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아미야"
+    ],
+    "ja": "アーミヤ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "텍사스"
+    ],
+    "ja": "テキサス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아이루"
+    ],
+    "ja": "アイルー"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "리오레우스"
+    ],
+    "ja": "リオレウス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "너굴"
+    ],
+    "ja": "たぬきち"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "여울"
+    ],
+    "ja": "しずえ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이치고",
+      "쿠로사키이치고"
+    ],
+    "ja": "黒崎一護"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "루키아"
+    ],
+    "ja": "ルキア"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "렌지"
+    ],
+    "ja": "阿散井恋次"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "뱌쿠야"
+    ],
+    "ja": "朽木白哉"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "우라하라"
+    ],
+    "ja": "浦原喜助"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "켄파치"
+    ],
+    "ja": "更木剣八"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아이젠"
+    ],
+    "ja": "藍染惣右介"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토시로",
+      "히츠가야"
+    ],
+    "ja": "日番谷冬獅郎"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "무이치로"
+    ],
+    "ja": "無一郎"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "샹크스"
+    ],
+    "ja": "シャンクス"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아스나"
+    ],
+    "ja": "アスナ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "키리토"
+    ],
+    "ja": "キリト"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "나데시코"
+    ],
+    "ja": "なでしこ"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "시마린"
+    ],
+    "ja": "志摩リン"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "레시라무"
+    ],
+    "ja": "レシラム"
+  },
+  {
+    "kind": "slang",
+    "ko": [
+      "간바레"
+    ],
+    "ja": "頑張れ",
+    "jaAlt": [
+      "がんばれ"
+    ]
+  },
+  {
+    "kind": "slang",
+    "ko": [
+      "흑데쿠"
+    ],
+    "ja": "黒デク"
+  },
+  {
+    "kind": "slang",
+    "ko": [
+      "나히아"
+    ],
+    "ja": "僕のヒーローアカデミア"
+  },
+  {
+    "kind": "slang",
+    "ko": [
+      "배대지",
+      "배송대행"
+    ],
+    "ja": "転送サービス"
+  },
+  {
+    "kind": "slang",
+    "ko": [
+      "구매대행",
+      "구대"
+    ],
+    "ja": "代理購入"
+  },
+  {
     "kind": "category",
     "ko": [
       "피규어",
@@ -1465,6 +2280,7 @@ export const GOODS_TERMS: GoodsTerm[] = [
     "ko": [
       "넨도로이드",
       "넨도",
+      "넨디",
       "nendoroid"
     ],
     "ja": "ねんどろいど",
@@ -1496,7 +2312,9 @@ export const GOODS_TERMS: GoodsTerm[] = [
     "kind": "category",
     "ko": [
       "프라이즈",
-      "프라이즈피규어"
+      "프라이즈피규어",
+      "경품피규어",
+      "경피"
     ],
     "ja": "プライズ"
   },
@@ -1505,7 +2323,9 @@ export const GOODS_TERMS: GoodsTerm[] = [
     "ko": [
       "이치방쿠지",
       "이치방쿠지피규어",
-      "일번제비"
+      "일번제비",
+      "제일복권",
+      "쿠지"
     ],
     "ja": "一番くじ"
   },
@@ -1795,6 +2615,159 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "ost"
     ],
     "ja": "サウンドトラック"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "라스트원",
+      "라스원",
+      "라스원상",
+      "라스트원상"
+    ],
+    "ja": "ラストワン賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "더블찬스"
+    ],
+    "ja": "ダブルチャンス"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "에이상",
+      "a상"
+    ],
+    "ja": "A賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "비상",
+      "b상"
+    ],
+    "ja": "B賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "씨상",
+      "c상"
+    ],
+    "ja": "C賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "디상",
+      "d상"
+    ],
+    "ja": "D賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "이상",
+      "e상"
+    ],
+    "ja": "E賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "에프상",
+      "f상"
+    ],
+    "ja": "F賞"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "액션피규어"
+    ],
+    "ja": "アクションフィギュア"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "미니피규어"
+    ],
+    "ja": "ミニフィギュア"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "트레이딩피규어",
+      "트레피"
+    ],
+    "ja": "トレーディングフィギュア"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "레진"
+    ],
+    "ja": "レジン"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "파츠",
+      "부품"
+    ],
+    "ja": "パーツ"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "데포르메"
+    ],
+    "ja": "デフォルメ"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "아크릴자석",
+      "아크릴마그넷"
+    ],
+    "ja": "アクリルマグネット"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "배지캔"
+    ],
+    "ja": "缶バッジ"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "넨도로이드두",
+      "넨도두"
+    ],
+    "ja": "ねんどろいどどーる"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "일러스트카드"
+    ],
+    "ja": "イラストカード"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "스티커"
+    ],
+    "ja": "ステッカー"
+  },
+  {
+    "kind": "category",
+    "ko": [
+      "뱃지세트"
+    ],
+    "ja": "缶バッジセット"
   },
   {
     "kind": "ip",
@@ -3254,6 +4227,112 @@ export const GOODS_TERMS: GoodsTerm[] = [
     "ja": "グッズ"
   },
   {
+    "kind": "brand",
+    "ko": [
+      "리볼텍",
+      "야마구치",
+      "리볼텍야마구치"
+    ],
+    "ja": "リボルテック"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "카이요도",
+      "해양당"
+    ],
+    "ja": "海洋堂"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "메탈빌드",
+      "메빌"
+    ],
+    "ja": "METAL BUILD"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "큐포쉬"
+    ],
+    "ja": "キューポッシュ"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "아마쿠니"
+    ],
+    "ja": "アマクニ"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "프리잉"
+    ],
+    "ja": "フリーイング"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "벨파인"
+    ],
+    "ja": "ベルファイン"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "포트레이트오브파이럿츠"
+    ],
+    "ja": "Portrait.Of.Pirates"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "건담픽스",
+      "지에프에프"
+    ],
+    "ja": "GUNDAM FIX FIGURATION"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "에스아이시"
+    ],
+    "ja": "S.I.C."
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "마스터라이즈",
+      "마스터리제"
+    ],
+    "ja": "MASTERLISE"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "큥캬라",
+      "큥캐릭"
+    ],
+    "ja": "きゅんキャラ"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "디오라마틱"
+    ],
+    "ja": "DIORAMATIC"
+  },
+  {
+    "kind": "brand",
+    "ko": [
+      "이치방쿠지피규어라인",
+      "어메이징히어로"
+    ],
+    "ja": "AMAZING HEROES"
+  },
+  {
     "kind": "condition",
     "ko": [
       "미개봉"
@@ -3391,5 +4470,76 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "풀세트"
     ],
     "ja": "全種"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "가품",
+      "짝퉁",
+      "레플리카"
+    ],
+    "ja": "偽物"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "도색",
+      "도장"
+    ],
+    "ja": "塗装"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "개조"
+    ],
+    "ja": "改造"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "일판",
+      "일본판"
+    ],
+    "ja": "日本版"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "한판",
+      "한국판",
+      "정발"
+    ],
+    "ja": "国内版"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "미조립"
+    ],
+    "ja": "未組立"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "조립완료",
+      "완성품"
+    ],
+    "ja": "完成品"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "파손",
+      "하자"
+    ],
+    "ja": "難あり"
+  },
+  {
+    "kind": "condition",
+    "ko": [
+      "특전포함"
+    ],
+    "ja": "特典付き"
   }
 ]

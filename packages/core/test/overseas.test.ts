@@ -359,3 +359,49 @@ describe('사전 확장 후에도 안전한가', () => {
     }
   })
 })
+
+describe('굿즈 사전: 커뮤니티에서 실제로 쓰는 말', () => {
+  /*
+    사전을 정식 명칭으로만 채우면 정작 사람들이 치는 말로는 아무것도 안 나온다.
+    아래는 디시 토이·피규어 갤러리와 야후옥션 실매물 제목에서 확인한 표현들이다.
+    작품명은 있는데 캐릭터가 없어 0건이 나던 것(데쿠·바쿠고)이 출발점이었다.
+  */
+  test('캐릭터명으로 검색한다 — 사람은 작품이 아니라 최애를 산다', () => {
+    const cases: Array<[string, string]> = [
+      ['데쿠', 'デク'],
+      ['바쿠고', '爆豪勝己'],
+      ['루키아', 'ルキア'],
+      ['마도카', 'まどか'],
+      ['메구밍', 'めぐみん'],
+    ]
+    for (const [ko, ja] of cases) {
+      assert.equal(translateToJapanese(ko).ja, ja, `"${ko}" 가 사전에 없다`)
+    }
+  })
+
+  test('이치방쿠지 등급·용어가 매물 제목 그대로 읽힌다', () => {
+    assert.equal(translateToJapanese('제일복권 A상').ja, '一番くじ A賞')
+    assert.equal(translateToJapanese('라스원 데쿠').ja, 'ラストワン賞 デク')
+  })
+
+  test('팬들이 부르는 이름도 옮긴다', () => {
+    // 야후옥션 실매물: 「緑谷出久 MASTERLISE ｰ頑張れ、デクｰ」, 「A賞 黒デク」
+    assert.equal(translateToJapanese('간바레 데쿠').ja, '頑張れ デク')
+    assert.equal(translateToJapanese('흑데쿠').ja, '黒デク')
+    assert.equal(translateToJapanese('마스터라이즈').ja, 'MASTERLISE')
+  })
+
+  test('한 글자 표제어는 없다 — "삼"이 "삼성 냉장고"를 굿즈로 만든 적이 있다', () => {
+    for (const t of GOODS_TERMS) {
+      for (const k of t.ko) {
+        assert.ok(k.length >= 2, `한 글자 표제어: "${k}" (${t.ja})`)
+      }
+    }
+  })
+
+  test('일상 중고 검색어를 굿즈로 오인하지 않는다', () => {
+    for (const q of ['에어컨 청소', '아이폰 케이스', '자전거 헬멧', '캠핑 의자']) {
+      assert.equal(translateToJapanese(q).ja, null, `"${q}" 를 굿즈로 오인했다`)
+    }
+  })
+})

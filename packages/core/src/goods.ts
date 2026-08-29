@@ -9,7 +9,7 @@ import { isChoseongQuery, matchesChoseong } from './hangul.js'
  * "피규어"를 "フィギュア"로 바꿔주지 못하면 한국 사용자에게는 쓸모가 없다.
  */
 
-export type GoodsKind = 'category' | 'ip' | 'character' | 'brand' | 'condition'
+export type GoodsKind = 'category' | 'ip' | 'character' | 'brand' | 'condition' | 'slang'
 
 export interface GoodsTerm {
   kind: GoodsKind
@@ -27,6 +27,9 @@ export const GOODS_KIND_LABEL: Record<GoodsKind, string> = {
   character: '캐릭터',
   brand: '브랜드',
   condition: '상태',
+  // 상품명이 아니라 사람들끼리 부르는 말. "간바레 데쿠"(히로아카 이치방쿠지 C상)처럼
+  // 커뮤니티에서만 통하는 이름이 실제 매물 제목에 그대로 쓰인다.
+  slang: '커뮤니티 용어',
 }
 
 export { GOODS_TERMS }
