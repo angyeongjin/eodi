@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { rememberRecent, listRecent, clearRecent } from '@/lib/recent'
+import { rememberRecent, listRecent, clearRecent, forgetRecent } from '@/lib/recent'
 
 interface Suggestion {
   term: string
@@ -176,13 +176,27 @@ export default function SearchBox({ defaultValue = '', autoFocus, size = 'md', k
           </div>
           <ul>
             {recent.map((r) => (
-              <li key={r}>
+              /* 한 건만 지울 수 있어야 한다 — 지우려고 전체를 날리게 하면 아무도 안 지운다 */
+              <li key={r} className="flex items-center">
                 <button
                   type="button"
                   onClick={() => go(r)}
-                  className="w-full px-4 py-2 text-left text-sm hover:opacity-70"
+                  className="min-w-0 flex-1 truncate px-4 py-2 text-left text-sm hover:opacity-70"
                 >
                   {r}
+                </button>
+                <button
+                  type="button"
+                  aria-label={`최근 검색어에서 '${r}' 지우기`}
+                  title="지우기"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setRecent(forgetRecent(r))}
+                  className="mr-2 flex h-7 w-7 shrink-0 items-center justify-center rounded-md hover:opacity-70"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden>
+                    <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </svg>
                 </button>
               </li>
             ))}

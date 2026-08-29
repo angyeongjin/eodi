@@ -31,6 +31,17 @@ export function rememberRecent(term: string): void {
   }
 }
 
+/** 한 건만 지운다. 남에게 보이고 싶지 않은 검색어 하나 때문에 전체를 지우게 하지 않는다. */
+export function forgetRecent(term: string): string[] {
+  const next = listRecent().filter((x) => x !== term)
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(next))
+  } catch {
+    /* 저장소가 막혀도 화면은 갱신되어야 한다 */
+  }
+  return next
+}
+
 export function clearRecent(): void {
   try {
     window.localStorage.removeItem(KEY)

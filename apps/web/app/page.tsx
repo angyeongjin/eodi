@@ -7,6 +7,7 @@ import HomeFeed from '@/components/HomeFeed'
 import OutboundTracker from '@/components/OutboundTracker'
 import Wordmark from '@/components/Wordmark'
 import { Footer, TopActions } from '@/components/Layout'
+import InstallPrompt from '@/components/InstallPrompt'
 import { SITE } from '@/lib/config'
 
 export const revalidate = 3600
@@ -56,6 +57,8 @@ export default async function HomePage() {
         <p className="mt-3 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
           {allAdapters('domestic').filter((a) => a.enabled).map((a) => a.label).join(' · ')}
         </p>
+
+        <InstallPrompt />
 
         {/*
           내가 남긴 흔적에서 뽑은 최근 매물. 개인화는 브라우저 안에서만 일어나고,
