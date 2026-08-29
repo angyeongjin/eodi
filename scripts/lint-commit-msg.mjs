@@ -28,7 +28,6 @@ if (!path) { console.error('커밋 메시지 파일 경로가 없습니다'); pr
 const raw = readFileSync(path, 'utf-8')
 // 주석과 diff 는 메시지가 아니다
 const lines = raw.split('\n').filter((l) => !l.startsWith('#'))
-const body = lines.join('\n')
 
 // merge/revert/fixup 은 git 이 만들어 주는 형식이라 우리 규칙을 적용하지 않는다
 if (/^(Merge |Revert |fixup!|squash!)/.test(lines[0] ?? '')) process.exit(0)
@@ -58,6 +57,16 @@ if (title && !m) {
     problems.push(`제목이 ${tw}칸입니다. ${MAX_TITLE}칸을 넘기지 않습니다 — 요약이 덜 된 것입니다 (한글 1자 = 2칸)`)
   }
   if (subject.endsWith('.')) problems.push('제목 끝에 마침표를 찍지 않습니다')
+  /*
+    제목은 문장이 아니라 작업 이름표다. "~연다", "~막는다" 처럼 서술형으로 끝내면
+    길어지고 말투가 제각각이 된다. 명사형으로 끊는다 — 추가/변경/제거/수정/방지.
+  */
+  if (/다$/.test(subject.trim())) {
+    problems.push(`제목을 서술형으로 끝내지 않습니다: "…${subject.trim().slice(-12)}" → 명사형으로 (추가/변경/제거/수정)`)
+  }
+  // 제목에 연결어미가 들어가면 관심사가 두 개라는 신호다
+  const conj = subject.match(/([가-힣]{1,4}(?:고|며)),/)
+  if (conj) problems.push(`제목에 "${conj[1]}," 가 있습니다 — 관심사가 둘이면 커밋을 나누세요`)
   if (subject.trim().length < 5) problems.push('제목이 너무 짧아 무엇을 했는지 알 수 없습니다')
   // "수정", "개선" 만 있는 제목은 diff 를 열어야만 알 수 있다
   if (/^(수정|개선|업데이트|변경|반영|적용|작업|정리)$/.test(subject.trim())) {
@@ -68,6 +77,25 @@ if (title && !m) {
 // 제목 다음은 반드시 빈 줄. 이게 없으면 git 이 본문을 제목의 연장으로 다룬다
 if (lines.length > 1 && lines[1].trim() !== '') {
   problems.push('제목과 본문 사이에 빈 줄이 있어야 합니다')
+}
+
+/*
+  본문은 불릿만 받는다.
+  서술형 문단은 쓰는 사람마다 길이가 제각각이고, 읽는 사람은 결국 안 읽는다.
+  실제로 본문 20줄짜리 커밋이 쌓여 다시 쓴 적이 있다.
+*/
+const bodyLines = lines.slice(2).filter((l) => l.trim() !== '')
+const trailer = /^(Co-Authored-By|Claude-Session|Signed-off-by|Refs?|Closes?|Fixes?):/i
+const bullets = bodyLines.filter((l) => !trailer.test(l.trim()))
+const prose = bullets.filter((l) => !/^\s*[-*]\s+\S/.test(l))
+if (prose.length) {
+  problems.push(
+    `본문은 불릿(- )만 씁니다. 서술형 ${prose.length}줄:\n` +
+    prose.slice(0, 3).map((l) => `        "${l.trim().slice(0, 46)}…"`).join('\n'),
+  )
+}
+if (bullets.length > 6) {
+  problems.push(`불릿이 ${bullets.length}개입니다. 6개를 넘으면 커밋을 나누세요`)
 }
 
 const longBody = lines.slice(2)
