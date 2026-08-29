@@ -25,7 +25,8 @@ export default function SourceStatusBar({ res }: { res: SearchResponse }) {
         ))}
         <span>·</span>
         <span className="tnum">{res.tookMs}ms</span>
-        {res.cached && <span>· 캐시</span>}
+        {/* 낡은 캐시로 답했으면 숨기지 않는다. 대신 새 결과를 뒤에서 받아 두는 중이라는 사실까지 말한다 */}
+        {res.cached && <span>{res.stale ? '· 캐시(갱신 중)' : '· 캐시'}</span>}
         {res.fromIndex > 0 && <span className="tnum">· 인덱스 +{res.fromIndex}</span>}
       </div>
 

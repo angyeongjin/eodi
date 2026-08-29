@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { search } from '@eodi/crawler'
+import { searchForRequest } from '@/lib/search'
 import SearchBox from '@/components/SearchBox'
 import ResultCard from '@/components/ResultCard'
 import FilterBar from '@/components/FilterBar'
@@ -53,7 +53,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     )
   }
 
-  const res = await search(query)
+  const res = await searchForRequest(query)
   const now = Date.now()
   const i = res.interpreted
   const scope = scopeOf(sp)

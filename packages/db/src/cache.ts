@@ -12,6 +12,22 @@ export interface CachedSearch {
 /** 기본 TTL 10분 — 중고 매물은 분 단위로 뒤집히진 않지만 하루면 낡는다 */
 export const DEFAULT_TTL_MS = envNum('SEARCH_CACHE_TTL_MS', 10 * 60 * 1000)
 
+/**
+ * 신선 기한이 지난 뒤에도 답으로 쓸 수 있는 시간.
+ *
+ * 10분이 지났다고 캐시를 버리면 그다음 사람은 다시 4초를 기다린다. 그런데 그 4초를
+ * 기다려서 얻는 차이는 대개 "매물 몇 건이 더 올라왔다" 정도다. 그래서 낡은 답을 먼저 주고
+ * 새 결과는 뒤에서 받아 다음 사람에게 넘긴다(stale-while-revalidate).
+ *
+ * 이 시간을 넘긴 캐시는 쓰지 않는다. 팔린 매물이 남아 있을 확률이 그만큼 커지기 때문이다.
+ */
+export const STALE_MS = envNum('SEARCH_CACHE_STALE_MS', 20 * 60 * 1000)
+
+/** 캐시가 아직 신선한가 — 낡았어도 STALE_MS 안이면 답으로는 쓸 수 있다 */
+export function isCacheFresh(createdAt: Date, ttlMs: number = DEFAULT_TTL_MS): boolean {
+  return Date.now() - createdAt.getTime() <= ttlMs
+}
+
 const memory = new MemoryTtlMap<CachedSearch>(300)
 
 export function cacheKey(term: string, extra: Record<string, unknown> = {}): string {
@@ -75,10 +91,12 @@ export async function setCachedSearch(
   ttlMs: number = DEFAULT_TTL_MS,
 ): Promise<void> {
   const value: CachedSearch = { listings, sources, createdAt: new Date() }
-  memory.set(key, value, ttlMs)
+  // 신선 기한이 지나도 STALE_MS 동안은 답으로 쓰므로 그만큼 더 살려 둔다.
+  // 신선한지 아닌지는 createdAt 으로 판단한다(isCacheFresh).
+  memory.set(key, value, ttlMs + STALE_MS)
 
   await tryDb(async (sql) => {
-    const expires = new Date(Date.now() + ttlMs)
+    const expires = new Date(Date.now() + ttlMs + STALE_MS)
     await sql`
       INSERT INTO search_cache (key, term, payload, sources, expires_at)
       VALUES (${key}, ${term}, ${sql.json(listings as never)}, ${sql.json(sources as never)}, ${expires})
