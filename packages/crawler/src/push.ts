@@ -58,8 +58,13 @@ export async function sendPush(
     return { ok: true }
   } catch (err) {
     if (err instanceof WebPushError) {
-      // 410 Gone / 404 Not Found = 구독이 죽었다. 다시 시도하면 안 된다.
-      const gone = err.statusCode === 410 || err.statusCode === 404
+      /*
+        410 Gone / 404 Not Found = 구독이 죽었다. 다시 시도하면 안 된다.
+        403 도 마찬가지로 죽은 것이다 — 우리 VAPID 키로는 이 구독에 영영 보낼 수 없다.
+        (키를 교체하면 옛 키로 맺은 구독이 전부 여기로 떨어진다.)
+        살려둬 봐야 두 시간마다 403 을 받으며 남의 서버를 두들길 뿐이다.
+      */
+      const gone = err.statusCode === 410 || err.statusCode === 404 || err.statusCode === 403
       return { ok: false, gone, error: `HTTP ${err.statusCode}` }
     }
     return { ok: false, gone: false, error: err instanceof Error ? err.message : String(err) }

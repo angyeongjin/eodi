@@ -83,11 +83,26 @@ export default function AlertButton({ term, scope, filters }: Props) {
 
       const reg = await navigator.serviceWorker.register('/sw.js')
       await navigator.serviceWorker.ready
+      /*
+        이미 있는 구독을 그냥 재사용하면 안 된다.
+
+        서버의 VAPID 키를 바꾸면 옛 키로 만든 구독은 발송 시 403 을 받는다.
+        그런데 브라우저에는 그 구독이 멀쩡히 남아 있어서, 버튼을 다시 눌러도
+        같은 죽은 구독을 계속 집어 든다 — 사용자는 영영 알림을 못 받는다.
+        키가 다르면 끊고 새로 맺는다.
+      */
+      const wanted = urlBase64ToUint8Array(publicKey)
+      const existing = await reg.pushManager.getSubscription()
+      if (existing) {
+        const cur = new Uint8Array(existing.options.applicationServerKey ?? new ArrayBuffer(0))
+        const same = cur.length === wanted.length && cur.every((b, i) => b === wanted[i])
+        if (!same) await existing.unsubscribe().catch(() => undefined)
+      }
       const sub =
         (await reg.pushManager.getSubscription()) ??
         (await reg.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(publicKey) as BufferSource,
+          applicationServerKey: wanted as BufferSource,
         }))
 
       const res = await fetch('/api/alerts', {
