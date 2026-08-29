@@ -37,18 +37,40 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
-  const url = (event.notification.data && event.notification.data.url) || '/'
+  const raw = (event.notification.data && event.notification.data.url) || '/'
+  const target = new URL(raw, self.location.origin)
 
   event.waitUntil(
-    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
-      // 이미 열린 탭이 있으면 그걸 재사용한다. 누를 때마다 탭이 늘어나면 짜증난다.
+    (async () => {
+      const list = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+
       for (const client of list) {
-        if ('focus' in client) {
-          client.navigate(url)
-          return client.focus()
+        let sameOrigin = false
+        try {
+          sameOrigin = new URL(client.url).origin === target.origin
+        } catch (_) {
+          sameOrigin = false
+        }
+        if (!sameOrigin) continue
+
+        // 이미 그 화면이면 데려다 놓기만 하면 된다
+        if (client.url === target.href) return client.focus()
+
+        /*
+          navigate() 는 이 워커가 제어하지 않는 창에서 거부된다.
+          예전에는 결과를 기다리지 않고 focus() 를 돌려줘서, 실패해도 조용히
+          홈에 열려 있던 창만 앞으로 나왔다 — 알림을 눌러도 상품이 안 보였다.
+          실패하면 새 창을 연다.
+        */
+        try {
+          const navigated = await client.navigate(target.href)
+          return (navigated || client).focus()
+        } catch (_) {
+          break
         }
       }
-      return self.clients.openWindow(url)
-    }),
+
+      return self.clients.openWindow(target.href)
+    })(),
   )
 })
