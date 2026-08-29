@@ -5,10 +5,141 @@ export const GOODS_TERMS: GoodsTerm[] = [
   {
     "kind": "character",
     "ko": [
+      "이브이"
+    ],
+    "ja": "イーブイ",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "리자몽",
+      "리자드"
+    ],
+    "ja": "リザードン",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "뮤츠"
+    ],
+    "ja": "ミュウツー",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "잠만보"
+    ],
+    "ja": "カビゴン",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "꼬부기"
+    ],
+    "ja": "ゼニガメ",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이상해씨"
+    ],
+    "ja": "フシギダネ",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "갸라도스"
+    ],
+    "ja": "ギャラドス",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "루카리오"
+    ],
+    "ja": "ルカリオ",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "파이리"
+    ],
+    "ja": "ヒトカゲ",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "뮤츠아님뮤",
+      "뮤포켓몬"
+    ],
+    "ja": "ミュウ",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "가디안"
+    ],
+    "ja": "サーナイト",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "리자몽메가"
+    ],
+    "ja": "メガリザードン",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "에이스번"
+    ],
+    "ja": "エースバーン",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마임맨"
+    ],
+    "ja": "バリヤード",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "푸린"
+    ],
+    "ja": "プリン",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "레시라무"
+    ],
+    "ja": "レシラム",
+    "ip": "포켓몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
       "루피",
       "몽키디루피"
     ],
-    "ja": "ルフィ"
+    "ja": "ルフィ",
+    "ip": "원피스"
   },
   {
     "kind": "character",
@@ -16,21 +147,24 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "조로",
       "로로노아조로"
     ],
-    "ja": "ゾロ"
+    "ja": "ゾロ",
+    "ip": "원피스"
   },
   {
     "kind": "character",
     "ko": [
       "상디"
     ],
-    "ja": "サンジ"
+    "ja": "サンジ",
+    "ip": "원피스"
   },
   {
     "kind": "character",
     "ko": [
       "나미"
     ],
-    "ja": "ナミ"
+    "ja": "ナミ",
+    "ip": "원피스"
   },
   {
     "kind": "character",
@@ -38,14 +172,16 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "쵸파",
       "토니토니쵸파"
     ],
-    "ja": "チョッパー"
+    "ja": "チョッパー",
+    "ip": "원피스"
   },
   {
     "kind": "character",
     "ko": [
       "에이스"
     ],
-    "ja": "エース"
+    "ja": "エース",
+    "ip": "원피스"
   },
   {
     "kind": "character",
@@ -53,7 +189,8 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "트라팔가로",
       "트라팔가"
     ],
-    "ja": "トラファルガー・ロー"
+    "ja": "トラファルガー・ロー",
+    "ip": "원피스"
   },
   {
     "kind": "character",
@@ -61,7 +198,73 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "보아행콕",
       "행콕"
     ],
-    "ja": "ボア・ハンコック"
+    "ja": "ボア・ハンコック",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "프랑키"
+    ],
+    "ja": "フランキー",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "브룩"
+    ],
+    "ja": "ブルック",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "니코로빈",
+      "로빈"
+    ],
+    "ja": "ロビン",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "우솝"
+    ],
+    "ja": "ウソップ",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "샹크스"
+    ],
+    "ja": "シャンクス",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사보"
+    ],
+    "ja": "サボ",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카타쿠리"
+    ],
+    "ja": "カタクリ",
+    "ip": "원피스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "야마토"
+    ],
+    "ja": "ヤマト",
+    "ip": "원피스"
   },
   {
     "kind": "character",
@@ -69,28 +272,32 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "탄지로",
       "카마도탄지로"
     ],
-    "ja": "炭治郎"
+    "ja": "炭治郎",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
     "ko": [
       "네즈코"
     ],
-    "ja": "禰豆子"
+    "ja": "禰豆子",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
     "ko": [
       "젠이츠"
     ],
-    "ja": "善逸"
+    "ja": "善逸",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
     "ko": [
       "이노스케"
     ],
-    "ja": "伊之助"
+    "ja": "伊之助",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
@@ -98,28 +305,88 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "기유",
       "토미오카기유"
     ],
-    "ja": "義勇"
+    "ja": "義勇",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
     "ko": [
       "렌고쿠"
     ],
-    "ja": "煉獄"
+    "ja": "煉獄",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
     "ko": [
       "무잔"
     ],
-    "ja": "無惨"
+    "ja": "無惨",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
     "ko": [
       "시노부"
     ],
-    "ja": "しのぶ"
+    "ja": "しのぶ",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "무이치로"
+    ],
+    "ja": "無一郎",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미츠리"
+    ],
+    "ja": "甘露寺蜜璃",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사네미"
+    ],
+    "ja": "実弥",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히메지마"
+    ],
+    "ja": "悲鳴嶼",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아카자"
+    ],
+    "ja": "猗窩座",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "도우마"
+    ],
+    "ja": "童磨",
+    "ip": "귀멸의칼날"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "우즈이"
+    ],
+    "ja": "宇髄天元",
+    "ip": "귀멸의칼날"
   },
   {
     "kind": "character",
@@ -127,7 +394,8 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "이타도리",
       "유지"
     ],
-    "ja": "虎杖悠仁"
+    "ja": "虎杖悠仁",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
@@ -136,7 +404,8 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "고조",
       "사토루"
     ],
-    "ja": "五条悟"
+    "ja": "五条悟",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
@@ -144,7 +413,8 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "후시구로",
       "메구미"
     ],
-    "ja": "伏黒恵"
+    "ja": "伏黒恵",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
@@ -152,765 +422,64 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "쿠기사키",
       "노바라"
     ],
-    "ja": "釘崎野薔薇"
+    "ja": "釘崎野薔薇",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "스쿠나"
     ],
-    "ja": "宿儺"
+    "ja": "宿儺",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "나나미"
     ],
-    "ja": "七海"
+    "ja": "七海",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "토우지"
     ],
-    "ja": "伏黒甚爾"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "히나타"
-    ],
-    "ja": "日向翔陽"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카게야마"
-    ],
-    "ja": "影山飛雄"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "오이카와"
-    ],
-    "ja": "及川徹"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "츠키시마"
-    ],
-    "ja": "月島蛍"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "보쿠토"
-    ],
-    "ja": "木兎光太郎"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아카아시"
-    ],
-    "ja": "赤葦"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "에렌"
-    ],
-    "ja": "エレン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "미카사"
-    ],
-    "ja": "ミカサ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "리바이",
-      "리바이병장"
-    ],
-    "ja": "リヴァイ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아르민"
-    ],
-    "ja": "アルミン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "덴지"
-    ],
-    "ja": "デンジ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "파워"
-    ],
-    "ja": "パワー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마키마"
-    ],
-    "ja": "マキマ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아키"
-    ],
-    "ja": "早川アキ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아냐"
-    ],
-    "ja": "アーニャ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "요르"
-    ],
-    "ja": "ヨル"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "로이드"
-    ],
-    "ja": "ロイド"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "호시노아이"
-    ],
-    "ja": "星野アイ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "루비"
-    ],
-    "ja": "ルビー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아쿠아"
-    ],
-    "ja": "アクア"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이사기"
-    ],
-    "ja": "潔世一"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "바치라"
-    ],
-    "ja": "蜂楽廻"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이츠키린",
-      "시시린"
-    ],
-    "ja": "糸師凛"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이브이"
-    ],
-    "ja": "イーブイ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "리자몽",
-      "리자드"
-    ],
-    "ja": "リザードン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "뮤츠"
-    ],
-    "ja": "ミュウツー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "잠만보"
-    ],
-    "ja": "カビゴン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "꼬부기"
-    ],
-    "ja": "ゼニガメ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이상해씨"
-    ],
-    "ja": "フシギダネ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "갸라도스"
-    ],
-    "ja": "ギャラドス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "루카리오"
-    ],
-    "ja": "ルカリオ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카가미네린",
-      "카가미네"
-    ],
-    "ja": "鏡音リン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "메구리네루카",
-      "루카"
-    ],
-    "ja": "巡音ルカ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "테토",
-      "카사네테토"
-    ],
-    "ja": "重音テト"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "짱구",
-      "신짱"
-    ],
-    "ja": "しんちゃん"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "흰둥이"
-    ],
-    "ja": "シロ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "훈이"
-    ],
-    "ja": "風間"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "도라에몽"
-    ],
-    "ja": "ドラえもん"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "진구"
-    ],
-    "ja": "のび太"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "폼폼푸린"
-    ],
-    "ja": "ポムポムプリン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "badtzmaru",
-      "배드바츠마루"
-    ],
-    "ja": "バッドばつ丸"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "케로피"
-    ],
-    "ja": "けろけろけろっぴ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "한교돈"
-    ],
-    "ja": "ハンギョドン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "각청"
-    ],
-    "ja": "刻晴"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "호두",
-      "호두원신"
-    ],
-    "ja": "胡桃"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "라이덴"
-    ],
-    "ja": "雷電将軍"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "푸리나"
-    ],
-    "ja": "フリーナ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "나히다"
-    ],
-    "ja": "ナヒーダ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아로나"
-    ],
-    "ja": "アロナ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "유우카"
-    ],
-    "ja": "ユウカ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "호시노"
-    ],
-    "ja": "ホシノ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "토토로"
-    ],
-    "ja": "トトロ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "지지"
-    ],
-    "ja": "ジジ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "가오나시"
-    ],
-    "ja": "カオナシ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아스카"
-    ],
-    "ja": "アスカ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아야나미레이",
-      "아야나미"
-    ],
-    "ja": "綾波レイ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "신지"
-    ],
-    "ja": "シンジ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "세일러문"
-    ],
-    "ja": "セーラームーン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "강백호",
-      "사쿠라기"
-    ],
-    "ja": "桜木花道"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "서태웅",
-      "루카와"
-    ],
-    "ja": "流川楓"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "죠타로"
-    ],
-    "ja": "承太郎"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "디오"
-    ],
-    "ja": "DIO"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "죠셉"
-    ],
-    "ja": "ジョセフ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마리오"
-    ],
-    "ja": "マリオ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "루이지"
-    ],
-    "ja": "ルイージ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "쿠파"
-    ],
-    "ja": "クッパ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "피치공주",
-      "피치"
-    ],
-    "ja": "ピーチ姫"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "요시"
-    ],
-    "ja": "ヨッシー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "링크"
-    ],
-    "ja": "リンク"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "젤다공주"
-    ],
-    "ja": "ゼルダ姫"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "커비"
-    ],
-    "ja": "カービィ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "프랑키"
-    ],
-    "ja": "フランキー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "브룩"
-    ],
-    "ja": "ブルック"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "니코로빈",
-      "로빈"
-    ],
-    "ja": "ロビン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "우솝"
-    ],
-    "ja": "ウソップ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "샹크스"
-    ],
-    "ja": "シャンクス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사보"
-    ],
-    "ja": "サボ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카타쿠리"
-    ],
-    "ja": "カタクリ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "야마토"
-    ],
-    "ja": "ヤマト"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사스케"
-    ],
-    "ja": "サスケ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사쿠라"
-    ],
-    "ja": "サクラ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카카시"
-    ],
-    "ja": "カカシ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이타치"
-    ],
-    "ja": "イタチ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "가아라"
-    ],
-    "ja": "我愛羅"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "미나토"
-    ],
-    "ja": "ミナト"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "손오공",
-      "오공"
-    ],
-    "ja": "孫悟空"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "베지터"
-    ],
-    "ja": "ベジータ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "프리저"
-    ],
-    "ja": "フリーザ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "셀게임",
-      "완전체셀"
-    ],
-    "ja": "セル"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "부우"
-    ],
-    "ja": "魔人ブウ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "오반"
-    ],
-    "ja": "悟飯"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "트랭크스"
-    ],
-    "ja": "トランクス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "무이치로"
-    ],
-    "ja": "無一郎"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "미츠리"
-    ],
-    "ja": "甘露寺蜜璃"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사네미"
-    ],
-    "ja": "実弥"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "히메지마"
-    ],
-    "ja": "悲鳴嶼"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아카자"
-    ],
-    "ja": "猗窩座"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "도우마"
-    ],
-    "ja": "童磨"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "우즈이"
-    ],
-    "ja": "宇髄天元"
+    "ja": "伏黒甚爾",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "마키"
     ],
-    "ja": "禪院真希"
+    "ja": "禪院真希",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "판다"
     ],
-    "ja": "パンダ"
+    "ja": "パンダ",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "이누마키"
     ],
-    "ja": "狗巻棘"
+    "ja": "狗巻棘",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "마히토"
     ],
-    "ja": "真人"
+    "ja": "真人",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
@@ -918,98 +487,104 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "겟토",
       "스구루"
     ],
-    "ja": "夏油傑"
+    "ja": "夏油傑",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "유타"
     ],
-    "ja": "乙骨憂太"
+    "ja": "乙骨憂太",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
       "리카"
     ],
-    "ja": "里香"
+    "ja": "里香",
+    "ip": "주술회전"
   },
   {
     "kind": "character",
     "ko": [
-      "리바이병장"
+      "히나타"
     ],
-    "ja": "リヴァイ"
+    "ja": "日向翔陽",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
-      "한지"
+      "카게야마"
     ],
-    "ja": "ハンジ"
+    "ja": "影山飛雄",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
-      "에르빈"
+      "오이카와"
     ],
-    "ja": "エルヴィン"
+    "ja": "及川徹",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
-      "지크"
+      "츠키시마"
     ],
-    "ja": "ジーク"
+    "ja": "月島蛍",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
-      "히스토리아"
+      "보쿠토"
     ],
-    "ja": "ヒストリア"
+    "ja": "木兎光太郎",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
-      "사샤"
+      "아카아시"
     ],
-    "ja": "サシャ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "라이너"
-    ],
-    "ja": "ライナー"
+    "ja": "赤葦",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "니시노야"
     ],
-    "ja": "西谷夕"
+    "ja": "西谷夕",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "타나카"
     ],
-    "ja": "田中龍之介"
+    "ja": "田中龍之介",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "스가와라"
     ],
-    "ja": "菅原孝支"
+    "ja": "菅原孝支",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "우시지마"
     ],
-    "ja": "牛島若利"
+    "ja": "牛島若利",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
@@ -1017,14 +592,16 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "켄마",
       "코즈메"
     ],
-    "ja": "孤爪研磨"
+    "ja": "孤爪研磨",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "쿠로오"
     ],
-    "ja": "黒尾鉄朗"
+    "ja": "黒尾鉄朗",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
@@ -1032,424 +609,24 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "미야아츠무",
       "아츠무"
     ],
-    "ja": "宮侑"
+    "ja": "宮侑",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "사쿠사"
     ],
-    "ja": "佐久早聖臣"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "치기리"
-    ],
-    "ja": "千切豹馬"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "나기"
-    ],
-    "ja": "凪誠士郎"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "미카게레오"
-    ],
-    "ja": "玲王"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카이저"
-    ],
-    "ja": "カイザー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "레제"
-    ],
-    "ja": "レゼ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "히메노"
-    ],
-    "ja": "姫野"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "코베니"
-    ],
-    "ja": "コベニ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "본드"
-    ],
-    "ja": "ボンド"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카오루"
-    ],
-    "ja": "カヲル"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "미사토"
-    ],
-    "ja": "ミサト"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마키나미마리",
-      "에바마리"
-    ],
-    "ja": "マリ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "세일러마스"
-    ],
-    "ja": "セーラーマーズ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "치비우사"
-    ],
-    "ja": "ちびうさ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "투시도"
-    ],
-    "ja": "タキシード仮面"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "파이리"
-    ],
-    "ja": "ヒトカゲ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "뮤츠아님뮤",
-      "뮤포켓몬"
-    ],
-    "ja": "ミュウ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "가디안"
-    ],
-    "ja": "サーナイト"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "리자몽메가"
-    ],
-    "ja": "メガリザードン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "에이스번"
-    ],
-    "ja": "エースバーン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마임맨"
-    ],
-    "ja": "バリヤード"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "푸린"
-    ],
-    "ja": "プリン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "종려"
-    ],
-    "ja": "鍾離"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "감우"
-    ],
-    "ja": "甘雨"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "야에미코",
-      "야에"
-    ],
-    "ja": "八重神子"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "에스코피에"
-    ],
-    "ja": "エスコフィエ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "시로코"
-    ],
-    "ja": "シロコ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "미카"
-    ],
-    "ja": "ミカ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아루"
-    ],
-    "ja": "アル"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "스페셜위크"
-    ],
-    "ja": "スペシャルウィーク"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "골드십"
-    ],
-    "ja": "ゴールドシップ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "토카이테이오"
-    ],
-    "ja": "トウカイテイオー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "호노카"
-    ],
-    "ja": "穂乃果"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "니코"
-    ],
-    "ja": "にこ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "치카"
-    ],
-    "ja": "千歌"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "요하네"
-    ],
-    "ja": "ヨハネ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "시노노메에나"
-    ],
-    "ja": "東雲絵名"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카이토"
-    ],
-    "ja": "KAITO"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "메이코"
-    ],
-    "ja": "MEIKO"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "포차코"
-    ],
-    "ja": "ポチャッコ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "타키니코"
-    ],
-    "ja": "たあ坊"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "구데타마"
-    ],
-    "ja": "ぐでたま"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "하치와레"
-    ],
-    "ja": "ハチワレ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "우사기"
-    ],
-    "ja": "うさぎ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "모모카"
-    ],
-    "ja": "モモンガ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "샤아"
-    ],
-    "ja": "シャア"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아무로"
-    ],
-    "ja": "アムロ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "자쿠"
-    ],
-    "ja": "ザク"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "프리덤건담",
-      "프덤"
-    ],
-    "ja": "フリーダムガンダム"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "하울"
-    ],
-    "ja": "ハウル"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "소피"
-    ],
-    "ja": "ソフィー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "치히로"
-    ],
-    "ja": "千尋"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "하쿠"
-    ],
-    "ja": "ハク"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "키키"
-    ],
-    "ja": "キキ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "블루아이즈"
-    ],
-    "ja": "ブルーアイズ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "블랙매지션"
-    ],
-    "ja": "ブラック・マジシャン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아구몬"
-    ],
-    "ja": "アグモン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "파닥몬"
-    ],
-    "ja": "パタモン"
+    "ja": "佐久早聖臣",
+    "ip": "하이큐"
   },
   {
     "kind": "character",
     "ko": [
       "데쿠"
     ],
-    "ja": "デク"
+    "ja": "デク",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
@@ -1457,7 +634,8 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "미도리야",
       "이즈쿠"
     ],
-    "ja": "緑谷出久"
+    "ja": "緑谷出久",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
@@ -1465,7 +643,8 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "바쿠고",
       "카츠키"
     ],
-    "ja": "爆豪勝己"
+    "ja": "爆豪勝己",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
@@ -1473,644 +652,427 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "토도로키",
       "쇼토"
     ],
-    "ja": "轟焦凍"
+    "ja": "轟焦凍",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "오차코"
     ],
-    "ja": "麗日お茶子"
+    "ja": "麗日お茶子",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "올마이트"
     ],
-    "ja": "オールマイト"
+    "ja": "オールマイト",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "시가라키"
     ],
-    "ja": "死柄木弔"
+    "ja": "死柄木弔",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "다비"
     ],
-    "ja": "荼毘"
+    "ja": "荼毘",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "토가"
     ],
-    "ja": "トガヒミコ"
+    "ja": "トガヒミコ",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "키리시마"
     ],
-    "ja": "切島鋭児郎"
+    "ja": "切島鋭児郎",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "호크스"
     ],
-    "ja": "ホークス"
+    "ja": "ホークス",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
       "엔데버"
     ],
-    "ja": "エンデヴァー"
+    "ja": "エンデヴァー",
+    "ip": "나의히어로아카데미아"
   },
   {
     "kind": "character",
     "ko": [
-      "타케미치"
+      "에렌"
     ],
-    "ja": "タケミチ"
+    "ja": "エレン",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "마이키"
+      "미카사"
     ],
-    "ja": "マイキー"
+    "ja": "ミカサ",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "드라켄"
+      "리바이",
+      "리바이병장"
     ],
-    "ja": "ドラケン"
+    "ja": "リヴァイ",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "미츠야"
+      "아르민"
     ],
-    "ja": "三ツ谷"
+    "ja": "アルミン",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "치후유"
+      "한지"
     ],
-    "ja": "千冬"
+    "ja": "ハンジ",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "페른"
+      "에르빈"
     ],
-    "ja": "フェルン"
+    "ja": "エルヴィン",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "슈타르크"
+      "지크"
     ],
-    "ja": "シュタルク"
+    "ja": "ジーク",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "힘멜"
+      "히스토리아"
     ],
-    "ja": "ヒンメル"
+    "ja": "ヒストリア",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "히토리",
-      "고토히토리"
+      "사샤"
     ],
-    "ja": "後藤ひとり"
+    "ja": "サシャ",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "니지카"
+      "라이너"
     ],
-    "ja": "伊地知虹夏"
+    "ja": "ライナー",
+    "ip": "진격의거인"
   },
   {
     "kind": "character",
     "ko": [
-      "료우"
+      "아로나"
     ],
-    "ja": "山田リョウ"
+    "ja": "アロナ",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "키타"
+      "유우카"
     ],
-    "ja": "喜多郁代"
+    "ja": "ユウカ",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "신이치",
-      "쿠도신이치"
+      "호시노"
     ],
-    "ja": "工藤新一"
+    "ja": "ホシノ",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "모리란"
+      "시로코"
     ],
-    "ja": "毛利蘭"
+    "ja": "シロコ",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "카이토키드"
+      "미카"
     ],
-    "ja": "怪盗キッド"
+    "ja": "ミカ",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "하이바라"
+      "아루"
     ],
-    "ja": "灰原哀"
+    "ja": "アル",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "핫토리"
+      "히후미"
     ],
-    "ja": "服部平次"
+    "ja": "阿慈谷ヒフミ",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "곤프릭스"
+      "아리스"
     ],
-    "ja": "ゴン"
+    "ja": "天童アリス",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "키르아"
+      "세이아"
     ],
-    "ja": "キルア"
+    "ja": "セイア",
+    "ip": "블루아카이브"
   },
   {
     "kind": "character",
     "ko": [
-      "크라피카"
+      "스페셜위크"
     ],
-    "ja": "クラピカ"
+    "ja": "スペシャルウィーク",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "레오리오"
+      "골드십"
     ],
-    "ja": "レオリオ"
+    "ja": "ゴールドシップ",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "히소카"
+      "토카이테이오"
     ],
-    "ja": "ヒソカ"
+    "ja": "トウカイテイオー",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "긴토키"
+      "골드쉽"
     ],
-    "ja": "銀時"
+    "ja": "ゴールドシップ",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "카구라"
+      "사일런스스즈카"
     ],
-    "ja": "神楽"
+    "ja": "サイレンススズカ",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "신파치"
+      "다이와스칼렛"
     ],
-    "ja": "新八"
+    "ja": "ダイワスカーレット",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "히지카타"
+      "메지로맥퀸"
     ],
-    "ja": "土方十四郎"
+    "ja": "メジロマックイーン",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "오키타"
+      "키타산블랙"
     ],
-    "ja": "沖田総悟"
+    "ja": "キタサンブラック",
+    "ip": "우마무스메"
   },
   {
     "kind": "character",
     "ko": [
-      "세바스찬"
+      "각청"
     ],
-    "ja": "セバスチャン"
+    "ja": "刻晴",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "시엘"
+      "호두",
+      "호두원신"
     ],
-    "ja": "シエル"
+    "ja": "胡桃",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "카네키"
+      "라이덴"
     ],
-    "ja": "カネキ"
+    "ja": "雷電将軍",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "토우카"
+      "푸리나"
     ],
-    "ja": "トーカ"
+    "ja": "フリーナ",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "에드워드"
+      "나히다"
     ],
-    "ja": "エドワード"
+    "ja": "ナヒーダ",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "알폰스"
+      "종려"
     ],
-    "ja": "アルフォンス"
+    "ja": "鍾離",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "머스탱"
+      "감우"
     ],
-    "ja": "マスタング"
+    "ja": "甘雨",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "윈리"
+      "야에미코",
+      "야에"
     ],
-    "ja": "ウィンリィ"
+    "ja": "八重神子",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "세이버"
+      "에스코피에"
     ],
-    "ja": "セイバー"
+    "ja": "エスコフィエ",
+    "ip": "원신"
   },
   {
     "kind": "character",
     "ko": [
-      "아르토리아"
+      "토토로"
     ],
-    "ja": "アルトリア"
+    "ja": "トトロ",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "길가메시"
+      "지지"
     ],
-    "ja": "ギルガメッシュ"
+    "ja": "ジジ",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "토오사카"
+      "가오나시"
     ],
-    "ja": "遠坂凛"
+    "ja": "カオナシ",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "마슈"
+      "하울"
     ],
-    "ja": "マシュ"
+    "ja": "ハウル",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "에밀리아"
+      "소피"
     ],
-    "ja": "エミリア"
+    "ja": "ソフィー",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "스바루"
+      "치히로"
     ],
-    "ja": "スバル"
+    "ja": "千尋",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "베아트리스"
+      "하쿠"
     ],
-    "ja": "ベアトリス"
+    "ja": "ハク",
+    "ip": "지브리"
   },
   {
     "kind": "character",
     "ko": [
-      "리무루"
+      "키키"
     ],
-    "ja": "リムル"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "밀림"
-    ],
-    "ja": "ミリム"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "슈나"
-    ],
-    "ja": "シュナ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아쿠아"
-    ],
-    "ja": "アクア"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "메구밍"
-    ],
-    "ja": "めぐみん"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "다크니스"
-    ],
-    "ja": "ダクネス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카즈마"
-    ],
-    "ja": "カズマ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사이타마"
-    ],
-    "ja": "サイタマ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "제노스"
-    ],
-    "ja": "ジェノス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "가로우"
-    ],
-    "ja": "ガロウ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이치카"
-    ],
-    "ja": "一花"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "니노"
-    ],
-    "ja": "二乃"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "요츠바"
-    ],
-    "ja": "四葉"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "이츠키"
-    ],
-    "ja": "五月"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "시로가네"
-    ],
-    "ja": "白銀"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "후지와라"
-    ],
-    "ja": "藤原千花"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "엠마"
-    ],
-    "ja": "エマ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "노먼"
-    ],
-    "ja": "ノーマン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "센쿠"
-    ],
-    "ja": "千空"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "크롬"
-    ],
-    "ja": "クロム"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "카프카"
-    ],
-    "ja": "カフカ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마도카"
-    ],
-    "ja": "まどか"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "호무라"
-    ],
-    "ja": "ほむら"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사야카"
-    ],
-    "ja": "さやか"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마미"
-    ],
-    "ja": "マミ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "쿄코"
-    ],
-    "ja": "杏子"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "큐베"
-    ],
-    "ja": "キュゥべえ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "페코라",
-      "우사다페코라"
-    ],
-    "ja": "兎田ぺこら"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "마린",
-      "호쇼마린"
-    ],
-    "ja": "宝鐘マリン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "후부키",
-      "시라카미후부키"
-    ],
-    "ja": "白上フブキ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "구라",
-      "가우르구라"
-    ],
-    "ja": "がうる・ぐら"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "스이세이",
-      "호시마치스이세이"
-    ],
-    "ja": "星街すいせい"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "코로네"
-    ],
-    "ja": "戌神ころね"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아미야"
-    ],
-    "ja": "アーミヤ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "텍사스"
-    ],
-    "ja": "テキサス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아이루"
-    ],
-    "ja": "アイルー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "리오레우스"
-    ],
-    "ja": "リオレウス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "너굴"
-    ],
-    "ja": "たぬきち"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "여울"
-    ],
-    "ja": "しずえ"
+    "ja": "キキ",
+    "ip": "지브리"
   },
   {
     "kind": "character",
@@ -2118,49 +1080,56 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "이치고",
       "쿠로사키이치고"
     ],
-    "ja": "黒崎一護"
+    "ja": "黒崎一護",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
       "루키아"
     ],
-    "ja": "ルキア"
+    "ja": "ルキア",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
       "렌지"
     ],
-    "ja": "阿散井恋次"
+    "ja": "阿散井恋次",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
       "뱌쿠야"
     ],
-    "ja": "朽木白哉"
+    "ja": "朽木白哉",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
       "우라하라"
     ],
-    "ja": "浦原喜助"
+    "ja": "浦原喜助",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
       "켄파치"
     ],
-    "ja": "更木剣八"
+    "ja": "更木剣八",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
       "아이젠"
     ],
-    "ja": "藍染惣右介"
+    "ja": "藍染惣右介",
+    "ip": "블리치"
   },
   {
     "kind": "character",
@@ -2168,148 +1137,1421 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "토시로",
       "히츠가야"
     ],
-    "ja": "日番谷冬獅郎"
+    "ja": "日番谷冬獅郎",
+    "ip": "블리치"
   },
   {
     "kind": "character",
     "ko": [
-      "무이치로"
+      "덴지"
     ],
-    "ja": "無一郎"
+    "ja": "デンジ",
+    "ip": "체인소맨"
   },
   {
     "kind": "character",
     "ko": [
-      "샹크스"
+      "파워"
     ],
-    "ja": "シャンクス"
+    "ja": "パワー",
+    "ip": "체인소맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마키마"
+    ],
+    "ja": "マキマ",
+    "ip": "체인소맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아키"
+    ],
+    "ja": "早川アキ",
+    "ip": "체인소맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "레제"
+    ],
+    "ja": "レゼ",
+    "ip": "체인소맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히메노"
+    ],
+    "ja": "姫野",
+    "ip": "체인소맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "코베니"
+    ],
+    "ja": "コベニ",
+    "ip": "체인소맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이사기"
+    ],
+    "ja": "潔世一",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "바치라"
+    ],
+    "ja": "蜂楽廻",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이츠키린",
+      "시시린"
+    ],
+    "ja": "糸師凛",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "치기리"
+    ],
+    "ja": "千切豹馬",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "나기"
+    ],
+    "ja": "凪誠士郎",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미카게레오"
+    ],
+    "ja": "玲王",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카이저"
+    ],
+    "ja": "カイザー",
+    "ip": "블루록"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "폼폼푸린"
+    ],
+    "ja": "ポムポムプリン",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "badtzmaru",
+      "배드바츠마루"
+    ],
+    "ja": "バッドばつ丸",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "케로피"
+    ],
+    "ja": "けろけろけろっぴ",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "한교돈"
+    ],
+    "ja": "ハンギョドン",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "포차코"
+    ],
+    "ja": "ポチャッコ",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "타키니코"
+    ],
+    "ja": "たあ坊",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "구데타마"
+    ],
+    "ja": "ぐでたま",
+    "ip": "산리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "손오공",
+      "오공"
+    ],
+    "ja": "孫悟空",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "베지터"
+    ],
+    "ja": "ベジータ",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "프리저"
+    ],
+    "ja": "フリーザ",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "셀게임",
+      "완전체셀"
+    ],
+    "ja": "セル",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "부우"
+    ],
+    "ja": "魔人ブウ",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "오반"
+    ],
+    "ja": "悟飯",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "트랭크스"
+    ],
+    "ja": "トランクス",
+    "ip": "드래곤볼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아스카"
+    ],
+    "ja": "アスカ",
+    "ip": "에반게리온"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아야나미레이",
+      "아야나미"
+    ],
+    "ja": "綾波レイ",
+    "ip": "에반게리온"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "신지"
+    ],
+    "ja": "シンジ",
+    "ip": "에반게리온"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카오루"
+    ],
+    "ja": "カヲル",
+    "ip": "에반게리온"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미사토"
+    ],
+    "ja": "ミサト",
+    "ip": "에반게리온"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마키나미마리",
+      "에바마리"
+    ],
+    "ja": "マリ",
+    "ip": "에반게리온"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사스케"
+    ],
+    "ja": "サスケ",
+    "ip": "나루토"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사쿠라"
+    ],
+    "ja": "サクラ",
+    "ip": "나루토"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카카시"
+    ],
+    "ja": "カカシ",
+    "ip": "나루토"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이타치"
+    ],
+    "ja": "イタチ",
+    "ip": "나루토"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "가아라"
+    ],
+    "ja": "我愛羅",
+    "ip": "나루토"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미나토"
+    ],
+    "ja": "ミナト",
+    "ip": "나루토"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마도카"
+    ],
+    "ja": "まどか",
+    "ip": "마법소녀마도카"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "호무라"
+    ],
+    "ja": "ほむら",
+    "ip": "마법소녀마도카"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사야카"
+    ],
+    "ja": "さやか",
+    "ip": "마법소녀마도카"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마미"
+    ],
+    "ja": "マミ",
+    "ip": "마법소녀마도카"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "쿄코"
+    ],
+    "ja": "杏子",
+    "ip": "마법소녀마도카"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "큐베"
+    ],
+    "ja": "キュゥべえ",
+    "ip": "마법소녀마도카"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "페코라",
+      "우사다페코라"
+    ],
+    "ja": "兎田ぺこら",
+    "ip": "홀로라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마린",
+      "호쇼마린"
+    ],
+    "ja": "宝鐘マリン",
+    "ip": "홀로라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "후부키",
+      "시라카미후부키"
+    ],
+    "ja": "白上フブキ",
+    "ip": "홀로라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "구라",
+      "가우르구라"
+    ],
+    "ja": "がうる・ぐら",
+    "ip": "홀로라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "스이세이",
+      "호시마치스이세이"
+    ],
+    "ja": "星街すいせい",
+    "ip": "홀로라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "코로네"
+    ],
+    "ja": "戌神ころね",
+    "ip": "홀로라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카가미네린",
+      "카가미네"
+    ],
+    "ja": "鏡音リン",
+    "ip": "보컬로이드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "메구리네루카",
+      "루카"
+    ],
+    "ja": "巡音ルカ",
+    "ip": "보컬로이드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "테토",
+      "카사네테토"
+    ],
+    "ja": "重音テト",
+    "ip": "보컬로이드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카이토"
+    ],
+    "ja": "KAITO",
+    "ip": "보컬로이드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "메이코"
+    ],
+    "ja": "MEIKO",
+    "ip": "보컬로이드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마리오"
+    ],
+    "ja": "マリオ",
+    "ip": "슈퍼마리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "루이지"
+    ],
+    "ja": "ルイージ",
+    "ip": "슈퍼마리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "쿠파"
+    ],
+    "ja": "クッパ",
+    "ip": "슈퍼마리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "피치공주",
+      "피치"
+    ],
+    "ja": "ピーチ姫",
+    "ip": "슈퍼마리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "요시"
+    ],
+    "ja": "ヨッシー",
+    "ip": "슈퍼마리오"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "타케미치"
+    ],
+    "ja": "タケミチ",
+    "ip": "도쿄리벤저스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마이키"
+    ],
+    "ja": "マイキー",
+    "ip": "도쿄리벤저스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "드라켄"
+    ],
+    "ja": "ドラケン",
+    "ip": "도쿄리벤저스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "미츠야"
+    ],
+    "ja": "三ツ谷",
+    "ip": "도쿄리벤저스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "치후유"
+    ],
+    "ja": "千冬",
+    "ip": "도쿄리벤저스"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "신이치",
+      "쿠도신이치"
+    ],
+    "ja": "工藤新一",
+    "ip": "명탐정코난"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "모리란"
+    ],
+    "ja": "毛利蘭",
+    "ip": "명탐정코난"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카이토키드"
+    ],
+    "ja": "怪盗キッド",
+    "ip": "명탐정코난"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "하이바라"
+    ],
+    "ja": "灰原哀",
+    "ip": "명탐정코난"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "핫토리"
+    ],
+    "ja": "服部平次",
+    "ip": "명탐정코난"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "곤프릭스"
+    ],
+    "ja": "ゴン",
+    "ip": "헌터x헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "키르아"
+    ],
+    "ja": "キルア",
+    "ip": "헌터x헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "크라피카"
+    ],
+    "ja": "クラピカ",
+    "ip": "헌터x헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "레오리오"
+    ],
+    "ja": "レオリオ",
+    "ip": "헌터x헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히소카"
+    ],
+    "ja": "ヒソカ",
+    "ip": "헌터x헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "긴토키"
+    ],
+    "ja": "銀時",
+    "ip": "은혼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카구라"
+    ],
+    "ja": "神楽",
+    "ip": "은혼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "신파치"
+    ],
+    "ja": "新八",
+    "ip": "은혼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히지카타"
+    ],
+    "ja": "土方十四郎",
+    "ip": "은혼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "오키타"
+    ],
+    "ja": "沖田総悟",
+    "ip": "은혼"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "세이버"
+    ],
+    "ja": "セイバー",
+    "ip": "페이트"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아르토리아"
+    ],
+    "ja": "アルトリア",
+    "ip": "페이트"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "길가메시"
+    ],
+    "ja": "ギルガメッシュ",
+    "ip": "페이트"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토오사카"
+    ],
+    "ja": "遠坂凛",
+    "ip": "페이트"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "마슈"
+    ],
+    "ja": "マシュ",
+    "ip": "페이트"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아냐"
+    ],
+    "ja": "アーニャ",
+    "ip": "스파이패밀리"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "요르"
+    ],
+    "ja": "ヨル",
+    "ip": "스파이패밀리"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "로이드"
+    ],
+    "ja": "ロイド",
+    "ip": "스파이패밀리"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "본드"
+    ],
+    "ja": "ボンド",
+    "ip": "스파이패밀리"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "호시노아이"
+    ],
+    "ja": "星野アイ",
+    "ip": "최애의아이"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "루비"
+    ],
+    "ja": "ルビー",
+    "ip": "최애의아이"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아쿠아"
+    ],
+    "ja": "アクア",
+    "ip": "최애의아이"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "세일러문"
+    ],
+    "ja": "セーラームーン",
+    "ip": "세일러문"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "세일러마스"
+    ],
+    "ja": "セーラーマーズ",
+    "ip": "세일러문"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "치비우사"
+    ],
+    "ja": "ちびうさ",
+    "ip": "세일러문"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "투시도"
+    ],
+    "ja": "タキシード仮面",
+    "ip": "세일러문"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "호노카"
+    ],
+    "ja": "穂乃果",
+    "ip": "러브라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "니코"
+    ],
+    "ja": "にこ",
+    "ip": "러브라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "치카"
+    ],
+    "ja": "千歌",
+    "ip": "러브라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "요하네"
+    ],
+    "ja": "ヨハネ",
+    "ip": "러브라이브"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "샤아"
+    ],
+    "ja": "シャア",
+    "ip": "건담"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아무로"
+    ],
+    "ja": "アムロ",
+    "ip": "건담"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "자쿠"
+    ],
+    "ja": "ザク",
+    "ip": "건담"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "프리덤건담",
+      "프덤"
+    ],
+    "ja": "フリーダムガンダム",
+    "ip": "건담"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "히토리",
+      "고토히토리"
+    ],
+    "ja": "後藤ひとり",
+    "ip": "봇치더락"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "니지카"
+    ],
+    "ja": "伊地知虹夏",
+    "ip": "봇치더락"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "료우"
+    ],
+    "ja": "山田リョウ",
+    "ip": "봇치더락"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "키타"
+    ],
+    "ja": "喜多郁代",
+    "ip": "봇치더락"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "에드워드"
+    ],
+    "ja": "エドワード",
+    "ip": "강철의연금술사"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "알폰스"
+    ],
+    "ja": "アルフォンス",
+    "ip": "강철의연금술사"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "머스탱"
+    ],
+    "ja": "マスタング",
+    "ip": "강철의연금술사"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "윈리"
+    ],
+    "ja": "ウィンリィ",
+    "ip": "강철의연금술사"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이치카"
+    ],
+    "ja": "一花",
+    "ip": "오등분의신부"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "니노"
+    ],
+    "ja": "二乃",
+    "ip": "오등분의신부"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "요츠바"
+    ],
+    "ja": "四葉",
+    "ip": "오등분의신부"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "이츠키"
+    ],
+    "ja": "五月",
+    "ip": "오등분의신부"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "짱구",
+      "신짱"
+    ],
+    "ja": "しんちゃん",
+    "ip": "크레용신짱"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "흰둥이"
+    ],
+    "ja": "シロ",
+    "ip": "크레용신짱"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "훈이"
+    ],
+    "ja": "風間",
+    "ip": "크레용신짱"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "죠타로"
+    ],
+    "ja": "承太郎",
+    "ip": "죠죠"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "디오"
+    ],
+    "ja": "DIO",
+    "ip": "죠죠"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "죠셉"
+    ],
+    "ja": "ジョセフ",
+    "ip": "죠죠"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "하치와레"
+    ],
+    "ja": "ハチワレ",
+    "ip": "치이카와"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "우사기"
+    ],
+    "ja": "うさぎ",
+    "ip": "치이카와"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "모모카"
+    ],
+    "ja": "モモンガ",
+    "ip": "치이카와"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "페른"
+    ],
+    "ja": "フェルン",
+    "ip": "장송의프리렌"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "슈타르크"
+    ],
+    "ja": "シュタルク",
+    "ip": "장송의프리렌"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "힘멜"
+    ],
+    "ja": "ヒンメル",
+    "ip": "장송의프리렌"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "에밀리아"
+    ],
+    "ja": "エミリア",
+    "ip": "리제로"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "스바루"
+    ],
+    "ja": "スバル",
+    "ip": "리제로"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "베아트리스"
+    ],
+    "ja": "ベアトリス",
+    "ip": "리제로"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "리무루"
+    ],
+    "ja": "リムル",
+    "ip": "전생슬라임"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "밀림"
+    ],
+    "ja": "ミリム",
+    "ip": "전생슬라임"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "슈나"
+    ],
+    "ja": "シュナ",
+    "ip": "전생슬라임"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "메구밍"
+    ],
+    "ja": "めぐみん",
+    "ip": "코노스바"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "다크니스"
+    ],
+    "ja": "ダクネス",
+    "ip": "코노스바"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카즈마"
+    ],
+    "ja": "カズマ",
+    "ip": "코노스바"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "사이타마"
+    ],
+    "ja": "サイタマ",
+    "ip": "원펀맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "제노스"
+    ],
+    "ja": "ジェノス",
+    "ip": "원펀맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "가로우"
+    ],
+    "ja": "ガロウ",
+    "ip": "원펀맨"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "도라에몽"
+    ],
+    "ja": "ドラえもん",
+    "ip": "도라에몽"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "진구"
+    ],
+    "ja": "のび太",
+    "ip": "도라에몽"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "강백호",
+      "사쿠라기"
+    ],
+    "ja": "桜木花道",
+    "ip": "슬램덩크"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "서태웅",
+      "루카와"
+    ],
+    "ja": "流川楓",
+    "ip": "슬램덩크"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "링크"
+    ],
+    "ja": "リンク",
+    "ip": "젤다"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "젤다공주"
+    ],
+    "ja": "ゼルダ姫",
+    "ip": "젤다"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "블루아이즈"
+    ],
+    "ja": "ブルーアイズ",
+    "ip": "유희왕"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "블랙매지션"
+    ],
+    "ja": "ブラック・マジシャン",
+    "ip": "유희왕"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아구몬"
+    ],
+    "ja": "アグモン",
+    "ip": "디지몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "파닥몬"
+    ],
+    "ja": "パタモン",
+    "ip": "디지몬"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "세바스찬"
+    ],
+    "ja": "セバスチャン",
+    "ip": "흑집사"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "시엘"
+    ],
+    "ja": "シエル",
+    "ip": "흑집사"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "카네키"
+    ],
+    "ja": "カネキ",
+    "ip": "도쿄구울"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "토우카"
+    ],
+    "ja": "トーカ",
+    "ip": "도쿄구울"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "시로가네"
+    ],
+    "ja": "白銀",
+    "ip": "카구야님"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "후지와라"
+    ],
+    "ja": "藤原千花",
+    "ip": "카구야님"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "엠마"
+    ],
+    "ja": "エマ",
+    "ip": "약속의네버랜드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "노먼"
+    ],
+    "ja": "ノーマン",
+    "ip": "약속의네버랜드"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "센쿠"
+    ],
+    "ja": "千空",
+    "ip": "닥터스톤"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "크롬"
+    ],
+    "ja": "クロム",
+    "ip": "닥터스톤"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아미야"
+    ],
+    "ja": "アーミヤ",
+    "ip": "명일방주"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "텍사스"
+    ],
+    "ja": "テキサス",
+    "ip": "명일방주"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "아이루"
+    ],
+    "ja": "アイルー",
+    "ip": "몬스터헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "리오레우스"
+    ],
+    "ja": "リオレウス",
+    "ip": "몬스터헌터"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "너굴"
+    ],
+    "ja": "たぬきち",
+    "ip": "동물의숲"
+  },
+  {
+    "kind": "character",
+    "ko": [
+      "여울"
+    ],
+    "ja": "しずえ",
+    "ip": "동물의숲"
   },
   {
     "kind": "character",
     "ko": [
       "아스나"
     ],
-    "ja": "アスナ"
+    "ja": "アスナ",
+    "ip": "소드아트온라인"
   },
   {
     "kind": "character",
     "ko": [
       "키리토"
     ],
-    "ja": "キリト"
+    "ja": "キリト",
+    "ip": "소드아트온라인"
   },
   {
     "kind": "character",
     "ko": [
       "나데시코"
     ],
-    "ja": "なでしこ"
+    "ja": "なでしこ",
+    "ip": "유루캠"
   },
   {
     "kind": "character",
     "ko": [
       "시마린"
     ],
-    "ja": "志摩リン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "레시라무"
-    ],
-    "ja": "レシラム"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "스페셜위크"
-    ],
-    "ja": "スペシャルウィーク"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "골드쉽",
-      "골드십"
-    ],
-    "ja": "ゴールドシップ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "토카이테이오"
-    ],
-    "ja": "トウカイテイオー"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "사일런스스즈카"
-    ],
-    "ja": "サイレンススズカ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "다이와스칼렛"
-    ],
-    "ja": "ダイワスカーレット"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "메지로맥퀸"
-    ],
-    "ja": "メジロマックイーン"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "키타산블랙"
-    ],
-    "ja": "キタサンブラック"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아로나"
-    ],
-    "ja": "アロナ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "히후미"
-    ],
-    "ja": "阿慈谷ヒフミ"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "아리스"
-    ],
-    "ja": "天童アリス"
-  },
-  {
-    "kind": "character",
-    "ko": [
-      "세이아"
-    ],
-    "ja": "セイア"
+    "ja": "志摩リン",
+    "ip": "유루캠"
   },
   {
     "kind": "character",
     "ko": [
       "라피"
     ],
-    "ja": "ラピ"
+    "ja": "ラピ",
+    "ip": "니케"
   },
   {
     "kind": "character",
     "ko": [
       "아니스"
     ],
-    "ja": "アニス"
+    "ja": "アニス",
+    "ip": "니케"
   },
   {
     "kind": "character",
@@ -2317,35 +2559,40 @@ export const GOODS_TERMS: GoodsTerm[] = [
       "은랑",
       "실버울프"
     ],
-    "ja": "銀狼"
+    "ja": "銀狼",
+    "ip": "붕괴스타레일"
   },
   {
     "kind": "character",
     "ko": [
       "단항"
     ],
-    "ja": "丹恒"
+    "ja": "丹恒",
+    "ip": "붕괴스타레일"
   },
   {
     "kind": "character",
     "ko": [
-      "이브이"
+      "커비"
     ],
-    "ja": "イーブイ"
+    "ja": "カービィ",
+    "ip": "별의커비"
   },
   {
     "kind": "character",
     "ko": [
-      "리자몽"
+      "시노노메에나"
     ],
-    "ja": "リザードン"
+    "ja": "東雲絵名",
+    "ip": "프로젝트세카이"
   },
   {
     "kind": "character",
     "ko": [
-      "뮤츠"
+      "카프카"
     ],
-    "ja": "ミュウツー"
+    "ja": "カフカ",
+    "ip": "괴수8호"
   },
   {
     "kind": "slang",

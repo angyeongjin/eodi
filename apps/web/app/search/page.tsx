@@ -10,6 +10,7 @@ import ScopeTabs from '@/components/ScopeTabs'
 import AlertButton from '@/components/AlertButton'
 import OverseasNotice, { TranslationBar, TranslationMiss } from '@/components/OverseasNotice'
 import Pagination from '@/components/Pagination'
+import RelatedTerms from '@/components/RelatedTerms'
 import AdSlot from '@/components/AdSlot'
 import { Header, Footer } from '@/components/Layout'
 import { parseSearchParams, buildHref, scopeOf } from '@/lib/params'
@@ -141,6 +142,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                 필터 모두 지우기
               </Link>
             )}
+            {/* 굿즈는 재고가 유동적이라 0건이 잦다. 빈 화면으로 돌려보내지 않는다. */}
+            <div className="mx-auto max-w-md text-left">
+              <RelatedTerms query={res.query} scope={scope} emphasis />
+            </div>
           </div>
         ) : (
           <ul className="mt-4 space-y-3">
@@ -156,6 +161,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             ))}
           </ul>
         )}
+
+        {res.items.length > 0 && <RelatedTerms query={res.query} scope={scope} />}
 
         <Pagination params={sp} page={res.page} perPage={res.perPage} total={res.total} />
 

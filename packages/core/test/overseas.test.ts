@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
-import { translateToJapanese, suggestGoodsTerms, GOODS_TERMS } from '../src/goods.js'
+import { translateToJapanese, suggestGoodsTerms, relatedTerms, GOODS_TERMS } from '../src/goods.js'
 import { toKrw, setFxRate, getFxRate, formatMoney, formatApproxKrw, DEFAULT_JPY_KRW } from '../src/fx.js'
 import { tokenize } from '../src/text.js'
 import { enrichAll } from '../src/enrich.js'
@@ -445,5 +445,42 @@ describe('사전 매칭: 토큰을 남김없이 덮을 때만 인정한다', () 
       ['노기자카 생사진', '乃木坂46 生写真'],
     ]
     for (const [ko, ja] of cases) assert.equal(translateToJapanese(ko).ja, ja, `"${ko}"`)
+  })
+})
+
+describe('연관검색어: 사전이 아는 관계만 보여준다', () => {
+  /*
+    굿즈는 재고가 유동적이라 0건이 잦다. 그때 빈 화면을 주면 사람은 그냥 나간다.
+    추천은 검색 로그가 아니라 사전의 작품↔캐릭터 관계에서 뽑는다 —
+    "이걸 본 사람은 이것도" 는 트래픽이 쌓여야 의미가 있는데 아직 없다.
+  */
+  test('캐릭터를 치면 같은 작품의 다른 캐릭터를 준다', () => {
+    const r = relatedTerms('데쿠')
+    assert.equal(r.work?.ko[0], '나의히어로아카데미아')
+    const kos = r.siblings.map((t) => t.ko[0])
+    assert.ok(kos.includes('바쿠고'), '같은 작품 캐릭터가 나와야 한다')
+    assert.ok(!kos.includes('데쿠'), '자기 자신은 권하지 않는다')
+  })
+
+  test('작품을 치면 그 작품의 캐릭터를 준다', () => {
+    const kos = relatedTerms('주술회전').siblings.map((t) => t.ko[0])
+    assert.ok(kos.includes('고죠') && kos.includes('이타도리'))
+  })
+
+  test('수식어가 섞여 있어도 무엇을 찾는지로 판단한다', () => {
+    assert.equal(relatedTerms('바쿠고 피규어 미개봉').work?.ko[0], '나의히어로아카데미아')
+  })
+
+  test('굿즈가 아닌 검색어에는 아무것도 지어내지 않는다', () => {
+    for (const q of ['아이폰16', '삼성 냉장고', '자전거']) {
+      const r = relatedTerms(q)
+      assert.equal(r.siblings.length, 0, `"${q}" 에 연관어를 지어냈다`)
+      assert.equal(r.work, null)
+    }
+  })
+
+  test('모든 캐릭터는 소속 작품을 안다', () => {
+    const orphans = GOODS_TERMS.filter((t) => t.kind === 'character' && !t.ip)
+    assert.equal(orphans.length, 0, `작품 없는 캐릭터: ${orphans.map((t) => t.ko[0]).join(', ')}`)
   })
 })

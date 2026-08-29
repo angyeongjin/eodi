@@ -19,6 +19,8 @@ export interface GoodsTerm {
   ja: string
   /** 대체 일본어 표기 */
   jaAlt?: string[]
+  /** 캐릭터라면 소속 작품의 한글 표제어. 연관검색어의 재료다 */
+  ip?: string
 }
 
 export const GOODS_KIND_LABEL: Record<GoodsKind, string> = {
@@ -163,6 +165,73 @@ export function translateToJapanese(rawQuery: string): Translation {
 
   const ja = [...new Set(out)].join(' ').trim()
   return { ja: ja || null, hits, unresolved, passthrough: false }
+}
+
+/*
+  연관검색어.
+
+  굿즈 검색은 0건이 잦다 — 재고가 유동적이라 어제 있던 물건이 오늘 없다.
+  그때 빈 화면을 주면 사람은 그냥 나간다. 같은 작품의 다른 캐릭터를 권하면
+  적어도 한 번 더 볼 이유가 생긴다.
+
+  반대 방향도 쓸모가 있다. 작품 이름만 아는 사람이 많다 —
+  "주술회전" 을 치면 고죠·이타도리를 보여줘야 최애를 고를 수 있다.
+*/
+const BY_IP = new Map<string, GoodsTerm[]>()
+for (const t of GOODS_TERMS) {
+  if (t.kind !== 'character' || !t.ip) continue
+  const list = BY_IP.get(t.ip)
+  if (list) list.push(t)
+  else BY_IP.set(t.ip, [t])
+}
+const IP_TERM = new Map<string, GoodsTerm>()
+for (const t of GOODS_TERMS) if (t.kind === 'ip') for (const k of t.ko) IP_TERM.set(k, t)
+
+/** 굿즈 검색에서 실제로 많이 붙는 종류. 작품만 알고 뭘 살지 모르는 사람에게 준다 */
+const STAPLE_KO = ['피규어', '아크릴스탠드', '이치방쿠지', '넨도로이드', '캔뱃지']
+const STAPLE = STAPLE_KO.map((ko) => GOODS_TERMS.find((t) => t.ko[0] === ko)).filter(
+  (t): t is GoodsTerm => Boolean(t),
+)
+
+export interface RelatedTerms {
+  /** 같은 작품의 다른 캐릭터 */
+  siblings: GoodsTerm[]
+  /** 캐릭터가 속한 작품 */
+  work: GoodsTerm | null
+  /** 작품·캐릭터에 흔히 붙는 굿즈 종류 */
+  staples: GoodsTerm[]
+}
+
+/**
+ * 검색어와 이어지는 말들을 찾는다.
+ *
+ * 검색 로그가 아니라 사전의 관계에서 뽑는다. 로그 기반("이걸 본 사람은 이것도")은
+ * 트래픽이 쌓여야 의미가 있는데, 지금 로그는 대부분 예열과 개발자 테스트다.
+ * 지어낸 추천을 주느니 사전이 아는 관계만 보여준다.
+ */
+export function relatedTerms(query: string, limit = 8): RelatedTerms {
+  const { hits } = translateToJapanese(query)
+  const empty: RelatedTerms = { siblings: [], work: null, staples: [] }
+  if (hits.length === 0) return empty
+
+  // 무엇을 찾는지 정하는 것은 캐릭터와 작품뿐이다. 수식어는 실마리가 되지 않는다.
+  const character = hits.find((h) => h.kind === 'character')
+  const ipHit = hits.find((h) => h.kind === 'ip')
+
+  let ipKo: string | null = null
+  if (character) {
+    const term = GOODS_TERMS.find((t) => t.kind === 'character' && t.ko.includes(character.ko))
+    ipKo = term?.ip ?? null
+  } else if (ipHit) {
+    ipKo = IP_TERM.get(ipHit.ko)?.ko[0] ?? null
+  }
+  if (!ipKo) return { ...empty, staples: STAPLE }
+
+  const siblings = (BY_IP.get(ipKo) ?? [])
+    .filter((t) => !character || !t.ko.includes(character.ko))
+    .slice(0, limit)
+
+  return { siblings, work: IP_TERM.get(ipKo) ?? null, staples: STAPLE }
 }
 
 /**
