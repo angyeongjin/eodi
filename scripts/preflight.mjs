@@ -199,7 +199,20 @@ if (existsSync('apps/web/vercel.json')) {
   else bad('vercel.json 의 buildCommand 에 build:libs 가 없습니다')
 } else bad('apps/web/vercel.json 이 없습니다')
 
+
+
 const pkg = JSON.parse(readFileSync('package.json', 'utf-8'))
+
+/*
+  타입 검사가 웹까지 보는지.
+  `tsc -b` 는 references 에 있는 것만 본다. apps/web 은 composite 프로젝트가 아니라
+  거기 못 들어가고, 그래서 오랫동안 아무도 웹의 타입을 보지 않았다 —
+  없는 prop 을 넘긴 실수가 CI 를 지나 `next build` 에서야 잡힌 일이 있다.
+*/
+if (typeof pkg.scripts?.typecheck === 'string') {
+  if (pkg.scripts.typecheck.includes('apps/web')) ok('타입 검사가 웹 앱까지 포함')
+  else bad('typecheck 가 apps/web 을 검사하지 않습니다 — 웹의 타입 오류를 빌드에서야 알게 됩니다')
+}
 if (pkg.engines?.node) ok(`Node 버전 고정: ${pkg.engines.node}`)
 else caution('package.json 에 engines.node 가 없습니다')
 

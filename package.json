@@ -13,7 +13,7 @@
     "dev": "npm run build:libs && npm run dev -w @eodi/web",
     "start": "npm run start -w @eodi/web",
     "test": "npm run test -w @eodi/core && npm run test -w @eodi/db && npm run test -w @eodi/crawler && npm run test -w @eodi/web",
-    "typecheck": "tsc -b --pretty",
+    "typecheck": "tsc -b --pretty && tsc -p apps/web --noEmit --pretty",
     "smoke": "node scripts/smoke.mjs",
     "db:push": "npm run migrate -w @eodi/db",
     "probe": "npm run probe -w @eodi/crawler",
