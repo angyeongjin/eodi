@@ -30,7 +30,8 @@
     "brand:lint": "node scripts/brand-lint.mjs",
     "db:setup-app-role": "npm run setup-app-role -w @eodi/db",
     "prepare": "git config core.hooksPath .githooks || true",
-    "scan:staged": "node scripts/scan-staged.mjs"
+    "scan:staged": "node scripts/scan-staged.mjs",
+    "health": "npm run health -w @eodi/crawler"
   },
   "engines": {
     "node": ">=20.11"

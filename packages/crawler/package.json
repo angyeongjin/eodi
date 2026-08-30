@@ -23,7 +23,8 @@
     "untranslated": "tsx --env-file-if-exists=../../.env src/cli/untranslated.ts",
     "metrics": "tsx --env-file-if-exists=../../.env src/cli/metrics.ts",
     "run-alerts": "tsx --env-file-if-exists=../../.env src/cli/run-alerts.ts",
-    "vapid": "tsx src/cli/vapid.ts"
+    "vapid": "tsx src/cli/vapid.ts",
+    "health": "tsx --env-file-if-exists=../../.env src/cli/health.ts"
   },
   "dependencies": {
     "@eodi/core": "*",
