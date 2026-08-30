@@ -72,6 +72,39 @@ export async function recordSourceHealth(statuses: readonly SourceStatus[]): Pro
   }, undefined)
 }
 
+export interface EmptyRateRow {
+  source: string
+  okCalls: number
+  emptyCalls: number
+  rate: number
+}
+
+/**
+ * "성공했는데 0건" 비율.
+ *
+ * 마켓이 HTML 을 바꾸면 요청은 200 으로 성공하는데 파싱 결과만 비어 버린다.
+ * 성공률로는 절대 안 잡힌다 — 우리 눈에는 100% 정상으로 보인다.
+ * 평상시 3~8% 인데 이게 치솟으면 어댑터가 깨진 것이다.
+ */
+export async function emptyResultRate(hours = 6): Promise<EmptyRateRow[]> {
+  return tryDb(async (sql) => {
+    const rows = await sql<Array<{ source: string; ok_calls: number; empty_calls: number }>>`
+      SELECT source,
+             COUNT(*) FILTER (WHERE ok)::int AS ok_calls,
+             COUNT(*) FILTER (WHERE ok AND count = 0)::int AS empty_calls
+      FROM source_health
+      WHERE created_at > NOW() - ${`${hours} hours`}::interval
+      GROUP BY source
+    `
+    return rows.map((r) => ({
+      source: r.source,
+      okCalls: r.ok_calls,
+      emptyCalls: r.empty_calls,
+      rate: r.ok_calls > 0 ? r.empty_calls / r.ok_calls : 0,
+    }))
+  }, [])
+}
+
 export interface SourceHealthSummary {
   source: string
   okRate: number

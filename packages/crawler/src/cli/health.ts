@@ -9,7 +9,7 @@
  *
  *   npx tsx src/cli/health.ts --hours=6
  */
-import { sourceHealthSummary, closeSql, hasDb } from '@eodi/db'
+import { sourceHealthSummary, emptyResultRate, dbSizeBytes, indexStats, closeSql, hasDb } from '@eodi/db'
 import { SOURCE_LABEL } from '@eodi/core'
 import { allAdapters } from '../adapters/index.js'
 import { sendDiscord, hasDiscord } from '../notify.js'
@@ -30,6 +30,15 @@ const WARN = arg('warn', 80) / 100
   다음부터 아무도 이 알림을 안 읽는다.
 */
 const MIN_SAMPLES = arg('min-samples', 20)
+/*
+  파싱이 깨지면 요청은 성공하는데 결과만 빈다. 성공률로는 절대 안 잡힌다.
+  평상시 3~8% 라 이 선을 넘으면 어댑터를 봐야 한다.
+*/
+const EMPTY_DANGER = arg('empty-danger', 60) / 100
+/** DB 용량 상한 대비 이 비율을 넘으면 알린다 */
+const SIZE_WARN = arg('size-warn', 80) / 100
+const MAX_MB = arg('max-mb', 380)
+const SITE = args.find((a) => a.startsWith('--site='))?.split('=')[1] ?? process.env.NEXT_PUBLIC_SITE_URL ?? ''
 /** 웹훅이 실제로 닿는지 확인할 때. 상태와 무관하게 한 번 보낸다 */
 const PING = args.includes('--ping')
 
@@ -91,6 +100,55 @@ for (const id of enabled) {
   else changed.push(`${MARK[lvl]} **${label}** ${lvl === 'danger' ? '장애' : '주의'} — ${beforePct} → ${pct}%${n.lastError ? ` (${n.lastError.slice(0, 40)})` : ''}`)
 }
 
+/*
+  파싱이 깨졌는지.
+  마켓이 화면 구조를 바꾸면 200 을 받고도 결과가 빈다 — 우리 눈에는 100% 정상이다.
+*/
+const empties = await emptyResultRate(hours)
+for (const e of empties) {
+  if (e.okCalls < MIN_SAMPLES || e.rate < EMPTY_DANGER) continue
+  const label = SOURCE_LABEL[e.source as keyof typeof SOURCE_LABEL] ?? e.source
+  const line = `🔴 **${label}** 파싱 의심 — 성공한 요청의 ${Math.round(e.rate * 100)}% 가 0건 (${e.emptyCalls}/${e.okCalls})`
+  danger.push(`${label} 파싱 의심`)
+  changed.push(line)
+  console.log(`  ${line.replace(/\*\*/g, '')}`)
+}
+
+// DB 용량 — 무료 티어를 넘으면 서비스가 멈춘다
+const size = await dbSizeBytes()
+const stats = await indexStats()
+const ratio = size / (MAX_MB * 1024 * 1024)
+console.log(`\nDB ${(size / 1024 / 1024).toFixed(0)}MB / ${MAX_MB}MB (${Math.round(ratio * 100)}%) · 매물 ${stats.total.toLocaleString('ko-KR')}건`)
+if (ratio >= SIZE_WARN) {
+  const line = `${ratio >= 1 ? '🔴' : '🟡'} **DB 용량** ${Math.round(ratio * 100)}% (${(size / 1024 / 1024).toFixed(0)}MB / ${MAX_MB}MB)`
+  changed.push(line)
+  if (ratio >= 1) danger.push('DB 용량 초과')
+}
+
+// 사이트가 살아 있는지 — 배포가 깨져도 소스 성공률로는 알 수 없다
+if (SITE) {
+  const url = `${SITE.replace(/\/$/, '')}/api/health`
+  const began = Date.now()
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(15_000) })
+    const body = (await res.json()) as { ok?: boolean; db?: boolean }
+    const ms = Date.now() - began
+    const alive = res.ok && body.ok === true
+    console.log(`사이트 ${alive ? '✅' : '🔴'} HTTP ${res.status} · ${ms}ms · DB ${body.db ? '연결' : '끊김'}`)
+    if (!alive) {
+      danger.push('사이트 응답 이상')
+      changed.push(`🔴 **사이트** 응답 이상 — HTTP ${res.status}`)
+    } else if (body.db === false) {
+      danger.push('사이트 DB 끊김')
+      changed.push('🔴 **사이트** DB 연결 끊김')
+    }
+  } catch (err) {
+    console.log(`사이트 🔴 응답 없음 (${err instanceof Error ? err.message : String(err)})`)
+    danger.push('사이트 응답 없음')
+    changed.push('🔴 **사이트** 응답 없음')
+  }
+}
+
 console.log()
 if (silent.length) console.log(`기록 없음: ${silent.join(', ')} — 예열 크론이 돌았는지 확인하세요`)
 if (danger.length) console.log(`위험: ${danger.join(' · ')}`)
@@ -103,7 +161,7 @@ if (!danger.length && !silent.length) console.log('모든 소스 정상')
 if (changed.length > 0 && hasDiscord()) {
   const worst = changed.some((c) => c.startsWith('🔴')) ? 'danger' : changed.some((c) => c.startsWith('🟡')) ? 'warn' : 'ok'
   const sent = await sendDiscord({
-    title: `소스 상태 변화 (최근 ${hours}시간)`,
+    title: `운영 상태 변화 (최근 ${hours}시간)`,
     lines: changed,
     level: worst,
     url: process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')}/status` : undefined,
