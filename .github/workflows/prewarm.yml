@@ -48,4 +48,4 @@ jobs:
         if: always()
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npm run maintain -w @eodi/crawler -- --listing-days=90 --log-days=180
+        run: npm run maintain -w @eodi/crawler -- --listing-days=30 --log-days=90 --max-mb=380

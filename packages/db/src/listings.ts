@@ -228,6 +228,40 @@ export async function indexStats(): Promise<IndexStats> {
 }
 
 /** 오래된 매물 정리 — 무료 티어 용량을 지키기 위한 회전 보관 */
+/** DB 전체 용량(바이트). 무료 티어 한계를 지키려면 날짜가 아니라 이걸 봐야 한다 */
+export async function dbSizeBytes(): Promise<number> {
+  return tryDb(async (sql) => {
+    const [row] = await sql<Array<{ b: string }>>`SELECT pg_database_size(current_database())::text AS b`
+    return Number(row?.b ?? 0)
+  }, 0)
+}
+
+/*
+  용량이 한계에 가까우면 오래된 것부터 버린다.
+
+  보존 기간(90일)만으로는 못 지킨다 — 하루 6만 건씩 쌓이면 무료 티어 0.5GB 를
+  닷새면 채우는데, 그때까지 90일이 지난 매물은 하나도 없다.
+  용량이 먼저 차는 구조라 날짜가 아니라 크기로 막아야 한다.
+
+  최근에 본 것부터 남긴다. 오래 안 보인 매물은 대개 팔렸다.
+*/
+export async function pruneToRowLimit(maxRows: number): Promise<number> {
+  if (maxRows <= 0) return 0
+  return tryDb(async (sql) => {
+    const rows = await sql<Array<{ count: string }>>`
+      WITH doomed AS (
+        SELECT id FROM listings
+        ORDER BY last_seen_at DESC
+        OFFSET ${maxRows}
+      ), deleted AS (
+        DELETE FROM listings WHERE id IN (SELECT id FROM doomed) RETURNING 1
+      )
+      SELECT COUNT(*)::text AS count FROM deleted
+    `
+    return Number(rows[0]?.count ?? 0)
+  }, 0)
+}
+
 export async function pruneOldListings(days = 90): Promise<number> {
   return tryDb(async (sql) => {
     const rows = await sql<Array<{ count: string }>>`
