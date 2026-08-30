@@ -80,8 +80,14 @@ export interface SourceHealthSummary {
   samples: number
 }
 
-/** 최근 소스 건강 상태 — 운영 페이지에 띄운다 */
-export async function sourceHealthSummary(hours = 24): Promise<SourceHealthSummary[]> {
+/**
+ * 소스 건강 상태.
+ *
+ * `agoHours` 를 주면 그만큼 과거의 같은 길이 구간을 본다.
+ * 직전 구간과 비교해야 "새로 나빠졌는지"를 알 수 있다 —
+ * 같은 경고를 여섯 시간마다 되풀이하면 아무도 안 읽는다.
+ */
+export async function sourceHealthSummary(hours = 24, agoHours = 0): Promise<SourceHealthSummary[]> {
   return tryDb(async (sql) => {
     const rows = await sql<
       Array<{ source: string; ok_rate: string; avg_ms: string; last_error: string | null; samples: string }>
@@ -92,7 +98,8 @@ export async function sourceHealthSummary(hours = 24): Promise<SourceHealthSumma
              (ARRAY_AGG(error ORDER BY created_at DESC) FILTER (WHERE error IS NOT NULL))[1] AS last_error,
              COUNT(*)::text AS samples
       FROM source_health
-      WHERE created_at > NOW() - ${`${hours} hours`}::interval
+      WHERE created_at >  NOW() - ${`${hours + agoHours} hours`}::interval
+        AND created_at <= NOW() - ${`${agoHours} hours`}::interval
       GROUP BY source
     `
     return rows.map((r) => ({

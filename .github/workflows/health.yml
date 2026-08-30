@@ -25,5 +25,8 @@ jobs:
       - name: 소스 성공률 점검
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          # 없으면 조용히 넘어간다. 알림이 없다고 점검이 실패하면 안 된다.
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
         # 최근 6시간 성공률이 50% 아래면 실패. 표본 20건 미만은 판단 보류.
         run: npm run health -w @eodi/crawler -- --hours=6 --danger=50 --warn=80
